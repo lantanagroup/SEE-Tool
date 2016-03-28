@@ -18,3 +18,5 @@ For detailed installation instructions, see [SEE Installation Guide.docx](SEE%20
 5. Load client data: "node ./Data/clientDataLoader-dev.js"
 6. For integration with Orion, update configuration in utils/orionconfig.json
 7. Start the SEE server with either "node documentService.js" or "npm start"
+
+> Note: Other branches include tools, the CDA implementation guide(s), and code generated utilities 
