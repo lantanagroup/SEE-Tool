@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{45A2F056-1C6E-47DF-A5EE-361526280CF3}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>generate_code</RootNamespace>
+    <AssemblyName>generate_code</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Tools\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="EnumConfig.cs" />
+    <Compile Include="generate_client_enum.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>generate_client_enum.tt</DependentUpon>
+    </Compile>
+    <Compile Include="generate_pojo_client_object_mapping.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>generate_pojo_client_object_mapping.tt</DependentUpon>
+    </Compile>
+    <Compile Include="generate_pojo_server_object.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>generate_pojo_server_object.tt</DependentUpon>
+    </Compile>
+    <Compile Include="generate_server_enum.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>generate_server_enum.tt</DependentUpon>
+    </Compile>
+    <Compile Include="partials\generate_pojo_client_object_mapping.cs" />
+    <Compile Include="partials\generate_client_enum.cs" />
+    <Compile Include="partials\generate_pojo_client_object.cs" />
+    <Compile Include="partials\generate_pojo_server_object.cs" />
+    <Compile Include="partials\generate_server_enum.cs" />
+    <Compile Include="PojoConfig.cs" />
+    <Compile Include="generate_pojo_client_object.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>generate_pojo_client_object.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="generate_client_enum.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>generate_client_enum.cs</LastGenOutput>
+    </None>
+    <None Include="generate_pojo_client_object.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>generate_pojo_client_object.cs</LastGenOutput>
+    </None>
+    <None Include="generate_pojo_client_object_mapping.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>generate_pojo_client_object_mapping.cs</LastGenOutput>
+    </None>
+    <None Include="generate_pojo_server_object.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>generate_pojo_server_object.cs</LastGenOutput>
+    </None>
+    <None Include="generate_server_enum.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>generate_server_enum.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="CCD 2 - 1.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
