@@ -1,0 +1,89 @@
+﻿<div>
+    <form>
+        <div id="narrativeAccordion" class="accordian">
+            <div class="accordianGroup">
+                <div class="accordian-heading">
+                    <div class="alert alert-info">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#narrativeAccordion" href="#collapseOne"><h3>Narrative</h3></a>
+                    </div>
+                </div>
+                <div id="collapseOne" class="accordion-body collapse in">
+                    <div class="row-fluid">
+                        <div class="span6 well well-small">
+                            <h4>Free Text Narrative:</h4>
+                            <div id="Div3" style="width: 100%" data-bind="tinymce: Entity().FreeNarrative"></div>
+                        </div>
+                        <div id="Div4" class="span6 well well-small">
+                            <label data-bind="html: Entity().GeneratedNarrative" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="alert alert-info">
+            <h3>Lab Results Data Entry</h3>
+        </div>
+
+        <h4>Lab Results</h4>
+
+        <table class="table table-striped">
+            <tbody>
+            <tr>
+                <td>
+                    <div class="treatment row-fluid" data-bind="template: { name: '../view/document/section/LabResultsSection.ItemTemplates.html', data: { items: GetItems('INR'),code: '1', name: 'INR', defaultUnit: '', allowCustomEdit: false } }" />
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="treatment row-fluid" data-bind="template: { name: '../view/document/section/LabResultsSection.ItemTemplates.html', data: { items: GetItems('Blood Urea Nitrogen'),code: '2', name: 'Blood Urea Nitrogen', defaultUnit: 'mg/dl', allowCustomEdit: false } }" />
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="treatment row-fluid" data-bind="template: { name: '../view/document/section/LabResultsSection.ItemTemplates.html', data: { items: GetItems('Hematocrit'),code: '3', name: 'Hematocrit', defaultUnit: '%', allowCustomEdit: false } }" />
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="treatment row-fluid" data-bind="template: { name: '../view/document/section/LabResultsSection.ItemTemplates.html', data: { items: GetItems('Creatinine'),code: '4', name: 'Creatinine', defaultUnit: 'mg/dl', allowCustomEdit: false } }" />
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="treatment row-fluid" data-bind="template: { name: '../view/document/section/LabResultsSection.ItemTemplates.html', data: { items: GetItems('Potassium'),code: '5', name: 'Potassium', defaultUnit: 'mEq/L', allowCustomEdit: false } }" />
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="treatment row-fluid" data-bind="template: { name: '../view/document/section/LabResultsSection.ItemTemplates.html', data: { items: GetItems('Sodium'), code: '6', name: 'Sodium', defaultUnit: 'mEq/L', allowCustomEdit: false } }" />
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="treatment row-fluid" data-bind="template: { name: '../view/document/section/LabResultsSection.ItemTemplates.html', data: { items: GetItems('Ejection Fraction'), code: '7', name: 'Ejection Fraction', defaultUnit: '%', allowCustomEdit: false } }" />
+
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div class="treatment row-fluid" data-bind="template: { name: '../view/document/section/LabResultsSection.ItemTemplates.html', data: { items: Entity().OtherLabResults, code: '8', name: 'Other Significant Lab Results', defaultUnit: '', allowCustomEdit: true } }" />
+
+                </td>
+            </tr>
+            </tbody>
+
+
+        </table>
+
+
+    </form>
+</div>
+

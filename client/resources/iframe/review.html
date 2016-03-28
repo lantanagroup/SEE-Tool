@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="../../js/lib/external/jquery/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript">
+
+        printPage = function () {
+            window.print();
+        };
+
+        var bodywriter = {
+            setHtml: function (htm) {
+
+                if (window.ActiveXObject) {
+                    $('#display')[0].innerHTML = htm;
+                } else {
+                    if (document && document.body && document.body.appendChild) {
+                        document.body.appendChild(htm);
+                    }
+                }
+            }
+        }
+
+        $(document).ready(
+            function () {
+                parent.iframeLoaded(bodywriter);                
+            });
+    </script>
+</head>
+<body>
+    <form>
+        <div id="display"></div>
+    </form>
+</body>
+</html>

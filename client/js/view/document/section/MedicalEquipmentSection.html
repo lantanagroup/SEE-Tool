@@ -1,0 +1,161 @@
+﻿    <form>
+        <div id="narrativeAccordion" class="accordian">
+            <div class="accordianGroup">
+                <div class="accordian-heading">
+                    <div class="alert alert-info">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#narrativeAccordion" href="#collapseOne"><h3>Narrative</h3></a>
+                    </div>
+                </div>
+                <div id="collapseOne" class="accordion-body collapse in">
+                    <div class="row-fluid">
+                        <div class="span6 well well-small">
+                            <h4>Free Text Narrative:</h4>
+                            <div id="Div3" style="width: 100%" data-bind="tinymce: Entity().FreeNarrative"></div>
+                        </div>
+                        <div id="Div4" class="span6 well well-small">
+                            <label data-bind="html: Entity().GeneratedNarrative" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="alert alert-info">
+            <h3>Medical Equipment Data Entry</h3>
+        </div>
+        <fieldset>
+            <legend>Medical Equipment</legend>
+            <table class="table table-condensed table-striped">
+                <thead>
+                    <tr><th>Name</th><th>Details</th><th>Effective Time</th></tr>
+                </thead>
+                <tbody>
+                    <!-- ko foreach: Entity().MedicalEquipment -->
+                    <tr><td data-bind="text: Name"></td>
+                        <td data-bind="text: Details"></td>
+                        <td data-bind="dateAsString: EffectiveTime"></td>
+                        <td><button class="btn" data-bind="click: function() {$parent.DoRemoveEquipment($data)}">Remove</button></td>
+                    </tr>
+                    <!-- /ko -->
+                </tbody>    
+                <tfoot>
+                    <tr>
+                        <td>
+                            <select data-bind="value: NewEquipment().Name">
+                                <option value="Adaptive devices">Adaptive devices</option>
+                                <option value="Suctioning">Suctioning</option>
+                                <option value="Bariatric equipment">Bariatric equipment</option>
+                                <option value="Restraints">Restraints</option>
+                                <option value="High Risk Devices">High Risk Devices</option>
+                                <option value="Pumps">Pumps</option>
+                                <option value="Pacemaker">Pacemaker</option>
+                                <option value="Implanted defibrilator (AICD)">Implanted defibrilator (AICD)</option>
+                                <option value="Stents-arterial">Stents-arterial</option>
+                                <option value="Stents-other">Stents-other</option>
+                                <option value="Central line(s)">Central line(s)</option>
+                                <option value="Total Parenteral Nutrition (TPN) Line">Total Parenteral Nutrition (TPN) Line</option>
+                                <option value="Peripheral line(s)">Peripheral line(s)</option>
+                                <option value="AV Fistula">AV Fistula</option>
+                                <option value="Ports">Ports</option>
+                                <option value="CNS catheters">CNS catheters</option>
+                                <option value="Other catheters">Other catheters</option>
+                                <option value="Feeding tubes">Feeding tubes</option>
+                                <option value="Drains">Drains</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input type="text" id="inputDetails" class="input-xlarge" data-bind="value: NewEquipment().Details" />
+                        </td>
+                        <td>                     
+                            <div class="input-prepend input-append">
+                                <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(a,b){ $($(b.target).parent().siblings()[0]).datepicker('show') }"></i></span>
+                                <input type="text" id="datePicker1" class="datepicker" data-bind="datepicker: NewEquipment().EffectiveTime, datepickerOptions: {dateFormat: 'mm/dd/yy', maxDate:'0', showButtonPanel:true, defaultDate: new Date(), changeYear: true, changeMonth: true}" />
+                                <span class="add-on" data-bind="click: function() { NewEquipment().EffectiveTime(new Date())}">Today</span>
+                            </div>
+                        </td>
+                        <td><button class="btn btn-small btn-primary" data-bind="click: DoAddEquipment">Add</button></td>
+                    </tr>
+                </tfoot>            
+            </table>            
+        </fieldset>
+
+        <fieldset>
+            <legend>Supplies</legend>
+
+            <table class="table table-condensed table-striped sortable-table">
+                <thead><tr>
+                    <th data-bind="click: function () { doColumnClick(Columns.What, 'What')}">What<i data-bind="attr: { class: SortIcon() }, visible: ShowIcon(Columns.What)" /></th>
+                    <th data-bind="click: function () { doColumnClick(Columns.Where, 'Where')}">Where<i data-bind="attr: { class: SortIcon() }, visible: ShowIcon(Columns.Where)" /></th>
+                    <th data-bind="click: function () { doColumnClick(Columns.EffectiveTime, 'EffectiveTime')}">Effective Time<i data-bind="attr: { class: SortIcon() }, visible: ShowIcon(Columns.EffectiveTime)" /></th>
+                    <th data-bind="click: function () { doColumnClick(Columns.SuppliesOrdered, 'SuppliesOrdered')}">Supplies ordered<i data-bind="attr: { class: SortIcon() }, visible: ShowIcon(Columns.SuppliesOrdered)" /></th>
+                    <th data-bind="click: function () { doColumnClick(Columns.SuppliesSent, 'SuppliesSent')}">Supplies sent<i data-bind="attr: { class: SortIcon() }, visible: ShowIcon(Columns.SuppliesSent)" /></th>
+                    <th></th>
+                    </tr></thead>
+                <tbody>
+                    <!-- ko foreach: Entity().Supplies -->
+                    <tr class="SupplyRow">
+
+
+                        <td data-bind="text: What"></td>
+                        <td data-bind="text: Where"></td>
+                        <td data-bind="dateAsString: EffectiveTime"></td>
+                        <td data-bind="text: SuppliesOrdered() ? 'Yes' : 'No'"></td>
+                        <td data-bind="text: SuppliesSent() ? 'Yes' : 'No'"></td>
+                        <td><button class="btn" aria-hidden="true" data-bind="click: function() { $parent.DoRemoveSupply($data)}">Remove</button></td>
+
+
+                        
+                    </tr>
+                    <!-- /ko -->                        
+                </tbody>
+
+                <tfoot>
+                <tr style="height:75px">
+                    <td style="vertical-align: top">
+                        <div class="control-group" data-bind="css:{warning: NewSupply().What() == ''}">
+                            <div class="controls">
+                                <input id="what" type="text" data-bind="value: NewSupply().What, valueUpdate:'afterkeydown'" />
+                                <!-- ko if: NewSupply().What() == '' -->
+                                <span class="help-inline">The Supply Name is required.</span>
+                                <!-- /ko -->
+                            </div>
+                        </div>
+                    </td>
+                    <td style="vertical-align: top">
+                        <input type="text" id="where" data-bind="value: NewSupply().Where" class="input-xlarge" />
+                    </td>
+                    <td style="vertical-align: top">
+                        <div class="input-prepend input-append">
+                            <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(a,b){ $($(b.target).parent().siblings()[0]).datepicker('show') }"></i></span>
+                            <input type="text" id="datePicker2" class="datepicker" data-bind="datepicker: NewSupply().EffectiveTime, datepickerOptions: {dateFormat: 'mm/dd/yy', maxDate:'0', showButtonPanel:true, defaultDate: new Date(), changeYear: true, changeMonth: true}" />
+                            <span class="add-on" data-bind="click: function() { NewSupply().EffectiveTime(new Date())}">Today</span>
+                        </div>
+                    </td>
+                    <td style="vertical-align: top">
+                        <label class="checkbox">
+                            <input type="checkbox" data-bind="checked: NewSupply().SuppliesOrdered">
+                            Supplies ordered
+                        </label>
+                    </td>
+                    <td style="vertical-align: top">
+                        <label class="checkbox">
+                            <input type="checkbox" data-bind="checked: NewSupply().SuppliesSent">
+                            Supplies sent
+                        </label>
+                    </td>
+                    <td style="vertical-align: top"><button class="btn btn-small btn-primary" data-bind="click: function() { DoAddNewSupply()}, disable: (NewSupply().What() == '')">Add</button></td>
+                </tr>
+                </tfoot>
+            </table>
+
+
+
+   
+                
+
+        </fieldset>
+    </form>
+
+
+

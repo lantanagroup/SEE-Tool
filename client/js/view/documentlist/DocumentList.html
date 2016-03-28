@@ -1,0 +1,110 @@
+﻿<!-- all your rebase are belong to us -->
+<div class="row-fluid">
+    <div class="span2">
+        <div class="well sidebar-nav">
+            <ul class="nav nav-list" id="tab1-menu">
+                <li class="nav-heaer"><a class="brand" href="#">
+                    <img src="resources/images/logo.png" style="max-width: 50px" /></a></li>
+                <li class="nav-header">Filter</li>
+                <li class="divider">&nbsp;</li>
+                <li data-bind="attr:{class:MenuCSS.MenuAll}"><a href="#" data-bind="click:function() {doShowAllClick();}">All</a></li>
+
+                <li data-bind="attr:{class:MenuCSS.MenuMRU}"><a href="#" data-bind="click:function() {doMRUClick();}" id="MenuMRU">Recent</a></li>
+                <li data-bind="attr:{class:MenuCSS.MenuDrafts}"><a href="#" data-bind="click:function() {doStatusCodeClick(SEE.enum.DocumentStatusCode.DRAFT);}" id="MenuDrafts">Drafts <i class="icon-file"></i></a></li>
+                <li data-bind="attr:{class:MenuCSS.MenuFinal}"><a href="#" data-bind="click:function() {doStatusCodeClick(SEE.enum.DocumentStatusCode.FINAL);}" id="MenuFinal">Final <i class="icon-lock"></i></a></li>
+                <li data-bind="attr:{class:MenuCSS.MenuSent}"><a href="#" data-bind="click:function() {doStatusCodeClick(SEE.enum.DocumentStatusCode.SENT);}" id="MenuSent">Sent  <i class="icon-briefcase"></i></a></li>
+                <li><a href="#">Shared with me</a></li>
+                <li>&nbsp;</li>
+                <li class="divider">&nbsp;</li>
+                <li>&nbsp;</li>
+                <li><a href="#" data-bind="click: NavigateNewDocument"><i class="icon-plus"></i>New Document</a></li>
+                <li>&nbsp;</li>
+                <li>&nbsp;</li>
+                <!-- <li><a href="#" data-bind="click: NavigateUpload"><i class="icon-upload"></i>Upload Document</a></li>
+                <li>&nbsp;</li> -->
+
+                <!--
+                <li><a href="#" data-bind="click: RemoveAllDocuments"><i class="icon-trash"></i>Remove all documents</a></li>
+                <li>&nbsp;</li>
+                -->
+            </ul>
+        </div>
+        <!--/.well -->
+    </div>
+    <!--/span-->
+    <div class="span6">
+        <form class="form-search">
+            <div class="">
+                <input type="text" class="span8" autocomplete="off" data-provide="typeahead" id="search" placeholder="Search by patient name, document title, or author" />
+                <button data-bind="attr:{class: ClearButtonClass}, click:ClearSearch">Clear</button>
+            </div>
+        </form>
+    </div>
+    <div class="span9">
+        <table class="table table-striped my-table-hover sortable-table" style="cursor: pointer">
+            <thead>
+                <tr>
+                    <th data-bind="click: function () {doColumnClick(Columns.Patient, 'Patient')}">Patient<i data-bind="attr: { class: SortIcon(Columns.Patient) }, visible: ShowIcon(Columns.Patient)" /></th>
+                    <th data-bind="click: function () {doColumnClick(Columns.Title, 'Title')}">Title<i data-bind="attr: { class: SortIcon(Columns.Title) }, visible: ShowIcon(Columns.Title)" /></th>
+                    <th data-bind="click: function () {doColumnClick(Columns.Status, 'Status')}">State<i data-bind="attr: { class: SortIcon(Columns.Status) }, visible: ShowIcon(Columns.Status)" /></th>
+                    <th data-bind="click: function () {doColumnClick(Columns.DateCreated, 'DateCreated')}">Date Created<i data-bind="attr: { class: SortIcon(Columns.DateCreated) }, visible: ShowIcon(Columns.DateCreated)" /></th>
+                    <th data-bind="click: function () {doColumnClick(Columns.LastModified, 'DateModified')}">Last Modified<i data-bind="attr: { class: SortIcon(Columns.LastModified) }, visible: ShowIcon(Columns.LastModified)" /></th>
+                    <th data-bind="click: function () {doColumnClick(Columns.Author, 'Author')}">Author<i data-bind="attr: { class: SortIcon(Columns.Author) }, visible: ShowIcon(Columns.Author)" /></th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- ko if: Documents().length == 0 -->
+                <tr><td colspan="6"><div class="well">No documents available using the current search filter.</div></td></tr>
+                <!-- /ko -->
+                <!-- ko foreach: Documents -->
+                <tr data-bind="click: function() { $parent.doRowClick($data); }">
+                    <td>
+                        <img data-bind="attr: { src: $parent.StatusIcon($data.Status) }" class="my-icon" />
+                        <span data-bind="text: Patient.PersonInfo.FirstName "></span>&nbsp;<span data-bind="text: Patient.PersonInfo.LastName"></span><br />
+                        <small>DOB: <span data-bind="dateAsString: Header.Patient.BirthTime"></span></small>&nbsp;<small>AGE: <span data-bind="text: $parent.getAge(Header.Patient.BirthTime) + ' yrs'"></span></small>
+                    </td>
+                    <td>
+                        <span data-bind="text: Title"></span>
+                    </td>
+                    <td>
+                        <span data-bind="text: $parent.StatusText($data.Status)"></span>
+
+                        <!-- ko if: $data.Status == 0 -->
+                        <i class="icon-file"></i>
+                        <!-- /ko -->
+
+                        <!-- ko if: $data.Status == 1 -->
+                        <i class="icon-lock"></i>
+                        <!-- /ko -->
+                    </td>
+                    <td>
+                        <span data-bind="dateAsString: DateCreated"></span>
+                    </td>
+                    <td>
+                        <span data-bind="dateAsString: DateModified, datePattern: 'MM/dd/yy hh:mm a'"></span>
+                    </td>
+                    <td>
+                        <span data-bind="text: Author"></span>
+                    </td>
+                </tr>
+                <!-- /ko -->
+            </tbody>
+        </table>
+    </div>
+</div>
+<div id="ConfirmDocumentLoadModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="ConfirmDocumentLoadModal" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" aria-hidden="true" data-bind="click: DoCancelNavigation">×</button>
+        <h3 id="ProblemModalLabel">Open Document</h3>
+    </div>
+    <div class="modal-body" data-bind="if: DocumentToNavigateTo().Patient">
+        <p>The document you are trying to open is for:</p>
+        <p><strong data-bind="text: SEE.util.patient.FullName(DocumentToNavigateTo().Patient)"></strong></p>
+        <p>Is this for the same patient as the document you have open for:</p>
+        <p><strong data-bind="text: SEE.util.patient.FullName(SEE.ViewNavigator.ActivePatient)"></strong></p>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" aria-hidden="true" data-bind="click: DoCancelNavigation">Cancel</button>
+        <button class="btn btn-primary" data-bind="click: DoContinueNavigation">Continue</button>
+    </div>
+</div>

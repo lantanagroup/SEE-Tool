@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>SEE Viewer</title>
+
+    <link href="js/lib/external/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="js/lib/external/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" />
+
+</head>
+<body>
+    <script src="js/lib/external/jquery/jquery-1.10.1.min.js"></script>
+    <script src="js/lib/external/bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/lib/internal/utils/utils.js"></script>
+    <script src="js/lib/internal/utils/xml.js"></script>
+
+    <script id="cdaXml" type="application/xml"><%= cda %></script>
+
+        <script type="text/javascript">
+
+        $(document).ready(
+            function () {
+                var xml = document.getElementById("cdaXml").textContent;
+                var transformer = new SEE.util.xml.transformer("resources/stylesheet/CDA.xsl");
+                var parsedXml = SEE.util.xml.ParseXml(xml);
+                var transformed = transformer.execute(parsedXml, xml);
+
+                //var id = <%= documentId %>;
+
+                //var ds = SEE.service.DocumentService;
+                //if (!_.isUndefined(id)) {
+                //    ds.RetrieveDocument(id, function (data) {
+                //    self.Document = data;
+                //    finishLoading(callback);
+                //    });
+                //}
+
+                if (window.ActiveXObject) {
+                    $('#display')[0].innerHTML = transformed;
+                } else {
+ 
+                        $('#display').append(transformed);
+
+                    //if (document && document.body && document.body.appendChild) {
+                    //    document.body.appendChild(transformed);
+                    //}
+                }
+            });
+        </script>
+    <div class="container">
+
+        <div class="navbar">
+            <div class="navbar-inner">
+
+                <a class="brand" href="#">SEE Tool Viewer</a>
+
+                <ul class="nav pull-right">
+                    <li>
+                        <form action="/see/inbound/edit" target="_new" id="editForm" method="post">
+                            <input type="hidden" name="userId" value="<%= userId %>" />
+                            <input type="hidden" name="documentId" value="<%= documentId %>" />
+                            <button type="button" class="btn btn-default" onclick="document.getElementById('editForm').submit();"><i class="icon-share"></i> SEE Editor</button>
+                        </form>
+                        <!--
+                        <a href="#" onclick="window.open('/see/index.html?userId=<%= userId %>&documentID=<%= documentId %>','popUpWindow','height=700,width=1100,left=100,top=100,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no, status=yes');"><i class="icon-share"></i> SEE Editor</a>
+                        -->
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="span12">
+                <form>
+                    <div id="display"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

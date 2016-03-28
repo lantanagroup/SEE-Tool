@@ -1,0 +1,7 @@
+<!-- ko ifnot: orgInfo.IsEmpty -->
+<span data-bind="text: orgInfo.Name"></span>
+<!-- /ko -->
+<div class="btn-group">
+    <button class="btn btn-small" data-bind="click: function() {SEE.session.MainVM.Modal.ShowOrganizationInfoModal(orgInfo)}"><i class="icon-home"></i></button>
+    <button class="btn btn-small" data-bind="click: function () { orgInfo.Clone(SEE.session.Organization); }"><i class="icon-asterisk"></i>Me</button>
+</div>

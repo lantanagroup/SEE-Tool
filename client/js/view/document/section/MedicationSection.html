@@ -1,0 +1,330 @@
+﻿    <div id="Div2">
+        <form>
+            <div id="narrativeAccordion" class="accordian">
+                <div class="accordianGroup">
+                    <div class="accordian-heading">
+                        <div class="alert alert-info">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#narrativeAccordion" href="#collapseOne"><h3>Narrative</h3></a>
+                        </div>
+                    </div>
+                    <div id="collapseOne" class="accordion-body collapse in">
+                        <div class="row-fluid">
+                            <div class="span6 well well-small">
+                                <h4>Free Text Narrative:</h4>
+                                <div id="Div3" style="width: 100%" data-bind="tinymce: Entity().FreeNarrative"></div>
+                            </div>
+                            <div id="Div4" class="span6 well well-small">
+                                <label data-bind="html: Entity().GeneratedNarrative" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-info">
+                <h3>Medications Data Entry</h3>
+            </div>
+            <legend>Prescribed Medications <button class="btn btn-small btn-primary" data-bind="click: DoAddMedication">Add</button>
+
+            <div class="pull-right">
+                <div class="switch switch-small" data-on="warning" data-on-label="Current Active" data-off-label="Current Active" data-bind="switch: CurrentActiveFlagSelected">
+                    <input type="checkbox" checked/>
+                </div>
+
+                <div class="switch switch-small" data-on="danger" data-on-label="Preadmission" data-off-label="Preadmission" data-bind="switch: PreadmissionFlagSelected">
+                    <input type="checkbox" checked/>
+                </div>
+                <div class="switch switch-small" data-on="success" data-on-label="Admission" data-off-label="Admission" data-bind="switch: AdmissionFlagSelected">
+                    <input type="checkbox" checked/>
+                </div>
+                <div class="switch switch-small" data-on="info" data-on-label="Discharge" data-off-label="Discharge" data-bind="switch: DischargeFlagSelected">
+                    <input type="checkbox" checked/>
+                </div>
+            </div>
+            </legend>
+            <div class="row-fluid">                
+                <div class="well well-small">
+                <table class="table table-striped table-condensed table-hover sortable-table table-bordered">
+                  <thead>
+                    <tr>
+                        <th>
+                            <a href="#" data-bind="click: function() { MedicationsSorter.sort(Entity().Medications, 'DrugName', MedicationsSorter.textSorter); }">Drug Name
+                                <!-- ko if: (MedicationsSorter.orderBy() == 'DrugName' && MedicationsSorter.reverse()) -->
+                                <i class="icon-chevron-down"></i>
+                                <!-- /ko -->
+                                <!-- ko if: (MedicationsSorter.orderBy() == 'DrugName' && !MedicationsSorter.reverse()) -->
+                                <i class="icon-chevron-up"></i>
+                                <!-- /ko -->
+                            </a>
+                        </th>
+                        <th>Dosage Taken/Frequency</th>
+                         <th>
+                             <a href="#" data-bind="click: function() { MedicationsSorter.sort(Entity().Medications, 'CurrentActive', MedicationsSorter.booleanSorter); }">Current Active
+                                 <!-- ko if: (MedicationsSorter.orderBy() == 'CurrentActive' && MedicationsSorter.reverse()) -->
+                                 <i class="icon-chevron-down"></i>
+                                 <!-- /ko -->
+                                 <!-- ko if: (MedicationsSorter.orderBy() == 'CurrentActive' && !MedicationsSorter.reverse()) -->
+                                 <i class="icon-chevron-up"></i>
+                                 <!-- /ko -->
+                             </a>
+                        </th>
+                        <th>
+                            <a href="#" data-bind="click: function() { MedicationsSorter.sort(Entity().Medications, 'Preadmission', MedicationsSorter.booleanSorter); }">Preadmission
+                                <!-- ko if: (MedicationsSorter.orderBy() == 'Preadmission' && MedicationsSorter.reverse()) -->
+                                <i class="icon-chevron-down"></i>
+                                <!-- /ko -->
+                                <!-- ko if: (MedicationsSorter.orderBy() == 'Preadmission' && !MedicationsSorter.reverse()) -->
+                                <i class="icon-chevron-up"></i>
+                                <!-- /ko -->
+                            </a>
+                        </th>
+                        <th>
+                            <a href="#" data-bind="click: function() { MedicationsSorter.sort(Entity().Medications, 'Admission', MedicationsSorter.booleanSorter); }">Admission
+                                <!-- ko if: (MedicationsSorter.orderBy() == 'Admission' && MedicationsSorter.reverse()) -->
+                                <i class="icon-chevron-down"></i>
+                                <!-- /ko -->
+                                <!-- ko if: (MedicationsSorter.orderBy() == 'Admission' && !MedicationsSorter.reverse()) -->
+                                <i class="icon-chevron-up"></i>
+                                <!-- /ko -->
+                            </a>
+                        </th>
+                        <th>
+                            <a href="#" data-bind="click: function() { MedicationsSorter.sort(Entity().Medications, 'Discharge', MedicationsSorter.booleanSorter); }">Discharge
+                                <!-- ko if: (MedicationsSorter.orderBy() == 'Discharge' && MedicationsSorter.reverse()) -->
+                                <i class="icon-chevron-down"></i>
+                                <!-- /ko -->
+                                <!-- ko if: (MedicationsSorter.orderBy() == 'Discharge' && !MedicationsSorter.reverse()) -->
+                                <i class="icon-chevron-up"></i>
+                                <!-- /ko -->
+                            </a>
+                        </th>
+                        <th>
+                            <a href="#" data-bind="click: function() { MedicationsSorter.sort(Entity().Medications, 'Prescriber', MedicationsSorter.personSorter); }">Prescriber
+                                <!-- ko if: (MedicationsSorter.orderBy() == 'Prescriber' && MedicationsSorter.reverse()) -->
+                                <i class="icon-chevron-down"></i>
+                                <!-- /ko -->
+                                <!-- ko if: (MedicationsSorter.orderBy() == 'Prescriber' && !MedicationsSorter.reverse()) -->
+                                <i class="icon-chevron-up"></i>
+                                <!-- /ko -->
+                            </a>
+                        </th>
+                        <th>
+                            <a href="#" data-bind="click: function() { MedicationsSorter.sort(Entity().Medications, 'WarfarinPrescriberForDoseChanges', MedicationsSorter.personSorter); }">Prescriber dose chgs
+                                <!-- ko if: (MedicationsSorter.orderBy() == 'WarfarinPrescriberForDoseChanges' && MedicationsSorter.reverse()) -->
+                                <i class="icon-chevron-down"></i>
+                                <!-- /ko -->
+                                <!-- ko if: (MedicationsSorter.orderBy() == 'WarfarinPrescriberForDoseChanges' && !MedicationsSorter.reverse()) -->
+                                <i class="icon-chevron-up"></i>
+                                <!-- /ko -->
+                            </a>
+                        </th>
+                        <th>&nbsp;</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- ko foreach: FilteredMedications -->
+                    <tr>
+                        <td><a href="#"><span data-bind="text: DrugName,  click: function() { $parent.DoEditMedication($data); }"></span></a></td>
+                       <td>
+                            <!-- ko if: Dose() || Frequency()--><!-- ko text:  Dose() + '/' + Frequency()--><!-- /ko --><!-- /ko -->
+                        </td>
+                        <td ><!-- ko if: CurrentActive()--><span class="label label-warning"><i class="icon-tag icon-white" /></span><!-- /ko --></td>
+                        <td><!-- ko if: Preadmission()--><span class="label"><i class="icon-tag icon-white" /></span><!-- /ko --></td>
+                        <td><!-- ko if: Admission()--><span class="label label-success"><i class="icon-tag icon-white" /></span><!-- /ko --></td>
+                        <td><!-- ko if: Discharge()--><span class="label label-info"><i class="icon-tag icon-white" /></span><!-- /ko --></td>
+                        <td><div data-bind="template: { name: '../view/shared/PersonInfo.Template.html', data: { personInfo: Prescriber(), title: 'Edit Prescriber', afterChanged: $parent.PrescriberChanged } }" />
+                        </td>
+
+                        <td><div data-bind="template: { name: '../view/shared/PersonInfo.Template.html', data: { personInfo: WarfarinPrescriberForDoseChanges(), title: 'Edit Prescriber responsible for dose changes', afterChanged: $parent.PrescriberChanged } }" /></td>
+                    </tr>
+                    <!-- /ko -->
+                  </tbody>
+                </table>
+                </div>
+                <legend>Excluded Medications <button class="btn btn-small btn-primary" data-bind="click: DoAddMedicationExclusion">Add</button></legend>
+
+                <div class="well well-small">
+                <table class="table table-striped table-condensed table-hover sortable-table">
+                  <thead>
+                    <tr>
+                      <th>
+                          <a href="#" data-bind="click: function() { ExcludedMedicationsSorter.sort(Entity().MedicationExclusions, 'DrugName', ExcludedMedicationsSorter.textSorter); }">DrugName
+                              <!-- ko if: (ExcludedMedicationsSorter.orderBy() == 'DrugName' && ExcludedMedicationsSorter.reverse()) -->
+                              <i class="icon-chevron-down"></i>
+                              <!-- /ko -->
+                              <!-- ko if: (ExcludedMedicationsSorter.orderBy() == 'DrugName' && !ExcludedMedicationsSorter.reverse()) -->
+                              <i class="icon-chevron-up"></i>
+                              <!-- /ko -->
+                          </a>
+                      </th>
+                      <th>
+                          <a href="#" data-bind="click: function() { ExcludedMedicationsSorter.sort(Entity().MedicationExclusions, 'Prescriber', ExcludedMedicationsSorter.personSorter); }">Excluded By
+                              <!-- ko if: (ExcludedMedicationsSorter.orderBy() == 'Prescriber' && ExcludedMedicationsSorter.reverse()) -->
+                              <i class="icon-chevron-down"></i>
+                              <!-- /ko -->
+                              <!-- ko if: (ExcludedMedicationsSorter.orderBy() == 'Prescriber' && !ExcludedMedicationsSorter.reverse()) -->
+                              <i class="icon-chevron-up"></i>
+                              <!-- /ko -->
+                          </a>
+                      </th>
+                      <th>&nbsp;</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- ko foreach: Entity().MedicationExclusions -->                      
+                    <tr>
+                      <td><a href="#" data-bind="attr: { title: SEE.util.displayAuthorToolTip(Author) }"><span data-bind="text: DrugName,  click: function() { $parent.DoEditMedicationExclusion($data); }"></span></a></td>
+                      <td><div data-bind="template: { name: '../view/shared/PersonInfo.Template.html', data: { personInfo: Prescriber(), title: 'Edit person who excluded this medication' } }" /></td>
+                    </tr>
+                    <!-- /ko -->
+                  </tbody>
+                </table>
+                </div>
+            </div>
+        </form>
+    </div>
+<div style="max-height: 500px; overflow-y: auto" id="MedicationModal" class="modal modal-big hide fade" tabindex="-1" role="dialog" aria-labelledby="MedicationModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" aria-hidden="true" data-bind="click: DoCancelMedication">×</button>
+        <h3 id="MedicationModalLabel">Edit Medication</h3>
+    </div>
+    <div class="modal-body" data-bind="with: SelectedMedication">
+        <form>
+            <div>
+                <fieldset>
+                    <legend>Drug Information</legend>
+                    <!-- ko if: DrugName() == null || DrugName() == '' -->
+                    <div class="alert alert-error">The Drug Name is required.</div>
+                    <!-- /ko -->
+
+                    <div class="control-group" data-bind="css:{error: DrugName() == null || DrugName() == ''}">
+                        <div class="controls">
+                            <label for="drugName" data-bind="css:{'text-error': DrugName() == null || DrugName() == ''}">Drug Name *</label>
+                            <input type="text" class="drugNameInput input-xlarge" placeholder="Type the drug name" id="drugName" data-bind="value: DrugName, valueUpdate:'afterkeydown'" autocomplete="off"  />
+                        </div>
+                    </div>
+
+                    <div>                    
+                        <label for="indication">Indication</label>
+                        <input type="text" class="indication input-xlarge" id="indication" data-bind="value: IndicationName" autocomplete="off" data-provide="typeahead" />
+                    </div>
+
+                    <label class="checkbox"><input type="checkbox" data-bind="checked: CurrentActive" />Current Active <span class="label label-warning"><i class="icon-tag icon-white" /></span></label>
+                    <label class="checkbox"><input type="checkbox" data-bind="checked: Preadmission" />Preadmission <span class="label"><i class="icon-tag icon-white" /></span></label>
+                    <label class="checkbox"><input type="checkbox" data-bind="checked: Admission" />Admission <span class="label label-success"><i class="icon-tag icon-white" /></span></label>
+                    <label class="checkbox"><input type="checkbox" data-bind="checked: Discharge" />Discharge <span class="label label-info"><i class="icon-tag icon-white" /></span></label>
+                </fieldset>
+
+            <fieldset>
+                <legend>Timing</legend>
+                <div class="modal-form-group">
+                    <label for="startMedicationDatePicker">Start Date</label>
+                    <div class="input-prepend input-append">
+                        <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#startMedicationDatePicker').datepicker('show') }"></i></span>
+                        <input type="text" data-bind="datepicker: StartDate" id="startMedicationDatePicker" class="datePickerInput" />
+                        <span class="add-on" data-bind="click: function() { StartDate(new Date());}">Today</span>
+                    </div>
+                </div>
+                <div class="modal-form-group">
+                    <label for="endMedicationDatePicker">End Date</label>
+                    <div class="input-prepend input-append">
+                        <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#endMedicationDatePicker').datepicker('show') }"></i></span>
+                        <input type="text" data-bind="datepicker: EndDate" id="endMedicationDatePicker" class="datePickerInput" />
+                        <span class="add-on" data-bind="click: function() { EndDate(new Date());}">Today</span>
+                    </div>
+                </div>            
+            </fieldset>    
+            <fieldset>
+                <legend>Route, Dose and Frequency</legend>
+                <div>
+                    <label for="route">Route</label>
+                    <select id="route" data-bind="options: $parent.availableRoutes, optionsText: 'Name', optionsValue: 'Code', value: RouteCode, optionsCaption: 'Choose...'"></select>
+                </div>
+                <div>
+                    <label for="dose">Dosage Taken</label>
+                    <input type="text" id="dose" data-bind="value: Dose" />
+                </div>                
+                <div>
+                    <label for="frequency">Frequency</label>
+                    <input type="text" id="frequency" data-bind="value: Frequency" class="input-xlarge" />
+                </div>                      
+            </fieldset>
+            </div>
+            <div id="anticoagulationeAccordion" class="accordian">
+                <div class="accordianGroup">
+                    <div class="accordian-heading">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#anticoagulationeAccordion" href="#collapseAnticoagulation">click to set anticoagulatiion parameters</a>
+                    </div>
+                    <div id="collapseAnticoagulation" class="accordion-body collapse">
+                        <div>
+                            <label class="checkbox">
+                                <input type="checkbox" data-bind="checked: WarfarinHasClinicianAgreedToManage" />Has this clinician agreed to manage the warfarin?</label>
+                        </div>
+                        <div>
+                            <label>Target INR</label>
+                            <input type="text" data-bind="value: WarfarinTargetINR" class="input-large"/>
+                        </div>
+                        <div>
+                            <label>Last 3 doses</label>
+                            <input type="text" data-bind="value: WarfarinLast3Doses" class="input-large"/>
+                        </div>
+                        <div>
+                            <label>Recommended dose for next warfarin administration</label>
+                            <input type="text" data-bind="value: WarfarinRecommendedNextDose" class="input-large"/>
+                        </div>
+                        <div>
+                            <label>Timing of next recommended warfarin dose</label>
+                            <input type="text" data-bind="value: WarfarinTimingNextDose" class="input-large"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>        
+    </div>
+    <div class="modal-footer">
+        <!-- ko if: !SelectedMedicationIsNew() -->
+        <button class="btn pull-left" aria-hidden="true" data-bind="click: DoRemoveMedication">Remove</button>
+        <!-- /ko -->
+        <button class="btn" aria-hidden="true" data-bind="click: DoCancelMedication">Cancel</button>
+        <button class="btn btn-primary" data-bind="click: DoSaveMedication, disable: (SelectedMedication().DrugName() == null || SelectedMedication().DrugName() == '')">Save changes</button>
+    </div>
+</div>
+
+<div id="MedicationExclusionModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="MedicationExclusionModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" aria-hidden="true" data-bind="click: DoCancelMedicationExclusion">×</button>
+        <h3 id="MedicationExclusionModalLabel">Edit Medication Exclusion</h3>
+    </div>
+    <div class="modal-body" data-bind="with: SelectedMedicationExclusion">
+        <form>
+            <div class="modal-left">
+                <fieldset>
+                    <legend>Drug Information</legend>
+                    <!-- ko if: DrugName() == null || DrugName() == '' -->
+                    <div class="alert alert-error">Drug Name is required.</div>
+                    <!-- /ko -->
+
+                    <div class="control-group" data-bind="css:{error: DrugName() == null || DrugName() == ''}">
+                        <div class="controls">
+                            <label for="drugNameEx" data-bind="css:{'text-error': DrugName() == null || DrugName() == ''}">Drug Name *</label>
+                            <input type="text" class="drugNameInput input-xlarge" placeholder="Type the drug name" id="drugNameEx" data-bind="value: DrugName, valueUpdate:'afterkeydown'" autocomplete="off"  />
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="indicationEx">Indication</label>
+                        <input type="text" id="indicationEx" data-bind="value: IndicationName" class="input-xlarge indication" />
+                    </div>                
+                </fieldset>                
+            </div>
+        </form> 
+    </div>
+    <div class="modal-footer">
+        <!-- ko if: !SelectedMedicationExclusionIsNew() -->
+        <button class="btn pull-left" aria-hidden="true" data-bind="click: DoRemoveMedicationExclusion">Remove</button>
+        <!-- /ko -->
+        <button class="btn" aria-hidden="true" data-bind="click: DoCancelMedicationExclusion">Cancel</button>
+        <button class="btn btn-primary" data-bind="click: DoSaveMedicationExclusion, disable: (SelectedMedicationExclusion().DrugName() == null || SelectedMedicationExclusion().DrugName() == '')">Save changes</button>
+    </div>
+</div>
+    

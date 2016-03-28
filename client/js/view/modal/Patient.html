@@ -1,0 +1,632 @@
+﻿<div class="modal-header">
+    <button type="button" class="close" aria-hidden="true" data-bind="click: DoCancel">×</button>
+    <h3 id="H3">Edit Patient</h3>
+</div>
+<div class="modal-body"  style="max-height: 500px">
+    <!-- ko if: Entity().hasError() -->
+    <div class="alert alert-error">The fields below (*) are required.</div>
+    <!-- /ko -->
+
+    <!-- ko with: Entity().PersonInfo -->
+    <div class="form-group">
+        <div class="form-item control-group" data-bind="css: { 'error': FirstName.hasError }">
+            <label for="personInfoFirstName" class="control-label" data-bind="css: { 'text-error': FirstName.hasError }">First Name *</label>
+            <input type="text" id="personInfoFirstName" data-bind="value: FirstName, valueUpdate: 'afterkeydown'" />
+        </div>
+        <div class="form-item control-group" data-bind="css: { 'error': LastName.hasError }">
+            <label for="personInfoLastName" class="control-label" data-bind="css: { 'text-error': LastName.hasError }">Last Name *</label>
+            <input type="text" id="personInfoLastName" data-bind="value: LastName, valueUpdate: 'afterkeydown'" />
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="form-item control-group">
+            <label for="personInfoPhone" class="control-label">Phone</label>
+            <input type="text" id="personInfoPhone" data-bind="value: Phone" />
+        </div>                          
+        <div class="form-item">
+            <label for="AltPhone">Alt. Phone</label>
+            <input type="text" id="AltPhone" data-bind="value: AltPhone" />
+        </div>                          
+        <div class="form-item">
+            <label for="Pager">Pager</label>
+            <input type="text" id="Pager" data-bind="value: Pager" />
+        </div>                          
+        <div class="form-item">
+            <label for="Email">Email</label>
+            <input type="text" id="Email" data-bind="value: Email" />
+        </div>                          
+    </div>
+    <div class="form-group">
+        <div class="form-item control-group" data-bind="css: { 'error': StreetAddress.hasError }">
+            <label for="personInfoAddress" class="control-label" data-bind="css: { 'text-error': StreetAddress.hasError }">Address *</label>
+            <input type="text" id="personInfoAddress" data-bind="value: StreetAddress, valueUpdate: 'afterkeydown'" />                    
+        </div>
+        <div class="form-item control-group" data-bind="css: { 'error': City.hasError }">
+            <label for="personInfoCity" class="control-label" data-bind="css: { 'text-error': City.hasError }">City *</label>
+            <input type="text" id="personInfoCity" data-bind="value: City, valueUpdate: 'afterkeydown'" />
+        </div>
+        <div class="form-item">
+            <label for="personInfoState">State</label>
+            <input type="text" id="personInfoState" data-bind="value: State" />
+        </div>
+        <div class="form-item">
+            <label for="personInfoPostalCode">Postal Code</label>
+            <input type="text" id="personInfoPostalCode" data-bind="value: ZipCode" />
+        </div>
+        <div class="form-item">
+            <label for="personInfoCountry">Country</label>
+            <input type="text" id="personInfoCountry" data-bind="value: Country" />
+        </div>
+    </div>
+    <!-- /ko -->    
+    <!-- ko with: Entity -->
+    <div class="form-group">
+        <div class="form-item control-group" data-bind="css: { 'error': BirthTime.hasError }">
+            <label for="BirthTime" class="control-label" data-bind="css: { 'text-error': BirthTime.hasError }">Birth Date *</label>
+            <div class="input-prepend">
+                <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#BirthTime').datepicker('show') }"></i></span>
+                <input type="text" id="BirthTime" data-bind="datepicker: BirthTime, datepickerOptions: {maxDate: '0', dateFormat: 'mm/dd/yy', changeYear: true, changeMonth: true}" />
+            </div>
+        </div>
+        <div class="form-item control-group" data-bind="css: { 'error': GenderCode.hasError }">
+            <label for="GenderCode" class="control-label" data-bind="css: { 'text-error': GenderCode.hasError }">Gender *</label>
+            <select id="GenderCode" data-bind="value: GenderCode">
+                <option value=""></option>
+                <option value="F">Female</option>
+                <option value="M">Male</option>
+                <option value="UN">Undifferentiated</option>
+            </select>
+        </div>
+        <div class="form-item">
+            <label for="MaritalStatusCode">Marital Status</label>
+            <select id="MaritalStatusCode" data-bind="value: MaritalStatusCode">
+                <option value=""></option>
+                <option value="A">Anulled</option>
+                <option value="D">Divorced</option>
+                <option value="T">Domestic Partner</option>
+                <option value="L">Legally Separated</option>
+                <option value="M">Married</option>
+                <option value="S">Single (Never Married)</option>
+                <option value="P">Polygamous</option>
+                <option value="W">Widowed</option>
+            </select>
+        </div>
+        <div class="form-item">
+            <label for="EthnicityCode">Ethnicity</label>
+            <select id="EthnicityCode" data-bind="value: EthnicityCode">
+                <option value=""></option>
+                <option value="H">Hispanic or Latino</option>
+                <option value="N">Not Hispanic or Latino</option>
+                <option value="U">Unknown</option>
+            </select>
+        </div>
+        <div class="form-item">
+            <label for="RaceCode">Race</label>
+            <select id="RaceCode" data-bind="value: RaceCode">
+                <option value=""></option>
+                <option value="1002-5">American Indian or Alaska Native</option>
+                <option value="2028-9">Asian</option>
+                <option value="2054-5">Black or African American</option>
+                <option value="2076-8">Native Hawaiian or Other Pacific Islander</option>
+                <option value="2131-1">Other Race</option>
+                <option value="2106-3">White</option>
+            </select>
+        </div>
+        <div class="form-item">
+            <label for="PrimaryLanguageCode">Primary Language</label>
+            <select id="PrimaryLanguageCode" data-bind="value: PrimaryLanguageCode">
+                <option value=''></option>
+                <option value='eng'>English</option>
+                <option value='aar'>Afar</option>
+                <option value='abk'>Abkhazian</option>
+                <option value='ave'>Avestan</option>
+                <option value='afr'>Afrikaans</option>
+                <option value='aka'>Akan</option>
+                <option value='amh'>Amharic</option>
+                <option value='arg'>Aragonese</option>
+                <option value='ara'>Arabic</option>
+                <option value='asm'>Assamese</option>
+                <option value='ava'>Avaric</option>
+                <option value='aym'>Aymara</option>
+                <option value='aze'>Azerbaijani</option>
+                <option value='bak'>Bashkir</option>
+                <option value='bel'>Belarusian</option>
+                <option value='bul'>Bulgarian</option>
+                <option value='bih'>Bihari languages</option>
+                <option value='bis'>Bislama</option>
+                <option value='bam'>Bambara</option>
+                <option value='ben'>Bengali</option>
+                <option value='bod'>Tibetan</option>
+                <option value='bre'>Breton</option>
+                <option value='bos'>Bosnian</option>
+                <option value='cat'>Catalan; Valencian</option>
+                <option value='ces'>Chechen</option>
+                <option value='cha'>Chamorro</option>
+                <option value='cos'>Corsican</option>
+                <option value='cre'>Cree</option>
+                <option value='cze'>Czech</option>
+                <option value='chu'>Church Slavic; Old Slavonic; Church Slavonic; Old Bulgarian; Old Church Slavonic</option>
+                <option value='chv'>Chuvash</option>
+                <option value='cym'>Welsh</option>
+                <option value='dan'>Danish</option>
+                <option value='deu'>German</option>
+                <option value='div'>Divehi; Dhivehi; Maldivian</option>
+                <option value='dzo'>Dzongkha</option>
+                <option value='ewe'>Ewe</option>
+                <option value='ell'>Greek</option>
+                <option value='epo'>Esperanto</option>
+                <option value='spa'>Spanish; Castilian</option>
+                <option value='est'>Estonian</option>
+                <option value='eus'>Basque</option>
+                <option value='fas'>Persian</option>
+                <option value='ful'>Fulah</option>
+                <option value='fin'>Finnish</option>
+                <option value='fij'>Fijian</option>
+                <option value='fao'>Faroese</option>
+                <option value='fra'>French</option>
+                <option value='fry'>Western Frisian</option>
+                <option value='gle'>Irish</option>
+                <option value='gla'>Gaelic; Scottish Gaelic</option>
+                <option value='glg'>Galician</option>
+                <option value='grn'>Guarani</option>
+                <option value='guj'>Gujarati</option>
+                <option value='glv'>Manx</option>
+                <option value='hau'>Hausa</option>
+                <option value='heb'>Hebrew</option>
+                <option value='hin'>Hindi</option>
+                <option value='hmo'>Hiri Motu</option>
+                <option value='hrv'>Croatian</option>
+                <option value='hat'>Haitian; Haitian Creole</option>
+                <option value='hun'>Hungarian</option>
+                <option value='hye'>Armenian</option>
+                <option value='her'>Herero</option>
+                <option value='ina'>Interlingua (International Auxiliary Language Association)</option>
+                <option value='ind'>Indonesian</option>
+                <option value='ile'>Interlingue; Occidental</option>
+                <option value='ibo'>Igbo</option>
+                <option value='iii'>Sichuan Yi; Nuosu</option>
+                <option value='ipk'>Inupiaq</option>
+                <option value='ido'>Ido</option>
+                <option value='isl'>Icelandic</option>
+                <option value='ita'>Italian</option>
+                <option value='iku'>Inuktitut</option>
+                <option value='jpn'>Japanese</option>
+                <option value='jav'>Javanese</option>
+                <option value='kat'>Georgian</option>
+                <option value='kon'>Kongo</option>
+                <option value='kik'>Kikuyu; Gikuyu</option>
+                <option value='kua'>Kuanyama; Kwanyama</option>
+                <option value='kaz'>Kazakh</option>
+                <option value='kal'>Kalaallisut; Greenlandic</option>
+                <option value='khm'>Central Khmer</option>
+                <option value='kan'>Kannada</option>
+                <option value='kor'>Korean</option>
+                <option value='kau'>Kanuri</option>
+                <option value='kas'>Kashmiri</option>
+                <option value='kur'>Kurdish</option>
+                <option value='kom'>Komi</option>
+                <option value='cor'>Cornish</option>
+                <option value='kir'>Kirghiz; Kyrgyz</option>
+                <option value='lat'>Latin</option>
+                <option value='ltz'>Luxembourgish; Letzeburgesch</option>
+                <option value='lug'>Ganda</option>
+                <option value='lim'>Limburgan; Limburger; Limburgish</option>
+                <option value='lin'>Lingala</option>
+                <option value='lao'>Lao</option>
+                <option value='lit'>Lithuanian</option>
+                <option value='lub'>Luba-Katanga</option>
+                <option value='lav'>Latvian</option>
+                <option value='mlg'>Malagasy</option>
+                <option value='mah'>Marshallese</option>
+                <option value='mao'>Maori</option>
+                <option value='mkd'>Macedonian</option>
+                <option value='mal'>Malayalam</option>
+                <option value='mon'>Mongolian</option>
+                <option value='mri'>Marathi</option>
+                <option value='msa'>Malay</option>
+                <option value='mlt'>Maltese</option>
+                <option value='mya'>Burmese</option>
+                <option value='nau'>Nauru</option>
+                <option value='nob'>Bokmål, Norwegian; Norwegian Bokmål</option>
+                <option value='nde'>Ndebele, North; North Ndebele</option>
+                <option value='nep'>Nepali</option>
+                <option value='ndo'>Ndonga</option>
+                <option value='nld'>Dutch; Flemish</option>
+                <option value='nno'>Norwegian Nynorsk; Nynorsk, Norwegian</option>
+                <option value='nor'>Norwegian</option>
+                <option value='nbl'>Ndebele, South; South Ndebele</option>
+                <option value='nav'>Navajo; Navaho</option>
+                <option value='nya'>Chichewa; Chewa; Nyanja</option>
+                <option value='oci'>Occitan (post 1500)</option>
+                <option value='oji'>Ojibwa</option>
+                <option value='orm'>Oromo</option>
+                <option value='ori'>Oriya</option>
+                <option value='oss'>Ossetian; Ossetic</option>
+                <option value='pan'>Panjabi; Punjabi</option>
+                <option value='pli'>Pali</option>
+                <option value='pol'>Polish</option>
+                <option value='pus'>Pushto; Pashto</option>
+                <option value='por'>Portuguese</option>
+                <option value='que'>Quechua</option>
+                <option value='roh'>Romansh</option>
+                <option value='run'>Rundi</option>
+                <option value='ron'>Romanian; Moldavian; Moldovan</option>
+                <option value='rus'>Russian</option>
+                <option value='kin'>Kinyarwanda</option>
+                <option value='san'>Sanskrit</option>
+                <option value='srd'>Sardinian</option>
+                <option value='snd'>Sindhi</option>
+                <option value='sme'>Northern Sami</option>
+                <option value='sag'>Sango</option>
+                <option value='sin'>Sinhala; Sinhalese</option>
+                <option value='slv'>Slovenian</option>
+                <option value='slk'>Slovak</option>
+                <option value='smo'>Samoan</option>
+                <option value='sna'>Shona</option>
+                <option value='som'>Somali</option>
+                <option value='sqi'>Albanian</option>
+                <option value='srp'>Serbian</option>
+                <option value='ssw'>Swati</option>
+                <option value='sot'>Sotho, Southern</option>
+                <option value='sun'>Sundanese</option>
+                <option value='swe'>Swedish</option>
+                <option value='swa'>Swahili</option>
+                <option value='tam'>Tamil</option>
+                <option value='tel'>Telugu</option>
+                <option value='tgk'>Tajik</option>
+                <option value='tha'>Thai</option>
+                <option value='tir'>Tigrinya</option>
+                <option value='tuk'>Turkmen</option>
+                <option value='tgl'>Tagalog</option>
+                <option value='tsn'>Tswana</option>
+                <option value='ton'>Tonga (Tonga Islands)</option>
+                <option value='tur'>Turkish</option>
+                <option value='tso'>Tsonga</option>
+                <option value='tat'>Tatar</option>
+                <option value='twi'>Twi</option>
+                <option value='tah'>Tahitian</option>
+                <option value='uig'>Uighur; Uyghur</option>
+                <option value='ukr'>Ukrainian</option>
+                <option value='urd'>Urdu</option>
+                <option value='uzb'>Uzbek</option>
+                <option value='ven'>Venda</option>
+                <option value='vie'>Vietnamese</option>
+                <option value='vol'>Volapük</option>
+                <option value='wln'>Walloon</option>
+                <option value='wol'>Wolof</option>
+                <option value='xho'>Xhosa</option>
+                <option value='yid'>Yiddish</option>
+                <option value='yor'>Yoruba</option>
+                <option value='zha'>Zhuang; Chuang</option>
+                <option value='zho'>Chinese</option>
+                <option value='zul'>Zulu</option>
+            </select>            
+        </div>
+        <div class="form-item">
+            <label for="OtherLanguageCode">Other Language</label>
+            <select id="OtherLanguageCode" data-bind="value: OtherLanguageCode">
+                <option value=''></option>
+                <option value='eng'>English</option>
+                <option value='aar'>Afar</option>
+                <option value='abk'>Abkhazian</option>
+                <option value='ave'>Avestan</option>
+                <option value='afr'>Afrikaans</option>
+                <option value='aka'>Akan</option>
+                <option value='amh'>Amharic</option>
+                <option value='arg'>Aragonese</option>
+                <option value='ara'>Arabic</option>
+                <option value='asm'>Assamese</option>
+                <option value='ava'>Avaric</option>
+                <option value='aym'>Aymara</option>
+                <option value='aze'>Azerbaijani</option>
+                <option value='bak'>Bashkir</option>
+                <option value='bel'>Belarusian</option>
+                <option value='bul'>Bulgarian</option>
+                <option value='bih'>Bihari languages</option>
+                <option value='bis'>Bislama</option>
+                <option value='bam'>Bambara</option>
+                <option value='ben'>Bengali</option>
+                <option value='bod'>Tibetan</option>
+                <option value='bre'>Breton</option>
+                <option value='bos'>Bosnian</option>
+                <option value='cat'>Catalan; Valencian</option>
+                <option value='ces'>Chechen</option>
+                <option value='cha'>Chamorro</option>
+                <option value='cos'>Corsican</option>
+                <option value='cre'>Cree</option>
+                <option value='cze'>Czech</option>
+                <option value='chu'>Church Slavic; Old Slavonic; Church Slavonic; Old Bulgarian; Old Church Slavonic</option>
+                <option value='chv'>Chuvash</option>
+                <option value='cym'>Welsh</option>
+                <option value='dan'>Danish</option>
+                <option value='deu'>German</option>
+                <option value='div'>Divehi; Dhivehi; Maldivian</option>
+                <option value='dzo'>Dzongkha</option>
+                <option value='ewe'>Ewe</option>
+                <option value='ell'>Greek</option>
+                <option value='epo'>Esperanto</option>
+                <option value='spa'>Spanish; Castilian</option>
+                <option value='est'>Estonian</option>
+                <option value='eus'>Basque</option>
+                <option value='fas'>Persian</option>
+                <option value='ful'>Fulah</option>
+                <option value='fin'>Finnish</option>
+                <option value='fij'>Fijian</option>
+                <option value='fao'>Faroese</option>
+                <option value='fra'>French</option>
+                <option value='fry'>Western Frisian</option>
+                <option value='gle'>Irish</option>
+                <option value='gla'>Gaelic; Scottish Gaelic</option>
+                <option value='glg'>Galician</option>
+                <option value='grn'>Guarani</option>
+                <option value='guj'>Gujarati</option>
+                <option value='glv'>Manx</option>
+                <option value='hau'>Hausa</option>
+                <option value='heb'>Hebrew</option>
+                <option value='hin'>Hindi</option>
+                <option value='hmo'>Hiri Motu</option>
+                <option value='hrv'>Croatian</option>
+                <option value='hat'>Haitian; Haitian Creole</option>
+                <option value='hun'>Hungarian</option>
+                <option value='hye'>Armenian</option>
+                <option value='her'>Herero</option>
+                <option value='ina'>Interlingua (International Auxiliary Language Association)</option>
+                <option value='ind'>Indonesian</option>
+                <option value='ile'>Interlingue; Occidental</option>
+                <option value='ibo'>Igbo</option>
+                <option value='iii'>Sichuan Yi; Nuosu</option>
+                <option value='ipk'>Inupiaq</option>
+                <option value='ido'>Ido</option>
+                <option value='isl'>Icelandic</option>
+                <option value='ita'>Italian</option>
+                <option value='iku'>Inuktitut</option>
+                <option value='jpn'>Japanese</option>
+                <option value='jav'>Javanese</option>
+                <option value='kat'>Georgian</option>
+                <option value='kon'>Kongo</option>
+                <option value='kik'>Kikuyu; Gikuyu</option>
+                <option value='kua'>Kuanyama; Kwanyama</option>
+                <option value='kaz'>Kazakh</option>
+                <option value='kal'>Kalaallisut; Greenlandic</option>
+                <option value='khm'>Central Khmer</option>
+                <option value='kan'>Kannada</option>
+                <option value='kor'>Korean</option>
+                <option value='kau'>Kanuri</option>
+                <option value='kas'>Kashmiri</option>
+                <option value='kur'>Kurdish</option>
+                <option value='kom'>Komi</option>
+                <option value='cor'>Cornish</option>
+                <option value='kir'>Kirghiz; Kyrgyz</option>
+                <option value='lat'>Latin</option>
+                <option value='ltz'>Luxembourgish; Letzeburgesch</option>
+                <option value='lug'>Ganda</option>
+                <option value='lim'>Limburgan; Limburger; Limburgish</option>
+                <option value='lin'>Lingala</option>
+                <option value='lao'>Lao</option>
+                <option value='lit'>Lithuanian</option>
+                <option value='lub'>Luba-Katanga</option>
+                <option value='lav'>Latvian</option>
+                <option value='mlg'>Malagasy</option>
+                <option value='mah'>Marshallese</option>
+                <option value='mao'>Maori</option>
+                <option value='mkd'>Macedonian</option>
+                <option value='mal'>Malayalam</option>
+                <option value='mon'>Mongolian</option>
+                <option value='mri'>Marathi</option>
+                <option value='msa'>Malay</option>
+                <option value='mlt'>Maltese</option>
+                <option value='mya'>Burmese</option>
+                <option value='nau'>Nauru</option>
+                <option value='nob'>Bokmål, Norwegian; Norwegian Bokmål</option>
+                <option value='nde'>Ndebele, North; North Ndebele</option>
+                <option value='nep'>Nepali</option>
+                <option value='ndo'>Ndonga</option>
+                <option value='nld'>Dutch; Flemish</option>
+                <option value='nno'>Norwegian Nynorsk; Nynorsk, Norwegian</option>
+                <option value='nor'>Norwegian</option>
+                <option value='nbl'>Ndebele, South; South Ndebele</option>
+                <option value='nav'>Navajo; Navaho</option>
+                <option value='nya'>Chichewa; Chewa; Nyanja</option>
+                <option value='oci'>Occitan (post 1500)</option>
+                <option value='oji'>Ojibwa</option>
+                <option value='orm'>Oromo</option>
+                <option value='ori'>Oriya</option>
+                <option value='oss'>Ossetian; Ossetic</option>
+                <option value='pan'>Panjabi; Punjabi</option>
+                <option value='pli'>Pali</option>
+                <option value='pol'>Polish</option>
+                <option value='pus'>Pushto; Pashto</option>
+                <option value='por'>Portuguese</option>
+                <option value='que'>Quechua</option>
+                <option value='roh'>Romansh</option>
+                <option value='run'>Rundi</option>
+                <option value='ron'>Romanian; Moldavian; Moldovan</option>
+                <option value='rus'>Russian</option>
+                <option value='kin'>Kinyarwanda</option>
+                <option value='san'>Sanskrit</option>
+                <option value='srd'>Sardinian</option>
+                <option value='snd'>Sindhi</option>
+                <option value='sme'>Northern Sami</option>
+                <option value='sag'>Sango</option>
+                <option value='sin'>Sinhala; Sinhalese</option>
+                <option value='slv'>Slovenian</option>
+                <option value='slk'>Slovak</option>
+                <option value='smo'>Samoan</option>
+                <option value='sna'>Shona</option>
+                <option value='som'>Somali</option>
+                <option value='sqi'>Albanian</option>
+                <option value='srp'>Serbian</option>
+                <option value='ssw'>Swati</option>
+                <option value='sot'>Sotho, Southern</option>
+                <option value='sun'>Sundanese</option>
+                <option value='swe'>Swedish</option>
+                <option value='swa'>Swahili</option>
+                <option value='tam'>Tamil</option>
+                <option value='tel'>Telugu</option>
+                <option value='tgk'>Tajik</option>
+                <option value='tha'>Thai</option>
+                <option value='tir'>Tigrinya</option>
+                <option value='tuk'>Turkmen</option>
+                <option value='tgl'>Tagalog</option>
+                <option value='tsn'>Tswana</option>
+                <option value='ton'>Tonga (Tonga Islands)</option>
+                <option value='tur'>Turkish</option>
+                <option value='tso'>Tsonga</option>
+                <option value='tat'>Tatar</option>
+                <option value='twi'>Twi</option>
+                <option value='tah'>Tahitian</option>
+                <option value='uig'>Uighur; Uyghur</option>
+                <option value='ukr'>Ukrainian</option>
+                <option value='urd'>Urdu</option>
+                <option value='uzb'>Uzbek</option>
+                <option value='ven'>Venda</option>
+                <option value='vie'>Vietnamese</option>
+                <option value='vol'>Volapük</option>
+                <option value='wln'>Walloon</option>
+                <option value='wol'>Wolof</option>
+                <option value='xho'>Xhosa</option>
+                <option value='yid'>Yiddish</option>
+                <option value='yor'>Yoruba</option>
+                <option value='zha'>Zhuang; Chuang</option>
+                <option value='zho'>Chinese</option>
+                <option value='zul'>Zulu</option>
+            </select>            
+        </div>
+        <div class="form-item">
+            <label for="ReligionCode">Religion</label>
+            <select id="ReligionCode" data-bind="value: ReligionCode">
+                <option value=''></option>
+                <option value='1001'>Adventist</option>
+                <option value='1002'>African Religions</option>
+                <option value='1003'>Afro-Caribbean Religions</option>
+                <option value='1004'>Agnosticism</option>
+                <option value='1005'>Anglican</option>
+                <option value='1006'>Animism</option>
+                <option value='1061'>Assembly of God</option>
+                <option value='1007'>Atheism</option>
+                <option value='1008'>Babi & Baha'I faiths</option>
+                <option value='1009'>Baptist</option>
+                <option value='1010'>Bon</option>
+                <option value='1062'>Brethren</option>
+                <option value='1011'>Cao Dai</option>
+                <option value='1012'>Celticism</option>
+                <option value='1013'>Christian (non-Catholic, non-specific)</option>
+                <option value='1063'>Christian Scientist</option>
+                <option value='1064'>Church of Christ</option>
+                <option value='1065'>Church of God</option>
+                <option value='1014'>Confucianism</option>
+                <option value='1066'>Congregational</option>
+                <option value='1015'>Cyberculture Religions</option>
+                <option value='1067'>Disciples of Christ</option>
+                <option value='1016'>Divination</option>
+                <option value='1068'>Eastern Orthodox</option>
+                <option value='1069'>Episcopalian</option>
+                <option value='1070'>Evangelical Covenant</option>
+                <option value='1017'>Fourth Way</option>
+                <option value='1018'>Free Daism</option>
+                <option value='1071'>Friends</option>
+                <option value='1072'>Full Gospel</option>
+                <option value='1019'>Gnosis</option>
+                <option value='1020'>Hinduism</option>
+                <option value='1021'>Humanism</option>
+                <option value='1022'>Independent</option>
+                <option value='1023'>Islam</option>
+                <option value='1024'>Jainism</option>
+                <option value='1025'>Jehovah's Witnesses</option>
+                <option value='1026'>Judaism</option>
+                <option value='1027'>Latter Day Saints</option>
+                <option value='1028'>Lutheran</option>
+                <option value='1029'>Mahayana</option>
+                <option value='1030'>Meditation</option>
+                <option value='1031'>Messianic Judaism</option>
+                <option value='1073'>Methodist</option>
+                <option value='1032'>Mitraism</option>
+                <option value='1074'>Native American</option>
+                <option value='1075'>Nazarene</option>
+                <option value='1033'>New Age</option>
+                <option value='1034'>non-Roman Catholic</option>
+                <option value='1035'>Occult</option>
+                <option value='1036'>Orthodox</option>
+                <option value='1037'>Paganism</option>
+                <option value='1038'>Pentecostal</option>
+                <option value='1076'>Presbyterian</option>
+                <option value='1039'>Process, The</option>
+                <option value='1077'>Protestant</option>
+                <option value='1078'>Protestant, No Denomination</option>
+                <option value='1079'>Reformed</option>
+                <option value='1040'>Reformed/Presbyterian</option>
+                <option value='1041'>Roman Catholic Church</option>
+                <option value='1080'>Salvation Army</option>
+                <option value='1042'>Satanism</option>
+                <option value='1043'>Scientology</option>
+                <option value='1044'>Shamanism</option>
+                <option value='1045'>Shiite (Islam)</option>
+                <option value='1046'>Shinto</option>
+                <option value='1047'>Sikism</option>
+                <option value='1048'>Spiritualism</option>
+                <option value='1049'>Sunni (Islam)</option>
+                <option value='1050'>Taoism</option>
+                <option value='1051'>Theravada</option>
+                <option value='1081'>Unitarian Universalist</option>
+                <option value='1052'>Unitarian-Universalism</option>
+                <option value='1082'>United Church of Christ</option>
+                <option value='1053'>Universal Life Church</option>
+                <option value='1054'>Vajrayana (Tibetan)</option>
+                <option value='1055'>Veda</option>
+                <option value='1056'>Voodoo</option>
+                <option value='1057'>Wicca</option>
+                <option value='1058'>Yaohushua</option>
+                <option value='1059'>Zen Buddhism</option>
+                <option value='1060'>Zoroastrianism</option>
+            </select>
+        </div>
+    </div>
+    <!-- /ko -->
+    <table class="table table-striped table-condensed">
+        <thead>
+            <tr>
+                <th>
+                    Identifier *
+                </th>
+                <th>
+                    Assigning Authority *
+                </th>
+                <th>
+                    &nbsp;
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- ko foreach: Entity().PersonInfo.Identifiers -->            
+            <tr data-bind="css: { error: $data.hasError }">
+                <td class="control-group" data-bind="css: { error: Extension.hasError }">
+                    <input type="text" class="input-medium" data-bind="value: Extension, valueUpdate: 'afterkeydown'" />
+                </td>
+                <td class="control-group" data-bind="css: { error: Root.hasError }">
+                    <select id="cboRoot" data-bind="options: $parents[0].AssigningAuthorityList, optionsText: 'Name', value: Root, optionsValue: 'Root', optionsCaption: 'Choose...'" />
+                </td>
+                <td>
+                    <a href="#" data-bind="click: $parent.DoRemoveIdentifier">[Remove]</a>
+                </td>
+            </tr>
+            <!-- /ko -->
+            <tr>
+                <td>
+                    <a href="#" data-bind="click: DoAddNewIdentifier">[Add Identifier]</a>
+                </td>
+                <td>
+                    &nbsp;
+                </td>
+                <td>
+                    &nbsp;
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="modal-footer">
+    <button class="btn" aria-hidden="true" data-bind="click: DoCancel">Cancel</button>
+    <!-- if ko: HasLoaded -->
+    <button class="btn btn-primary" data-bind="click: DoSave, disable: Entity().hasError">Save</button>
+    <!-- /ko -->
+</div>

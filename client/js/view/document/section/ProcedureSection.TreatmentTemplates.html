@@ -1,0 +1,26 @@
+
+<div data-bind="foreach: $parent.GetTreatments(listName, code)">
+    <button style="width:28px;margin-right:5px;margin-left:0px;margin-bottom:10px;" class="span btn btn-mini btn-warning" data-bind="click: function(data, event) { $parents[1].DoRemoveTreatment($parent.listName, $data)}"><i class="icon-minus-sign icon-white"></i></button>
+
+    <div class="controls controls-row">
+        <div class="span3 author-info" data-bind="attr: { title: SEE.util.displayAuthorToolTip(Author, true) }">
+            <span data-bind="text: $parent.label" />
+        </div>
+
+        <input class="span3" type="text" placeholder="details" data-bind="value: Name, attr: { id: 'treatmentName_' + $parent.code + '_' + $index() }, event: { change: $parents[1].DoGenerateText }" />
+
+        <div class="input-prepend input-append span4">
+            <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(a,b){ $($(b.target).parent().siblings()[0]).datepicker('show') }"></i></span>
+            <input style="width:120px" class="datePicker" placeholder="effective date" type="text" data-bind="datepicker: EffectiveDate, event: { change: $parents[1].DoGenerateText }, datepickerOptions: {maxDate: '0', dateFormat: 'mm/dd/yy', changeYear: true, changeMonth: true}" />
+            <span style="cursor:hand" class="add-on" data-bind="click: function() { var dt = new Date(); EffectiveDate(new Date(dt.getFullYear(), dt.getMonth(), dt.getDate(), 0, 0, 0)); $parents[1].DoGenerateText();}">Today</span>
+        </div>
+    </div>
+</div>
+
+
+<div class="controls">
+    <div class="span3">
+        <button class="btn btn-mini btn-info" data-bind="click: function(data, event) { $parent.DoAddTreatment(listName, code)}"><i class="icon-plus-sign icon-white"></i></button>
+        <span data-bind="text: label" />
+    </div>
+</div>

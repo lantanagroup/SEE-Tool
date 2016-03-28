@@ -1,0 +1,137 @@
+﻿<div class="row-fluid">
+    <div class="span2" data-bind="visible: ShowNavigation">
+        <div class="well sidebar-nav" style="padding-left: 15px;">
+            <!-- ko if: CanEdit -->
+            <ul class="nav nav-list" id="tab2-menu">
+                <li class="nav-header">Contents</li>
+                <li class="divider">&nbsp;</li>
+
+                <!-- ko foreach: Sections -->
+                <li data-bind="attr:{ class: UI.CSSClass }">
+                    <a href="#" data-bind="click: $parent.DoSelectSection"><span data-bind="text: Title"></span></a>
+                </li>
+                <!-- /ko -->
+                <li class="divider">&nbsp;</li>
+                <!-- <li><a href="#" data-bind="click: DoImportAllSections">Import all sections</a></li> -->
+            </ul>
+            <!-- /ko -->
+        </div>
+
+        <div class="well sidebar-nav" style="padding-left: 15px;">
+            <div class="btn-toolbar">
+                <div class="btn-group">
+                    <!-- ko if: CanEdit -->
+                    <button class="btn btn-success" data-bind="click: Update, enable: SelectedSection().CanSave">Save</button>
+                    <!-- /ko -->
+                </div>
+                <div class="btn-group">
+                    <!-- ko if: CanFinalize -->
+                    <button class="btn btn-info" data-bind="click: Review, enable: SelectedSection().CanSave">Review</button>
+                    <!-- /ko -->
+                </div>
+            </div>
+        </div>
+        <!--/.well -->
+    </div>
+
+    <!--/span-->
+    <div class="span10 well well-small" data-bind="visible: ShowNavigation">
+        <h4><span data-bind="text: PatientName"></span>&nbsp/&nbspLong Term Care Transfer Summary Document</h4>
+        <!-- ko if: CanEdit -->
+        <h3><span data-bind="text: SelectedSection().Title"></span></h3>
+        <div class="btn-group">
+            <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" type="button" data-bind="disable: OpenTabs() == 0">
+                Copy From
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <!-- ko foreach: OpenTabs -->
+                <li>
+                    <a href="#" data-bind="click: $parent.DoSectionImport2">
+                    <span data-bind="text: $data.Title"></span>
+
+                    <!-- ko if: $data.ViewModel != null && $data.ViewModel.DocumentStatus && $data.ViewModel.DocumentStatus() == SEE.enum.DocumentStatusCode.DRAFT -->
+                    <span class="label label-warning">DRAFT</span>
+                    <!-- /ko -->
+
+                    <!-- ko if: $data.ViewModel != null && $data.ViewModel.DocumentStatus && $data.ViewModel.DocumentStatus() != SEE.enum.DocumentStatusCode.DRAFT-->
+                    <span class="label label-inverse">FINAL</span>
+                    <!-- /ko -->
+
+                    <br />&nbsp;<small data-bind="text: $data.Line2"> </small>
+                    </a>
+                </li>
+                <li class="divider"></li>
+
+                <!-- /ko -->
+
+
+            </ul>
+        </div>
+        <!-- /ko -->
+
+
+    </div>
+
+    <!-- ko if: $data.SelectedSection().Message() != null -->
+    <div class="span10">
+        <div data-bind="attr:{class:$data.SelectedSection().Message().UI.CSSClass()}">
+            <h4 data-bind="text: $data.SelectedSection().Message().Title()"></h4>
+            <!-- ko text: $data.SelectedSection().Message().Text() --><!-- /ko -->
+
+            <span class="alert-text" data-bind="html: $data.SelectedSection().Message().Html()"></span>
+
+            <!-- ko if: $data.SelectedSection().Message().ErrorMessage() != '' -->
+            <div id="moreInfoAccordion1" class="accordian">
+                <div class="accordianGroup">
+                    <div class="accordian-heading">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#moreInfoAccordion1" href="#collapseOne1">more information</a>
+                    </div>
+                    <div id="collapseOne1" class="accordion-body collapse">
+                        <!-- ko text: $data.SelectedSection().Message().ErrorMessage() --><!-- /ko -->
+
+                        <!-- ko text: $data.SelectedSection().Message().ErrorStack() --><!-- /ko -->
+                    </div>
+                </div>
+            </div>
+            <!-- /ko -->
+        </div>
+    </div>
+    <!-- /ko -->
+
+    <!-- ko if: $data.Message() != null -->
+    <div class="span10">
+        <div data-bind="attr:{class:$data.Message().UI.CSSClass()}">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h4 data-bind="text: $data.Message().Title()"></h4>
+            <!-- ko text: $data.Message().Text() --><!-- /ko -->
+
+            <span class="alert-text" data-bind="html: $data.Message().Html()"></span>
+
+            <!-- ko if: $data.Message().ErrorMessage() != '' -->
+            <div id="moreInfoAccordion" class="accordian">
+                <div class="accordianGroup">
+                    <div class="accordian-heading">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#moreInfoAccordion" href="#collapseOne">more information</a>
+                    </div>
+                    <div id="collapseOne" class="accordion-body collapse">
+                        <!-- ko text: $data.Message().ErrorMessage() --><!-- /ko -->
+
+                        <!-- ko text: $data.Message().ErrorStack() --><!-- /ko -->
+                    </div>
+                </div>
+            </div>
+            <!-- /ko -->
+        </div>
+    </div>
+    <!-- /ko -->
+
+    <div class="span10" data-bind="with: SelectedSection" id="sectionDiv">
+
+        <div id="tab2-content">
+            <form>
+                <div data-bind="template: UI.TemplateName"></div>
+            </form>
+        </div>
+    </div>
+</div>

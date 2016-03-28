@@ -1,0 +1,53 @@
+<div class="modal-header">
+    <button type="button" class="close" aria-hidden="true" onclick="$(this).parent().parent().toggle()">×</button>
+    <h4 id="H1" data-bind="text: Title"></h4>
+</div>
+
+<div class="modal-form-group">
+    <label for="FirstName">First Name</label>
+    <input type="text" id="FirstName" data-bind="value: FirstName" class="input-large"/>
+</div>
+<div class="modal-form-group">
+    <label for="LastName">Last Name</label>
+    <input type="text" id="LastName" data-bind="value: LastName" class="input-large"/>
+</div>
+<div>
+    <label for="NPI">National Provider Identifier</label>
+    <input type="text" id="NPI" data-bind="value: NPI" class="input-large"/>
+</div>
+<div class="modal-form-group">
+    <label for="Phone">Phone</label>
+    <input type="text" id="Phone" data-bind="value: Phone" class="input-large"/>
+</div>
+<div class="modal-form-group">
+    <label for="AltPhone">Alt. Phone</label>
+    <input type="text" id="AltPhone" data-bind="value: AltPhone" class="input-large"/>
+</div>
+<div >
+    <label for="Pager">Pager</label>
+    <input type="text" id="Pager" data-bind="value: Pager" class="input-large"/>
+</div>
+<div >
+    <label for="StreetAddressTextBox">Street Address</label>
+    <input type="text" id="StreetAddressTextBox" data-bind="value: StreetAddress" class="span11"/>
+</div>
+<div class="modal-form-group">
+    <label for="City">City</label>
+    <input type="text" id="City" data-bind="value: City" class="input-large"/>
+</div>
+<div class="modal-form-group">
+    <label for="State">State</label>
+    <input type="text" id="State" data-bind="value: State" class="input-large"/>
+</div>
+<div class="modal-form-group">
+    <label for="ZipCode">Postal Code</label>
+    <input type="text" id="ZipCode" data-bind="value: ZipCode" class="input-large"/>
+</div>
+<div >
+    <label for="Email">Email</label>
+    <input type="text" id="Email" data-bind="value: Email" class="input-large"/>
+</div>
+
+<div style="text-align: right">
+    <span class="btn" onclick="$(this).parent().parent().toggle()">Done</span>
+</div>

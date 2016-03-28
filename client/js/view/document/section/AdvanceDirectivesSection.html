@@ -1,0 +1,257 @@
+﻿    <form>
+
+        <div id="narrativeAccordion" class="accordian">
+            <div class="accordianGroup">
+                <div class="accordian-heading">
+                    <div class="alert alert-info">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#narrativeAccordion" href="#collapseOne"><h3>Narrative</h3></a>
+                    </div>
+                </div>
+                <div id="collapseOne" class="accordion-body collapse in">
+                    <div class="row-fluid">
+                        <div class="span6 well well-small">
+                            <h4>Free Text Narrative:</h4>
+                            <div id="Div3" style="width: 100%" data-bind="tinymce: Entity().FreeNarrative"></div>
+                        </div>
+                        <div id="Div4" class="span6 well well-small">
+                            <label data-bind="html: Entity().GeneratedNarrative" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="alert alert-info">
+            <h3>Advance Directives Data Entry</h3>
+        </div>
+        <div class="well well-small">
+            <fieldset>
+                <legend>Healthcare Agents and Contacts </legend>
+                <table class="table table-condensed">
+                    <tbody>
+                        <tr><td>
+                            <span>Primary Agent: &nbsp;</span>
+                            <span data-bind="template: { name: '../view/shared/PersonInfo.Template.html', data: { personInfo: Entity().PrimaryHealthCareAgent() } }" />
+                       </td></tr>
+                        <tr><td>
+                            <span>Alternate Agent: &nbsp;</span>
+                            <span data-bind="template: { name: '../view/shared/PersonInfo.Template.html', data: { personInfo: Entity().AlternateHealthCareAgent() } }" />
+                        </td></tr>
+                        <tr><td>
+                            <label class="checkbox"><input type="checkbox" data-bind="checked:Entity().HealthcareProxyIsDifferent">Health care proxy is different</label>
+                        </td></tr>
+                    </tbody>
+                </table>
+
+                <table class="table table-condensed table-striped">
+                    <thead>
+                    <tr><th>Other Contacts: &nbsp;</th></tr>
+                    </thead>
+                    <tbody>
+
+                        <!-- ko foreach: Entity().OtherContacts -->
+                        <tr><td>
+                            <button class="btn btn-small btn-warning" data-bind="click: function(){$parent.DoRemoveContact($data)}"><i class="icon-minus icon-white"></i></button>
+                            <span data-bind="template: { name: '../view/shared/PersonInfo.Template.html', data: { personInfo: $data, title: 'Edit other contact' } }" />
+                        </td></tr>
+                        <!-- /ko -->
+                       </tbody>
+                    <tfoot>
+                    <tr><td>
+                        <button class="btn btn-small btn-primary" data-bind="click: DoAddContact"><i class="icon-plus icon-white"></i><i class="icon-user icon-white"></i></button>
+                        <button class="btn btn-small btn-primary" data-bind="click: DoAddMeContact"><i class="icon-plus icon-white"></i><i class="icon-asterisk icon-white"></i>Me</button>
+                        <span>add Other Contact</span>
+                    </td></tr>
+                    </tfoot>
+                </table>
+            </fieldset>
+       </div>
+        <fieldset>
+            <legend>Advance Directives</legend>
+            <table class="table table-condensed table-striped">                
+                <tbody>
+                    <tr><td>Has Health Care proxy been invoked?</td>
+                    <td><div class="btn-group" data-toggle="buttons-radio">
+                        <button type="button" class="btn" data-bind="click: function() { Entity().Directives.ProxyInvoked('') } , css: {'btn-info': Entity().Directives.ProxyInvoked() == ''}, valueUpdate: 'afterkeydown'">&nbsp</button>
+                        <button type="button" class="btn" data-bind="click: function() { Entity().Directives.ProxyInvoked('Yes') } , css: {'btn-info': Entity().Directives.ProxyInvoked() == 'Yes'}">Yes</button>
+                        <button type="button" class="btn" data-bind="click: function() { Entity().Directives.ProxyInvoked('No') } , css: {'btn-info': Entity().Directives.ProxyInvoked() == 'No'}">No</button>
+                    </div></td></tr>
+                    <tr><td>Are there concerns with the HCP's competency?</td>
+                        <td><div class="btn-group" data-toggle="buttons-radio">
+                            <button type="button" class="btn" data-bind="click: function() { Entity().Directives.HCPCompetency('') } , css: {'btn-info': Entity().Directives.HCPCompetency() == ''}, valueUpdate: 'afterkeydown'">&nbsp</button>
+                            <button type="button" class="btn" data-bind="click: function() { Entity().Directives.HCPCompetency('Yes') } , css: {'btn-info': Entity().Directives.HCPCompetency() == 'Yes'}">Yes</button>
+                            <button type="button" class="btn" data-bind="click: function() { Entity().Directives.HCPCompetency('No') } , css: {'btn-info': Entity().Directives.HCPCompetency() == 'No'}">No</button>
+                        </div></td></tr>
+                    <tr><td>Cardiopulmonary resuscitation: for a patient in cardiac or respiratory arrest</td>
+                        <td><div class="btn-group" data-toggle="buttons-radio">
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.Resuscitation('') } , css: {'btn-info': Entity().Directives.Resuscitation() == ''}, valueUpdate: 'afterkeydown'">&nbsp</button>
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.Resuscitation('Yes') } , css: {'btn-info': Entity().Directives.Resuscitation() == 'Yes'}">Yes</button>
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.Resuscitation('No') } , css: {'btn-info': Entity().Directives.Resuscitation() == 'No'}">No</button>
+                        </div></td></tr>
+                    <tr><td>Prior to arrest, administer all medications needed to stabilize the patient, do not attempt CPR</td>
+                        <td><div class="btn-group" data-toggle="buttons-radio">
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.MedicationOnlyNoCPR('') } , css: {'btn-info': Entity().Directives.MedicationOnlyNoCPR() == ''}">&nbsp</button>
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.MedicationOnlyNoCPR('Yes') } , css: {'btn-info': Entity().Directives.MedicationOnlyNoCPR() == 'Yes'}">Yes</button>
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.MedicationOnlyNoCPR('No') } , css: {'btn-info': Entity().Directives.MedicationOnlyNoCPR() == 'No'}">No</button>
+                        </div></td></tr>
+                    <tr><td>Ventilation: for a patient in respiratory distress</td>
+                        <td><div class="btn-group" data-toggle="buttons-radio">
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.VentilationRespiratoryDistress('') } , css: {'btn-info': Entity().Directives.VentilationRespiratoryDistress() == ''}">&nbsp</button>
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.VentilationRespiratoryDistress('Yes') } , css: {'btn-info': Entity().Directives.VentilationRespiratoryDistress() == 'Yes'}">Yes</button>
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.VentilationRespiratoryDistress('No') } , css: {'btn-info': Entity().Directives.VentilationRespiratoryDistress() == 'No'}">No</button>
+                        </div></td></tr>
+                    <tr><td>May use intubation and artificial ventilation if medically indicated</td>
+                        <td><div class="btn-group" data-toggle="buttons-radio">
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.MayUseIntubation('') } , css: {'btn-info': Entity().Directives.MayUseIntubation() == ''}">&nbsp</button>
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.MayUseIntubation('Yes') } , css: {'btn-info': Entity().Directives.MayUseIntubation() == 'Yes'}">Yes</button>
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.MayUseIntubation('No') } , css: {'btn-info': Entity().Directives.MayUseIntubation() == 'No'}">No</button>
+                        </div></td></tr>
+                    <tr><td>Non-invasive ventilation (e.g. CPAP, BiPAP)</td>
+                        <td><div class="btn-group" data-toggle="buttons-radio">
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.NonInvasiveVentilation('') } , css: {'btn-info': Entity().Directives.NonInvasiveVentilation() == ''}">&nbsp</button>
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.NonInvasiveVentilation('Yes') } , css: {'btn-info': Entity().Directives.NonInvasiveVentilation() == 'Yes'}">Yes</button>
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.NonInvasiveVentilation('No') } , css: {'btn-info': Entity().Directives.NonInvasiveVentilation() == 'No'}">No</button>
+                        </div></td></tr>
+                    <tr><td>Use non-invasive ventilation (e.g. CPAP, BiPAP) time limited trial</td>
+                        <td><div class="btn-group" data-toggle="buttons-radio">
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.NonInvasiveVentilationLimitedTrial('') } , css: {'btn-info': Entity().Directives.NonInvasiveVentilationLimitedTrial() == ''}">&nbsp</button>
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.NonInvasiveVentilationLimitedTrial('Yes') } , css: {'btn-info': Entity().Directives.NonInvasiveVentilationLimitedTrial() == 'Yes'}">Yes</button>
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.NonInvasiveVentilationLimitedTrial('No') } , css: {'btn-info': Entity().Directives.NonInvasiveVentilationLimitedTrial() == 'No'}">No</button>
+                        </div></td></tr>
+                    <tr><td>Use oral, IM or IV Antibiotics</td>
+                        <td><div class="btn-group" data-toggle="buttons-radio">
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.UseOralIMorIVAntibiotics('') } , css: {'btn-info': Entity().Directives.UseOralIMorIVAntibiotics() == ''}">&nbsp</button>
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.UseOralIMorIVAntibiotics('Yes') } , css: {'btn-info': Entity().Directives.UseOralIMorIVAntibiotics() == 'Yes'}">Yes</button>
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.UseOralIMorIVAntibiotics('No') } , css: {'btn-info': Entity().Directives.UseOralIMorIVAntibiotics() == 'No'}">No</button>
+                        </div></td></tr>
+                    <tr><td>Use oral only Antibiotics</td>
+                        <td><div class="btn-group" data-toggle="buttons-radio">
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.UseOralAntibioticsOnly('') } , css: {'btn-info': Entity().Directives.UseOralAntibioticsOnly() == ''}">&nbsp</button>
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.UseOralAntibioticsOnly('Yes') } , css: {'btn-info': Entity().Directives.UseOralAntibioticsOnly() == 'Yes'}">Yes</button>
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.UseOralAntibioticsOnly('No') } , css: {'btn-info': Entity().Directives.UseOralAntibioticsOnly() == 'No'}">No</button>
+                        </div></td></tr>
+                    <tr><td>Use oral only Antibiotics for symptom relief or comfort</td>
+                        <td><div class="btn-group" data-toggle="buttons-radio">
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.UseOralAntibioticsOnlySymptomRelief('') } , css: {'btn-info': Entity().Directives.UseOralAntibioticsOnlySymptomRelief() == ''}">&nbsp</button>
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.UseOralAntibioticsOnlySymptomRelief('Yes') } , css: {'btn-info': Entity().Directives.UseOralAntibioticsOnlySymptomRelief() == 'Yes'}">Yes</button>
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.UseOralAntibioticsOnlySymptomRelief('No') } , css: {'btn-info': Entity().Directives.UseOralAntibioticsOnlySymptomRelief() == 'No'}">No</button>
+                        </div></td></tr>
+                    <tr><td>Give any medication that is clincially indicated</td>
+                        <td><div class="btn-group" data-toggle="buttons-radio">
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.MedicationAny('') } , css: {'btn-info': Entity().Directives.MedicationAny() == ''}">&nbsp</button>
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.MedicationAny('Yes') } , css: {'btn-info': Entity().Directives.MedicationAny() == 'Yes'}">Yes</button>
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.MedicationAny('No') } , css: {'btn-info': Entity().Directives.MedicationAny() == 'No'}">No</button>
+                        </div></td></tr>
+                    <tr><td>Give medications only for relief of symptoms or comfort</td>
+                        <td><div class="btn-group" data-toggle="buttons-radio">
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.MedicationAnyForSymptomRelief('') } , css: {'btn-info': Entity().Directives.MedicationAnyForSymptomRelief() == ''}">&nbsp</button>
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.MedicationAnyForSymptomRelief('Yes') } , css: {'btn-info': Entity().Directives.MedicationAnyForSymptomRelief() == 'Yes'}">Yes</button>
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.MedicationAnyForSymptomRelief('No') } , css: {'btn-info': Entity().Directives.MedicationAnyForSymptomRelief() == 'No'}">No</button>
+                        </div></td></tr>
+                    <tr><td>Do not administer medications except for pain relief</td>
+                        <td><div class="btn-group" data-toggle="buttons-radio">
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.MedicationPainReliefOnly('') } , css: {'btn-info': Entity().Directives.MedicationPainReliefOnly() == ''}">&nbsp</button>
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.MedicationPainReliefOnly('Yes') } , css: {'btn-info': Entity().Directives.MedicationPainReliefOnly() == 'Yes'}">Yes</button>
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.MedicationPainReliefOnly('No') } , css: {'btn-info': Entity().Directives.MedicationPainReliefOnly() == 'No'}">No</button>
+                        </div></td></tr>
+                    <tr><td>Transfusions/Any blood product</td>
+                        <td><div class="btn-group" data-toggle="buttons-radio">
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.TransfusionsAnyBloodProduct('') } , css: {'btn-info': Entity().Directives.TransfusionsAnyBloodProduct() == ''}">&nbsp</button>
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.TransfusionsAnyBloodProduct('Yes') } , css: {'btn-info': Entity().Directives.TransfusionsAnyBloodProduct() == 'Yes'}">Yes</button>
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.TransfusionsAnyBloodProduct('No') } , css: {'btn-info': Entity().Directives.TransfusionsAnyBloodProduct() == 'No'}">No</button>
+                        </div></td></tr>
+                    <tr><td>Transfer for any situation requiring hospital-level care</td>
+                        <td><div class="btn-group" data-toggle="buttons-radio">
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.AllowHospitalTransferAny('') } , css: {'btn-info': Entity().Directives.AllowHospitalTransferAny() == ''}">&nbsp</button>
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.AllowHospitalTransferAny('Yes') } , css: {'btn-info': Entity().Directives.AllowHospitalTransferAny() == 'Yes'}">Yes</button>
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.AllowHospitalTransferAny('No') } , css: {'btn-info': Entity().Directives.AllowHospitalTransferAny() == 'No'}">No</button>
+                        </div></td></tr>
+                    <tr><td>Transfer to hospital for severe pain or severe symptoms that cannot be controlled otherwise</td>
+                        <td><div class="btn-group" data-toggle="buttons-radio">
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.AllowHospitalTransferSevere('') } , css: {'btn-info': Entity().Directives.AllowHospitalTransferSevere() == ''}">&nbsp</button>
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.AllowHospitalTransferSevere('Yes') } , css: {'btn-info': Entity().Directives.AllowHospitalTransferSevere() == 'Yes'}">Yes</button>
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.AllowHospitalTransferSevere('No') } , css: {'btn-info': Entity().Directives.AllowHospitalTransferSevere() == 'No'}">No</button>
+                        </div></td></tr>
+                    <tr><td>Do not transfer to hospital, but treat with options available outside the hospital</td>
+                        <td><div class="btn-group" data-toggle="buttons-radio">
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.AllowHospitalTransferNone('') } , css: {'btn-info': Entity().Directives.AllowHospitalTransferNone() == ''}">&nbsp</button>
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.AllowHospitalTransferNone('Yes') } , css: {'btn-info': Entity().Directives.AllowHospitalTransferNone() == 'Yes'}">Yes</button>
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.AllowHospitalTransferNone('No') } , css: {'btn-info': Entity().Directives.AllowHospitalTransferNone() == 'No'}">No</button>
+                        </div></td></tr>
+                    <tr><td>Perform any medical tests indicated to diagnose and/or treat a medical condition</td>
+                        <td><div class="btn-group" data-toggle="buttons-radio">
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.MedicalTestsAny('') } , css: {'btn-info': Entity().Directives.MedicalTestsAny() == ''}">&nbsp</button>
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.MedicalTestsAny('Yes') } , css: {'btn-info': Entity().Directives.MedicalTestsAny() == 'Yes'}">Yes</button>
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.MedicalTestsAny('No') } , css: {'btn-info': Entity().Directives.MedicalTestsAny() == 'No'}">No</button>
+                        </div></td></tr>
+                    <tr><td>Perform limited medical tests necessary for symptomatic treatment or comfort</td>
+                        <td><div class="btn-group" data-toggle="buttons-radio">
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.MedicalTestsLimited('') } , css: {'btn-info': Entity().Directives.MedicalTestsLimited() == ''}">&nbsp</button>
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.MedicalTestsLimited('Yes') } , css: {'btn-info': Entity().Directives.MedicalTestsLimited() == 'Yes'}">Yes</button>
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.MedicalTestsLimited('No') } , css: {'btn-info': Entity().Directives.MedicalTestsLimited() == 'No'}">No</button>
+                        </div></td></tr>
+                    <tr><td>Give chronic dialysis for end-stage kedney disease if medically indicated</td>
+                        <td><div class="btn-group" data-toggle="buttons-radio">
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.GiveChronicDialysis('') } , css: {'btn-info': Entity().Directives.GiveChronicDialysis() == ''}">&nbsp</button>
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.GiveChronicDialysis('Yes') } , css: {'btn-info': Entity().Directives.GiveChronicDialysis() == 'Yes'}">Yes</button>
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.GiveChronicDialysis('No') } , css: {'btn-info': Entity().Directives.GiveChronicDialysis() == 'No'}">No</button>
+                        </div></td></tr>
+                    <tr><td>Artificially administer fluids and nutrition if medically indicated</td>
+                        <td><div class="btn-group" data-toggle="buttons-radio">
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.ArtificiallyAdministerFluids('') } , css: {'btn-info': Entity().Directives.ArtificiallyAdministerFluids() == ''}">&nbsp</button>
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.ArtificiallyAdministerFluids('Yes') } , css: {'btn-info': Entity().Directives.ArtificiallyAdministerFluids() == 'Yes'}">Yes</button>
+                          <button type="button" class="btn" data-bind="click: function() { Entity().Directives.ArtificiallyAdministerFluids('No') } , css: {'btn-info': Entity().Directives.ArtificiallyAdministerFluids() == 'No'}">No</button>
+                        </div></td></tr> 
+                    <tr>
+                        <td colspan="2">
+                            <div>Other orders</div>
+                            <div><textarea id="other" data-bind="value: Entity().Directives.Other" class="input-xxlarge"></textarea></div>
+                        </td>
+                    </tr>                               
+                </tbody>
+            </table>
+        </fieldset>
+        <fieldset>
+            <legend>Form Information</legend>
+            <table class="table table-condensed table-striped">
+                <tbody>
+                <tr><td>Date of form</td>
+                    <td>
+                        <div class="input-prepend input-append">
+                            <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(a,b){ $($(b.target).parent().siblings()[0]).datepicker('show') }"></i></span>
+                            <input type="text" data-bind="datepicker: Entity().DateOfForm, datepickerOptions: {dateFormat: 'mm/dd/yy', changeYear: true, changeMonth: true}" />
+                            <span class="add-on" data-bind="click: function () { Entity().DateOfForm(new Date()) }">Today</span>
+                        </div>
+                    </td></tr>
+                <tr><td>Expiration date of form</td>
+                    <td>
+                        <div class="input-prepend input-append">
+                            <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(a,b){ $($(b.target).parent().siblings()[0]).datepicker('show') }"></i></span>
+                            <input type="text" data-bind="datepicker: Entity().ExpirationDate, datepickerOptions: {dateFormat: 'mm/dd/yy', changeYear: true, changeMonth: true}" />
+                            <span class="add-on" data-bind="click: function () { Entity().ExpirationDate(new Date()) }">Today</span>
+                        </div>
+                    </td></tr>
+                <tr><td>Version</td>
+                    <td>
+                        <input type="text" data-bind="value: Entity().VersionNumber" />
+                    </td></tr>
+                <tr><td>Signed Patient Attestation</td>
+                    <td>
+                        <input type="text" data-bind="value: Entity().SignedPatientAttestation" />
+                    </td></tr>
+                <tr><td>Signed MD Attestation</td>
+                    <td>
+                        <span data-bind="template: { name: '../view/shared/PersonInfo.Template.html', data: { personInfo: Entity().SignedMDAttestation() } }" />
+                    </td></tr>
+                <tr><td>Signed NP Attestation</td>
+                    <td>
+                        <span data-bind="template: { name: '../view/shared/PersonInfo.Template.html', data: { personInfo: Entity().SignedNPAttestation() } }" />
+                    </td></tr>
+                <tr><td>Advance Directive Document (POLST/MOLST Document)</td>
+                    <td>
+                        <input type="text" data-bind="value: Entity().AdvanceDirectiveDocument" />
+                    </td></tr>
+                </tbody>
+            </table>
+        </fieldset>
+    </form>

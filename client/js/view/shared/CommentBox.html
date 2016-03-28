@@ -1,0 +1,10 @@
+<!-- toggling the popup requires that the popup div follow immediately after the img due to the use of siblings() -->
+<img style="cursor: hand; cursor: pointer; height: 30px;" data-bind="attr: { src: icon, title: field }" />
+<div class="popup commentPopup" style="display: none">
+    <div class="control-group" style="margin-bottom: 10px;">
+        <textarea style="width: 300px; height: 100px;" data-bind="value: field" />
+    </div>
+    <div class="control-group" style="text-align: right; margin-bottom: 0px; margin-top: 10px;">
+        <span class="btn" onClick="$(this).parent().parent().toggle();">Done</span>
+    </div>
+</div>

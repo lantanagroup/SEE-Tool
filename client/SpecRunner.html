@@ -1,0 +1,174 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+  "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Jasmine Spec Runner</title>
+
+
+    <link rel="shortcut icon" type="image/png" href="test/lib/jasmine-1.3.0/jasmine_favicon.png">
+    <link rel="stylesheet" type="text/css" href="test/lib/jasmine-1.3.0/jasmine.css">
+    <script type="text/javascript" src="test/lib/jasmine-1.3.0/jasmine.js"></script>
+    <script type="text/javascript" src="test/lib/jasmine-1.3.0/jasmine-html.js"></script>
+    <script type="text/javascript" src="test/spec/SpecHelper.js"></script>
+
+    <!-- include source files here... -->
+    <!-- external -->
+    <script src="js/lib/external/jquery/jquery-1.10.1.min.js"></script>
+    <script src="js/lib/external/jquery/ui/jquery-ui-1.10.2.custom.min.js"></script>
+    <script src="js/lib/external/jquery/ui/jquery-ui-timepicker-1.3.js"></script>
+    <script src="js/lib/external/jquery/ui/jquery-ui-sliderAccess.js"></script>
+    <script src="js/lib/external/bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/lib/external/bootstrap/js/bootstrapSwitch.js"></script>
+    <script src="js/lib/external/underscore/underscore.js"></script>
+    <script src="js/lib/external/signals/signals.min.js"></script>
+    <script src="js/lib/external/crossroads/crossroads.min.js"></script>
+    <script src="js/lib/external/hasher/hasher.min.js"></script>
+    <script src="js/lib/external/jsrender/jsrender.js"></script>
+    <script src="js/lib/external/knockout/knockout-2.2.1.js"></script>
+    <script src="js/lib/external/knockout/knockout.mapping.2.4.1.js"></script>
+    <script src="js/lib/external/tiny_mce/jquery.tinymce.js"></script>
+    <script src="js/lib/external/sugarjs/sugar-1.3.9.min.js"></script>
+
+    <!-- internal -->
+    <script src="js/lib/internal/utils/utils.js"></script>
+    <script src="js/lib/internal/utils/uuid.js"></script>
+    <script src="js/lib/internal/utils/xml.js"></script>
+    <script src="js/lib/internal/utils/StringBuilder.js"></script>
+    <script src="js/lib/internal/enum/enum.js"></script>
+    <script src="js/lib/internal/ko/databindings.js"></script>
+    <script src="js/lib/internal/ko/templatesource.js"></script>
+    <script src="js/lib/internal/ko/templateengine.js"></script>
+    <script src="js/lib/internal/ko/extenders.js"></script>
+    <script src="js/service/proxy/DocumentServiceProxy.js"></script>
+    <script src="js/lib/internal/model/DocumentSectionToEnumMap.js"></script>
+    <script src="js/service/service.js"></script>
+    <script src="js/lib/internal/model/BaseModel.js"></script>
+    <script src="js/lib/internal/model/SeverityList.js"></script>
+    <script src="js/lib/internal/model/dto/pojo.js"></script>
+    <script src="js/lib/internal/model/dto/pojo_mapping.js"></script>
+
+    <script src="js/lib/internal/model/partial/ProblemSectionProblem.js"></script>
+    <script src="js/lib/internal/model/partial/ProblemSection.js"></script>
+    <script src="js/lib/internal/model/partial/VitalSignEntry.js"></script>
+    <script src="js/lib/internal/model/partial/DischargeDiagnosisEntry.js"></script>
+    <script src="js/lib/internal/model/partial/DischargeDiagnosisSection.js"></script>
+    <script src="js/lib/internal/model/partial/Document.js"></script>
+    <script src="js/lib/internal/model/partial/InstanceIdentifier.js"></script>
+    <script src="js/lib/internal/model/partial/PersonInfo.js"></script>
+    <script src="js/lib/internal/model/partial/Patient.js"></script>
+    <script src="js/lib/internal/model/partial/OrganizationInfo.js"></script>
+    <script src="js/lib/internal/model/partial/HeaderSection.js"></script>
+    <script src="js/lib/internal/model/partial/ProcedureSection.js"></script>
+    <script src="js/lib/internal/model/partial/ProcedureOrderEntry.js"></script>
+    <script src="js/lib/internal/model/partial/AllergyEntry.js"></script>
+    <script src="js/lib/internal/model/partial/SocialHistory.js"></script>
+    <script src="js/lib/internal/model/partial/MedicalEquipmentSection.js"></script>
+    <script src="js/lib/internal/model/partial/ResultsSection.js"></script>
+    <script src="js/lib/internal/model/partial/ImmunizationSection.js"></script>
+    <script src="js/lib/internal/model/partial/FunctionalStatusSection.js"></script>
+    <script src="js/lib/internal/model/partial/AllergySection.js"></script>
+    <script src="js/lib/internal/model/partial/PastIllnessSection.js"></script>
+    <script src="js/lib/internal/model/partial/PastIllnessEntry.js"></script>
+    <script src="js/lib/internal/model/SmokingStatusList.js"></script>
+    <script src="js/lib/internal/model/UITab.js"></script>
+    <script src="js/lib/internal/model/UIAlert.js"></script>
+    <script src="js/viewmodel/modal/BaseModal.js"></script>
+    <script src="js/viewmodel/modal/PersonInfoViewModel.js"></script>
+    <script src="js/viewmodel/modal/OrganizationInfoViewModel.js"></script>
+    <script src="js/viewmodel/modal/PatientViewModel.js"></script>
+    <script src="js/viewmodel/BaseViewModel.js"></script>
+    <script src="js/viewmodel/documentlist/DocumentListViewModel.js"></script>
+    <script src="js/viewmodel/document/DocumentViewModel.js"></script>
+    <script src="js/viewmodel/document/section/BaseDocumentSection.js"></script>
+    <script src="js/viewmodel/document/section/ImmunizationSectionViewModel.js"></script>
+    <script src="js/viewmodel/document/section/DemographicSectionViewModel.js"></script>
+    <script src="js/viewmodel/document/section/ProblemsSectionViewModel.js"></script>
+    <script src="js/viewmodel/document/section/VitalsSectionViewModel.js"></script>
+    <script src="js/viewmodel/document/section/MedicationSectionViewModel.js"></script>
+    <script src="js/viewmodel/document/section/MedicalEquipmentSectionViewModel.js"></script>
+    <script src="js/viewmodel/document/section/PlanOfCareSectionViewModel.js"></script>
+    <script src="js/viewmodel/document/section/DocumentSectionViewModel.js"></script>
+    <script src="js/viewmodel/document/section/ReviewSectionViewModel.js"></script>
+    <script src="js/viewmodel/document/section/FunctionalStatusViewModel.js"></script>
+    <script src="js/viewmodel/document/section/PayerSectionViewModel.js"></script>
+    <script src="js/viewmodel/document/section/HistoryOfEncountersViewModel.js"></script>
+    <script src="js/viewmodel/document/section/LabResultsSectionViewModel.js"></script>
+    <script src="js/viewmodel/document/section/SocialHistorySectionViewModel.js"></script>
+    <script src="js/viewmodel/document/section/AdvanceDirectivesSectionViewModel.js"></script>
+    <script src="js/viewmodel/document/section/AllergySectionViewModel.js"></script>
+    <script src="js/viewmodel/document/section/PastIllnessSectionViewModel.js"></script>
+    <script src="js/viewmodel/document/section/DischargeDiagnosisSectionViewModel.js"></script>
+    <script src="js/viewmodel/document/section/ProcedureSectionViewModel.js"></script>
+    <script src="js/viewmodel/upload/UploadViewModel.js"></script>
+    <script src="js/viewmodel/MainViewModel.js"></script>
+    <script src="js/viewmodel/ViewModelDispatch.js"></script>
+    <script src="js/Session.js"></script>
+    <script src="js/ViewNavigator.js"></script>
+    <script src="js/InitRoutes.js"></script>
+    
+
+    <!-- include spec files here... -->
+    <script src="test/mock/service/proxy/DocumentServiceProxyMock.js"></script>
+    <script src="test/mock/InitMocks.js"></script>
+    <script src="test/spec/DocumentListViewModelSpec.js"></script>
+    <script src="test/spec/DocumentViewModelSpec.js"></script>
+    <script src="test/spec/ProblemsSectionSpec.js"></script>
+    <script src="test/spec/ProblemSectionProblemSpec.js"></script>
+    <script src="test/spec/ProblemSectionSpec.js"></script>
+    <script src="test/spec/VitalsSectionSpec.js"></script>
+    <script src="test/spec/VitalEntrySpec.js"></script>
+    <script src="test/spec/PayerPolicySpec.js"></script>
+    <script src="test/spec/ResultsSectionSpec.js"></script>
+    <script src="test/spec/PersonInfoPartialSpec.js"></script>
+
+    <script type="text/javascript">
+        (function () {
+            var jasmineEnv = jasmine.getEnv();
+            jasmineEnv.updateInterval = 1000;
+
+            var htmlReporter = new jasmine.HtmlReporter();
+
+            jasmineEnv.addReporter(htmlReporter);
+
+            jasmineEnv.specFilter = function (spec) {
+                return htmlReporter.specFilter(spec);
+            };
+
+            var currentWindowOnload = window.onload;
+
+            window.onload = function () {
+                if (currentWindowOnload) {
+                    currentWindowOnload();
+                }
+                execJasmine();
+            };
+
+            function execJasmine() {
+                jasmineEnv.execute();
+            }
+
+        })();
+
+        $(document).ready(function () {
+            var login = function (userName, passWord) {
+                var service = SEE.service.DocumentService;
+                service.PopulateSampleData();
+
+                service.Login(userName, passWord, function (result) {
+                    if (result.Token) {
+                        SEE.session.SetUser(result.User, result.Token);                        
+                    } else {
+                        alert('Invalid login attempt');
+                    }
+                });
+            };
+
+            login(SEE.session.DefaultUserName, SEE.session.DefaultUserName);
+        });
+  </script>
+
+</head>
+
+<body>
+</body>
+</html>

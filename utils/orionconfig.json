@@ -1,0 +1,5 @@
+{
+	"hostname": "ORION",
+	"port": 11111,
+	"selfSignedCert": true
+}

@@ -1,0 +1,159 @@
+﻿<div id="Div2">
+    <form>
+        <div id="narrativeAccordion" class="accordian">
+            <div class="accordianGroup">
+                <div class="accordian-heading">
+                    <div class="alert alert-info">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#narrativeAccordion" href="#collapseOne"><h3>Narrative</h3></a>
+                    </div>
+                </div>
+                <div id="collapseOne" class="accordion-body collapse in">
+                    <div class="row-fluid">
+                        <div class="span6 well well-small">
+                            <h4>Free Text Narrative:</h4>
+                            <div id="Div3" style="width: 100%" data-bind="tinymce: Entity().FreeNarrative"></div>
+                        </div>
+                        <div id="Div4" class="span6 well well-small">
+                            <label data-bind="html: Entity().GeneratedNarrative" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="alert alert-info">
+            <h3>Past Problems Data Entry</h3>
+        </div>
+
+        <div>
+            <fieldset>
+                <legend>Past Problems <button class="btn btn-small btn-primary" data-bind="click: DoAddPastIllness">Add</button></legend>
+
+                <table class="table table-striped table-bordered table-hover table-condensed">
+                    <thead>
+                        <tr>
+                            <th style="vertical-align: top">Name</th>
+                            <th style="vertical-align: top">Onset Date</th>
+                            <th style="vertical-align: top">Resolution Date</th>
+                            <th style="vertical-align: top">Diagnoser</th>
+                            <th style="vertical-align: top">Worst Severity</th>
+                        </tr>
+                    </thead>
+
+                    <tbody data-bind="foreach: Entity().PastIllnesses">
+                        <tr>
+                            <td><a href="#" class="author-info" data-toggle="tooltip" data-placement="top" data-bind="attr: { title: SEE.util.displayAuthorToolTip(Author, true) }"><span data-bind="text: Name, click: function() { $parent.DoEditPastIllness($data); }" /></a></td>
+                            <td><span data-bind="dateAsString: DateOfOnset" /></td>
+                            <td><span data-bind="dateAsString: ResolutionDate" /></td>
+                            <td><div data-bind="template: { name: '../view/shared/PersonInfo.Template.html', data: { personInfo: Diagnoser(), title: 'Edit person who identified diagnosis', afterChanged: $parent.DiagnoserChanged } }" /></td>
+                            <td><span data-bind="text: SEE.util.GetSeverityName(WorstSeverity)" /></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </fieldset>
+        </div>
+
+        <a href="#" data-bind="click: NavigateToResults">Relevant monitoring test/assessments and results</a>
+    </form>
+</div>
+
+
+<div id="ImportPastIllnessModal" class="model hide fade" tabindex="-1" role="dialog" aria-labelledby="ImportPastIllnessModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" aria-hidden="true" >×</button>
+        <h3 id="H2">Import Past Problems</h3>
+    </div>
+    <div class="modal-body" style="max-height: 600px">
+        <form class="form-horizontal">
+            Hello
+        </form>
+    </div>
+</div>
+
+
+<div id="ProblemModal" class="modal hide fade modal-big" tabindex="-1" role="dialog" aria-labelledby="PastIllnessModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" aria-hidden="true" data-bind="click: DoCancelPastIllness">×</button>
+        <h3 id="PastIllnessModalLabel">Edit Past Problem</h3>
+    </div>
+    <div class="modal-body" data-bind="with: SelectedPastIllness">
+
+        <form>
+            <div>
+
+                <fieldset>
+                    <legend>Problem</legend>
+
+                    <!-- ko if: Name() == null || Name() == '' -->
+                    <div class="alert alert-error">Problem Name is required.</div>
+                    <!-- /ko -->
+
+                    <div class="control-group" data-bind="css:{error: Name() == null || Name() == ''}">
+                        <div class="controls">
+                            <label for="name" data-bind="css: { 'text-error': Name() == null || Name() == '' }">Name *</label>
+                            <input type="text" autocomplete="off" placeholder="Type the problem name" id="name" data-bind="value: Name, valueUpdate:'afterkeydown'" class="input-xlarge"/>
+                        </div>
+                    </div>
+
+                    <!-- ko if: _.isDate(ResolutionDate()) && DateOfOnset() > ResolutionDate() -->
+                    <div class="alert alert-error">Date of Onset must be prior to Resolution Date.</div>
+                    <!-- /ko -->
+
+                    <div class="control-group" data-bind="css:{error: _.isDate(ResolutionDate()) && DateOfOnset() > ResolutionDate() }">
+                        <div >
+                            <label for="dateOfOnsetDatePicker">Date of Onset</label>
+                            <div class="input-prepend input-append">
+                                <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#dateOfOnsetDatePicker').datepicker('show') }"></i></span>
+                                <input type="text" data-bind="datepicker: DateOfOnset, datepickerOptions: {maxDate: '0', dateFormat: 'mm/dd/yy', changeYear: true, changeMonth: true}" id="dateOfOnsetDatePicker" class="datePickerInput" />
+                                <span class="add-on" data-bind="click: function() { var dt = new Date(); DateOfOnset(new Date(dt.getFullYear(), dt.getMonth(), dt.getDate(), 0, 0, 0));}">Today</span>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="resolutionDatePicker">Resolution Date</label>
+                            <div class="input-prepend input-append">
+                                <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#resolutionDatePicker').datepicker('show') }"></i></span>
+                                <input type="text" data-bind="datepicker: ResolutionDate, datepickerOptions: {maxDate: '0', dateFormat: 'mm/dd/yy', changeYear: true, changeMonth: true}" id="resolutionDatePicker" class="datePickerInput" />
+                                <span class="add-on" data-bind="click: function() { var dt = new Date(); ResolutionDate(new Date(dt.getFullYear(), dt.getMonth(), dt.getDate(), 0, 0, 0));}">Today</span>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Severity</legend>
+                    <div >
+                        <label for="worstSeverity">Worst Occurrence</label>
+                        <select id="worstSeverity" data-bind="value: WorstSeverity">
+                            <option value=""></option>
+                            <option value="255604002">Mild</option>
+                            <option value="371923003">Mild to moderate</option>
+                            <option value="6736007" selected>Moderate</option>
+                            <option value="371924009">Moderate to severe</option>
+                            <option value="24484000">Severe</option>
+                            <option value="399166001">Fatal</option>
+                        </select>
+                    </div>
+                </fieldset>
+            </div>
+            <!--
+            <div class="modal-wide-right">
+                <div>
+                    <fieldset>
+                        <legend>Person who identified diagnosis</legend>                        
+                        <div id="PastIllnessDiagnoserModal" 
+                            data-bind="template: { name: '../view/shared/PersonInfo-inline.html', data: Diagnoser }"></div>
+                    </fieldset>
+                </div>
+            </div>
+            -->
+        </form>
+    </div>
+
+    <div class="modal-footer" data-bind="with: SelectedPastIllness">
+        <!-- ko if: !$parent.SelectedPastIllnessIsNew() -->
+        <button class="btn pull-left" data-bind="click: $parent.DoRemovePastIllness">Remove</button>
+        <!-- /ko -->
+        <button class="btn" aria-hidden="true" data-bind="click: $parent.DoCancelPastIllness">Close</button>
+        <button class="btn btn-primary" data-bind="click: $parent.DoSavePastIllness, disable: (Name() == null || Name() == '' ||  ((_.isDate(ResolutionDate()) && DateOfOnset() > ResolutionDate())))">Save changes</button>
+    </div>
+</div>

@@ -1,0 +1,121 @@
+﻿<div class="modal-header">
+    <button type="button" class="close" aria-hidden="true" data-bind="click: DoCancel">×</button>
+    <h3 id="H3" data-bind="text: Title"></h3>
+</div>
+<div class="modal-body" data-bind="with: Entity" style="max-height: 500px">
+    <!-- ko if: hasError() -->
+    <div class="alert alert-error">The fields below (*) are required.</div>
+    <!-- /ko -->
+
+    <div class="form-group">
+        <div class="form-item" data-bind="css: { 'text-error': FirstName.hasError }">
+            <label for="personInfoFirstName" class="control-label">First Name *</label>
+            <input type="text" id="personInfoFirstName" data-bind="value: FirstName, valueUpdate: 'afterkeydown'" />
+        </div>
+        <div class="form-item" data-bind="css: { 'text-error': LastName.hasError }">
+            <label for="personInfoLastName" class="control-label">Last Name *</label>
+            <input type="text" id="personInfoLastName" data-bind="value: LastName, valueUpdate: 'afterkeydown'" />
+        </div>
+        <div class="form-item">
+            <label for="personInfoSuffix">Suffix</label>
+            <input type="text" id="personInfoSuffix" data-bind="value: Suffix, valueUpdate: 'afterkeydown'" />
+        </div>
+        <div class="form-item">
+            <label for="personInfoCredentials">Credentials</label>
+            <input type="text" id="personInfoCredentials" data-bind="value: Credentials, valueUpdate: 'afterkeydown'" />
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="form-item">
+            <label for="relationshipToPatient">Relationship to patient</label>
+            <input type="text" id="relationshipToPatient" data-bind="value: RelationshipToPatient" />
+        </div>
+    </div>
+    <table class="table table-striped table-condensed">
+        <thead>
+        <tr>
+            <th>
+                Identifier *
+            </th>
+            <th>
+                Assigning Authority *
+            </th>
+            <th>
+                &nbsp;
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- ko foreach: Identifiers -->
+        <tr data-bind="css: { error: $data.hasError }">
+            <td class="control-group" data-bind="css: { error: Extension.hasError }">
+                <input type="text" class="input-medium" data-bind="value: Extension, valueUpdate: 'afterkeydown'" />
+            </td>
+            <td class="control-group" data-bind="css: { error: Root.hasError }">
+                <select id="cboRoot" data-bind="options: $parents[1].AssigningAuthorityList, optionsText: 'Name', value: Root, optionsValue: 'Root', optionsCaption: 'Choose...', valueAllowUnset: true" />
+            </td>
+            <td>
+                <a href="#" data-bind="click: $parents[1].DoRemoveIdentifier">[Remove]</a>
+            </td>
+        </tr>
+        <!-- /ko -->
+        <tr>
+            <td>
+                <a href="#" data-bind="click: $parent.DoAddNewIdentifier">[Add Identifier]</a>
+            </td>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                &nbsp;
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="form-group">
+        <div class="form-item">
+            <label for="personInfoPhone">Phone</label>
+            <input type="text" id="personInfoPhone" data-bind="value: Phone" />
+        </div>                          
+        <div class="form-item">
+            <label for="AltPhone">Alt. Phone</label>
+            <input type="text" id="AltPhone" data-bind="value: AltPhone" />
+        </div>                          
+        <div class="form-item">
+            <label for="Pager">Pager</label>
+            <input type="text" id="Pager" data-bind="value: Pager" />
+        </div>                          
+        <div class="form-item">
+            <label for="Email">Email</label>
+            <input type="text" id="Email" data-bind="value: Email" />
+        </div>                          
+    </div>
+    <div class="form-group">
+        <div class="form-item" data-bind="css: { 'text-error': StreetAddress.hasError }">
+            <label for="personInfoAddress" class="control-label">Address *</label>
+            <input type="text" id="personInfoAddress" data-bind="value: StreetAddress, valueUpdate: 'afterkeydown'" />                    
+        </div>
+        <div class="form-item" data-bind="css: { 'text-error': City.hasError }">
+            <label for="personInfoCity" class="control-label">City *</label>
+            <input type="text" id="personInfoCity" data-bind="value: City, valueUpdate: 'afterkeydown'" />
+        </div>
+        <div class="form-item">
+            <label for="personInfoState">State</label>
+            <input type="text" id="personInfoState" data-bind="value: State" />
+        </div>
+        <div class="form-item">
+            <label for="personInfoPostalCode">Postal Code</label>
+            <input type="text" id="personInfoPostalCode" data-bind="value: ZipCode" />
+        </div>
+        <div class="form-item">
+            <label for="personInfoCountry">Country</label>
+            <input type="text" id="personInfoCountry" data-bind="value: Country" />
+        </div>
+    </div>
+
+</div>
+<div class="modal-footer">
+    <button class="btn" aria-hidden="true" data-bind="click: DoCancel">Cancel</button>
+    <button class="btn btn-primary" data-bind="click: DoSave, disable: Entity().hasError">Save</button>
+</div>

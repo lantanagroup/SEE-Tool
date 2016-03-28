@@ -1,0 +1,37 @@
+﻿<!-- ko ifnot : $parent.IsLoading -->
+    <!-- ko if: $parent.CanEdit -->
+        <div class="well well-small">
+            <span data-bind="html:Entity().FreeNarrative" />
+            <span data-bind="html:Entity().GeneratedNarrative" />
+        </div>
+
+        <div class="alert alert-block alert-error">
+        <h4>Warning!</h4>
+        <p><span data-bind="text:Title" /> section is currently being edited by <strong><span data-bind="text:LockedBy" /></strong> for the last
+            <strong><span data-bind="text: ElapsedTime" /></strong> (since <span data-bind="text:LockTime" />).</p>
+        <br />
+
+        <div id="overrideAccordion" class="accordian">
+            <div class="accordianGroup">
+                <div class="accordian-heading">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#overrideAccordion" href="#collapseOne">click here for more options</a>
+                </div>
+                <div id="collapseOne" class="accordion-body collapse">
+                    <br />
+                    <h4>You can override the lock on the section, causing <strong><span data-bind="text:LockedBy" /></strong> to <em>lose all unsaved changes.</em></h4>
+                    <br />
+                    <h4>Note:</h4><p> If you are not absolutely certain <strong><span data-bind="text:LockedBy" /></strong> has finished making changes, do not use the Override feature, instead try again later.</p>
+                    <br/>
+                    <button class="btn btn-danger" data-bind="click:OverrideLock">Override</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+
+
+    </div>
+
+
+    <!-- /ko -->
+<!-- /ko -->

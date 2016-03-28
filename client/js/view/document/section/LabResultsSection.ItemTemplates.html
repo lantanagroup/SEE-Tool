@@ -1,0 +1,49 @@
+
+<div data-bind="foreach: items">
+    <button style="width:28px;margin-right:5px;margin-left:0px" class="span btn btn-mini btn-warning" data-bind="click: function(data, event) { $parents[1].DoRemoveItem($data, $parent.allowCustomEdit)}"><i class="icon-minus-sign icon-white"></i></button>
+
+    <div class="controls controls-row">
+        <div class="span2 author-info control-group" data-bind="attr: { title: SEE.util.displayAuthorToolTip(Author, true) }, css:{error: $parent.allowCustomEdit && Name() == ''}">
+            <!-- ko if: !$parent.allowCustomEdit -->
+            <span data-bind="text: Name" />
+            <!-- /ko -->
+            <!-- ko if: $parent.allowCustomEdit -->
+            <input style="width:100%" class="input-medium" type="text" data-bind="value: Name, event: { change: $parents[1].DoGenerateText }" placeholder="name" />
+            <!-- ko if: Name() == '' -->
+                <span class="help-inline">Name is required.</span>
+                <!-- /ko -->
+            <!-- /ko -->
+        </div>
+
+        <div class="span2 control-group" data-bind="css:{error: Value() == ''}">
+            <input style="width:100%" type="text" data-bind="value: Value, valueUpdate:'afterkeydown', event: { change: $parents[1].DoGenerateText }" placeholder="value" />
+
+            <!-- ko if: Value() == '' -->
+            <span class="help-inline">Value is required.</span>
+            <!-- /ko -->
+        </div>
+
+        <!-- ko if: !$parent.allowCustomEdit -->
+        <span class="span1" data-bind="text: Unit"></span>
+        <!-- /ko -->
+
+        <!-- ko if: $parent.allowCustomEdit -->
+        <input class="span1" type="text" data-bind="value: Unit, event: { change: $parents[1].DoGenerateText }" placeholder="units" />
+        <!-- /ko -->
+
+        <div class="input-prepend input-append span5">
+            <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(a,b){ $($(b.target).parent().siblings()[0]).datepicker('show') }"></i></span>
+            <input style="width:120px" class="datePicker" type="text" placeholder="date observed" data-bind="datepicker: DateObserved, event: { change: $parents[1].DoGenerateText }, datepickerOptions: {maxDate: '0', dateFormat: 'mm/dd/yy', changeYear: true, changeMonth: true}" />
+            <span style="cursor:hand" class="add-on" data-bind="click: function() { var dt = new Date(); DateObserved(new Date(dt.getFullYear(), dt.getMonth(), dt.getDate(), 0, 0, 0)); $parents[1].DoGenerateText();}">Today</span>
+        </div>
+    </div>
+</div>
+
+
+<div class="controls">
+    <div class="span3">
+        <button class="btn btn-mini btn-info" data-bind="click: function(data, event) { $parent.DoAddItem(name, defaultUnit)}"><i class="icon-plus-sign icon-white"></i></button>
+        <span data-bind="text: name" />
+    </div>
+</div>
+

@@ -1,0 +1,203 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>
+        Massachusetts SEE Document Browser
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link href="js/lib/external/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    
+    <style type="text/css">
+        body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+        }
+        .sidebar-nav {
+        padding: 9px 0;
+        }
+        .my-table-hover tbody tr:hover td,
+        .my-table-hover tbody tr:hover th {
+          background-color: #F5F6CE;
+        }
+        .my-icon 
+        {
+            max-width: 20px
+        }
+        .my-icon-medium
+        {
+            max-width: 50px
+        }
+        .span1_5 {
+          width: 100px;
+        }
+
+    </style>
+    <link href="js/lib/external/bootstrap/css/bootstrap-responsive.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li>
+                <a href="#">[Bob User]</a>
+              </li>
+              <li class="active"><a href="#">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span2">
+                <div class="well sidebar-nav">
+                    <ul class="nav nav-list" id="tab1-menu">
+                        <li class="nav-header">Filter</li>
+                        <li class="divider">&nbsp;</li>
+                        <li class="active"><a href="#">All</a></li>
+                        <li><a href="#">Recent</a></li>
+                        <li><a href="#">Drafts <i class="icon-file"></i></a></li>
+                        <li><a href="#">Final <i class="icon-lock"></i></a></li>
+                        <li><a href="#">Sent <i class="icon-briefcase"></i></a></li>
+                        <li><a href="#">Shared with me</a></li>
+                        <li>&nbsp;</li>
+                        <li class="divider">&nbsp;</li>
+                        <li>&nbsp;</li>
+                        <li>&nbsp;</li>
+                        <li>&nbsp;</li>
+                    </ul>
+                </div><!--/.well -->
+            </div><!--/span-->
+            <div class="span6" >
+                <form class="form-search">
+                    <div class="">
+                        <input type="text" class="input-xxlarge search-query" /> 
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </div>
+                </form>
+            </div>
+            <div class="span9">
+                <h6>
+                    Documents
+                </h6>
+                <table class="table table-striped my-table-hover">
+                    <thead>
+                        <tr>
+                            <th>
+                                Title
+                            </th>
+                            <th>
+                                Status
+                            </th>
+                            <th>
+                                Date Created
+                            </th>
+                            <th>
+                                Last Modified
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <img src="resources/images/DocumentHS.png" class="my-icon"/>
+                                Transfer Of Care (Harry Levin)
+                            </td>
+                            <td>
+                                Draft
+                            </td>
+                            <td>
+                                11/15/2012 3:00PM
+                            </td>
+                            <td>
+                                11/16/2012 7:00AM
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="resources/images/DocumentHS.png" class="my-icon"/>
+                                Transfer Of Care (Sallie Mae)
+                            </td>
+                            <td>
+                                Draft
+                            </td>
+                            <td>
+                                1/15/2012 5:00PM
+                            </td>
+                            <td>
+                                1/16/2012 10:00AM
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="resources/images/eps_closedHS.png" class="my-icon"/>
+                                Transfer Of Care (John Smith)
+                            </td>
+                            <td>
+                                Sent
+                            </td>
+                            <td>
+                                2/22/2012 10:00AM
+                            </td>
+                            <td>
+                                2/25/2012 10:00AM
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="resources/images/DocumentHS.png" class="my-icon"/>
+                                Transfer Of Care (Jim Jimmy)
+                            </td>
+                            <td>
+                                Draft
+                            </td>
+                            <td>
+                                11/12/2012 3:00PM
+                            </td>
+                            <td>
+                                11/13/2012 1:00AM
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="resources/images/ProtectFormHS.png" class="my-icon"/>
+                                Transfer Of Care (Jane Doe)
+                            </td>
+                            <td>
+                                Final
+                            </td>
+                            <td>
+                                11/1/2012 2:00PM
+                            </td>
+                            <td>
+                                11/2/2012 9:00AM
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="js/lib/external/jquery/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript">
+        var doRowClick = function (event) {
+            window.open("sampledocument.html");
+        };
+
+        $(document).ready(function () {
+            $("tr").click(doRowClick);
+        });
+    </script>
+</body>
+</html>

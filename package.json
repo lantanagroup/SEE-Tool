@@ -1,0 +1,32 @@
+﻿{
+  "name": "SEE",
+  "version": "0.9.0",
+  "private": true,
+  "scripts": {
+    "start": "node documentService",
+	 "test": "mocha",
+     "importDocument": "node importDocument.js"
+  },
+  "dependencies": {
+    "express": "3.4.4",
+    "moment": "*", 
+    "mongodb": "*",
+    "npmlog": "*",
+    "underscore": "*",
+    "xmldom": "*",
+	"config": "*",
+	"q": "*",
+	"send": "0.1.4",
+	"form-data": "0.1.2",
+	"underscore.string": "*",
+    "email-addresses": "*",
+    "cookie-session": "1.2.0"
+  },
+
+  "devDependencies":{
+    "mocha": "*", 
+	"nock": "*",
+	"expect.js": "*",
+	"sinon": "*"
+  }
+}

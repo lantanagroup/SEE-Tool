@@ -1,0 +1,10 @@
+﻿<!-- ko ifnot : $parent.IsLoading -->
+    <!-- ko if: $parent.CanEdit -->
+    <div class="alert alert-info">
+        <h3>Narrative</h3>
+    </div>
+    <div>
+        <div id="SectionTextEditor" style="width: 100%" data-bind="tinymce: FreeNarrative"></div>
+    </div>
+    <!-- /ko -->
+<!-- /ko -->

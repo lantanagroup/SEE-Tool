@@ -1,0 +1,201 @@
+﻿    <form>
+        <div id="narrativeAccordion" class="accordian">
+            <div class="accordianGroup">
+                <div class="accordian-heading">
+                    <div class="alert alert-info">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#narrativeAccordion" href="#collapseOne"><h3>Narrative</h3></a>
+                    </div>
+                </div>
+                <div id="collapseOne" class="accordion-body collapse in">
+                    <div class="row-fluid">
+                        <div class="span6 well well-small">
+                            <h4>Free Text Narrative:</h4>
+                            <div id="Div3" style="width: 100%" data-bind="tinymce: Entity().FreeNarrative"></div>
+                        </div>
+                        <div id="Div4" class="span6 well well-small">
+                            <label data-bind="html: Entity().GeneratedNarrative" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="alert alert-info">
+            <h3>Social History Data Entry</h3>
+        </div>
+        <table border="0">
+
+            <tr>
+                <td style="vertical-align: top; padding-right: 20px;">
+                    <fieldset>
+                        <legend>General</legend>
+                        <div class="form-group">
+                            <div class="form-item">
+                                <label for="patientLikesDislikes">Patient likes and dislikes</label>
+                                <textarea class="input-xxlarge" id="patientLikesDislikes" rows="3" data-bind="value: Entity().PatientLikesDislikes" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-item">
+                                <label for="patientExpectations">Patient's expectations of care</label>
+                                <textarea class="input-xxlarge" id="patientExpectations" rows="3" data-bind="value: Entity().PatientExpectations" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-item">
+                                <label for="religiousCulturalIssues">Religious/Cultural issues in care</label>
+                                <textarea class="input-xxlarge" id="religiousCulturalIssues" rows="3" data-bind="value: Entity().ReligiousCulturalIssues" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-item">
+                                <label for="inadequateCommunitySupport"><input type="checkbox" id="inadequateCommunitySupport" data-bind="checked: Entity().InadequateCommunitySupport" /> Needs assessment of community support?</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-item">
+                                <label for="familyNotInvolvedInCare"><input type="checkbox" id="familyNotInvolvedInCare" data-bind="checked: Entity().FamilyNotInvolvedInCare" /> Needs assessment of family involvement in care?</label>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Living Situation</legend>
+                        <div class="form-group">
+                            <div class="form-item">
+                                <label for="housingStatus">Housing Status</label>
+                                <input type="text" class="input-large" id="housingStatus" data-bind="value: Entity().HousingStatus" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-item">
+                                <label for="housingStatus">Living Arrangement</label>
+                                <select data-bind="value: Entity().LivingArrangement">
+                                    <option value="">&nbsp;</option>
+                                    <option value="U">Unknown</option>
+                                    <option value="F">Lives with family</option>
+                                    <option value="A">Lives alone</option>
+                                </select>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Environmental Risks and Decision Modifiers</legend>
+                        <div class="form-group">
+                            <div class="form-item">
+                                <label for="environmentalFactorsBox">Environmental Factors</label>
+                                <input type="text" class="input-large" id="environmentalFactorsBox" data-bind="value: Entity().EnvironmentalFactors" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-item">
+                                <label for="envRisksBox">Environmental Risks and Decision Modifiers</label>
+                                <input type="text" class="input-large" id="envRisksBox" data-bind="value: Entity().EnvironmentalRisksDecisionModifiers" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-item">
+                                <label for="lastHospitalAdmissionBox">Last hospital admission</label>
+                                <input type="text" class="input-large" id="lastHospitalAdmissionBox" data-bind="value: Entity().LastHospitalAdmission" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-item">
+                                <label for="homeSupportsBox">Home supports</label>
+                                <input type="text" class="input-large" id="homeSupportsBox" data-bind="value: Entity().HomeSupports" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-item">
+                                <label for="transportationBox">Transportation</label>
+                                <input type="text" class="input-large" id="transportationBox" data-bind="value: Entity().Transportation" />
+                            </div>
+                        </div>
+                    </fieldset>
+                </td>
+                <td style="vertical-align: top;">
+                    <fieldset>
+                        <legend>Exposure</legend>
+                        <div class="form-group">
+                            <div class="form-item">
+                                <label for="smoking">Smoking</label>
+                                <select data-bind="options: SEE.model.SmokingStatusList,
+                                       optionsText: 'DisplayName',
+                                        optionsCaption: 'Please Choose',
+                                        optionsValue: 'Code',
+                                        value: Entity().Smoking" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-item">
+                                <label for="alcohol">Alcohol Use</label>
+                                <input type="text" class="input-large" id="alcohol" data-bind="value: Entity().Alcohol" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-item">
+                                <label for="drugUse">Illicit Substance Use</label>
+                                <input type="text" class="input-large" id="drugUse" data-bind="value: Entity().DrugUse" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-item">
+                                <label for="lifetimeRadiationExposure">Lifetime Radiation Exposure</label>
+                                <input type="text" class="input-large" id="lifetimeRadiationExposure" data-bind="value: Entity().LifetimeRadiationExposure" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-item">
+                                <label for="riskySexualBehavior">Risky Sexual Behavior</label>
+                                <input type="text" class="input-large" id="riskySexualBehavior" data-bind="value: Entity().RiskySexualBehavior" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-item">
+                                <label for="workplaceExposures">Workplace Exposures</label>
+                                <input type="text" class="input-large" id="workplaceExposures" data-bind="value: Entity().WorkplaceExposures" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-item">
+                                <label for="otherExposures">Other Exposures</label>
+                                <input type="text" class="input-large" id="otherExposures" data-bind="value: Entity().OtherExposures" />
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Updated Risk Scores</legend>
+                        <div class="form-group">
+                            <div class="form-item">
+                                <label for="readmissionBox">Readmission</label>
+                                <input type="text" class="input-large" id="readmissionBox" data-bind="value: Entity().Readmission" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-item">
+                                <label for="skinBox">Skin</label>
+                                <input type="text" class="input-large" id="skinBox" data-bind="value: Entity().Skin" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-item">
+                                <label for="fallsBox">Falls</label>
+                                <input type="text" class="input-large" id="fallsBox" data-bind="value: Entity().Falls" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-item">
+                                <label for="medErrorBox">Med Error</label>
+                                <input type="text" class="input-large" id="medErrorBox" data-bind="value: Entity().MedError" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-item">
+                                <label for="careplanFailureBox">Care Plan Failure</label>
+                                <input type="text" class="input-large" id="careplanFailureBox" data-bind="value: Entity().CarePlanFailure" />
+                            </div>
+                        </div>
+                    </fieldset>
+                </td>
+            </tr>
+        </table>
+    </form>

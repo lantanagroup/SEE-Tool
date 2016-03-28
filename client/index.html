@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <title>
+        SEE Tool
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <link href="js/lib/external/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="js/lib/external/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" />
+    <!--<link rel="stylesheet" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css"> -->
+    <link href="js/lib/external/bootstrap/css/bootstrapSwitch.css" rel="stylesheet" />
+    <link href="js/lib/external/jquery/ui/smoothness/jquery-ui-1.10.2.custom.min.css" rel="stylesheet" />
+    <link href="js/lib/external/jquery/ui/css/jquery-ui-timepicker-addon.css" rel="stylesheet" />
+    <link href="resources/css/see.css" rel="stylesheet" />
+</head>
+<body id="MainBinding">
+    <div id="MainMenu">
+        <div class="navbar navbar-inverse navbar-fixed-top">
+          <div class="navbar-inner">
+            <div class="container-fluid">
+              <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </a>
+              <div class="nav-collapse collapse">
+                <label class="brand">SEE Tool</label>
+                <ul class="nav nav-pills">
+                  <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span id="UserNameLabel">[my account]</span><b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" id="myProfileLink">My Profile</a></li>
+                        <li><a href="#" id="myOrganizationLink">My Organization</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div><!--/.nav-collapse -->
+            </div>
+          </div>
+        </div>
+        <!-- ko if: $data.HasMessage -->
+        <div class="row-fluid">
+            <div data-bind="attr:{class:$data.Message().UI.CSSClass()}">
+                <button type="button" class="close" data-bind="click:function() { $data.DismissAlert() }">&times;</button>
+                <h4 data-bind="text: $data.Message().Title()"></h4>
+                <span class="alert-text" data-bind="text: $data.Message().Text()"></span>
+                <br /><br />
+
+                <!-- ko if: $data.Message().ErrorMessage() != '' -->
+                <div id="moreInfoAccordion" class="accordian">
+                    <div class="accordianGroup">
+                        <div class="accordian-heading">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#moreInfoAccordion" href="#collapseOne">more information</a>
+                        </div>
+                        <div id="collapseOne" class="accordion-body collapse">
+                            <p>
+                                <strong data-bind="text: $data.Message().ErrorMessage"></strong>
+                                <br />
+                                <pre data-bind="text: $data.Message().ErrorStack"></pre>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- /ko -->
+            </div>
+        </div>
+        <!-- /ko -->
+        <!-- ko ifnot: $data.HasMessage -->
+        <div class="row-fluid">
+            <div class="span12">
+                &nbsp; <br /> &nbsp; <br />
+            </div>
+        </div>
+        <!-- /ko -->
+        <div class="tabbable" id="Tabs">
+            <ul class="nav nav-tabs" id="MainTab">
+                <!-- ko foreach: Tabs -->
+                <li data-bind="attr:{class:$data.CSSClass, id:$data.id}" >
+                    <a href="#" data-toggle="tab" data-bind="click:function() { $parent.DoTabClick($data); }">
+                        <span data-bind="text: Title"></span>
+
+                        <!-- ko if: $data.ViewModel != null && $data.ViewModel.DocumentStatus && $data.ViewModel.DocumentStatus() == SEE.enum.DocumentStatusCode.DRAFT -->
+                        <span class="label label-warning">DRAFT</span>
+                        <!-- /ko -->
+
+                        <!-- ko if: $data.ViewModel != null && $data.ViewModel.DocumentStatus && $data.ViewModel.DocumentStatus() != SEE.enum.DocumentStatusCode.DRAFT-->
+                        <span class="label label-inverse">FINAL</span>
+                        <!-- /ko -->
+
+                        &nbsp;
+                        <!-- ko if: $data.AllowClose -->
+                        <i class="icon-remove pull-right" data-bind="click: function() { $parent.DoTabRemove($data); } "></i>
+                        <!-- /ko -->
+
+                        <br />&nbsp;<small data-bind="text: $data.Line2"> </small>
+                    </a>
+                </li>
+                <!-- /ko -->
+            </ul>
+        </div>
+
+        <!--
+        <div id="UserInfoModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="UserInfoModal" aria-hidden="true">
+            <div class="modal-header">
+                <button type="button" class="close" aria-hidden="true" data-bind="click: DoCancelUserInfo">×</button>
+                <h3 data-bind="text:UserName"></h3>
+            </div>
+
+            <div class="modal-body">
+                <div data-bind="template: {name: '../view/shared/UserInfo.html', data: $data}">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" aria-hidden="true" data-bind="click: DoCancelUserInfo">Cancel</button>
+                <button class="btn btn-primary" data-bind="click: DoSaveUserInfo">Continue</button>
+            </div>
+        </div>-->
+    </div>
+    <div class="container-fluid">
+        <!-- ko with: Modal -->
+        <div id="ModalArea" class="modal hide fade" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
+        <!-- ko if: IsShowingModal -->
+            <!-- ko with: ModalVM -->
+            <div data-bind="template: $parent.Template">
+            </div>
+            <!-- /ko -->
+        <!-- /ko -->
+        </div>
+        <!-- /ko -->
+        <div id="MainView">
+
+        </div>
+    </div>
+
+    <!-- external -->
+    <script src="js/lib/external/jquery/jquery-1.10.1.min.js"></script>
+    <script src="js/lib/internal/jquery.cookie.js"></script>
+    <script src="js/lib/external/jquery/ui/jquery-ui-1.10.2.custom.js"></script>
+    <script src="js/lib/external/jquery/ui/jquery-ui-timepicker-1.4.5.js"></script>
+    <script src="js/lib/external/jquery/ui/jquery-ui-sliderAccess.js"></script>
+    <!--<script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>  -->
+    <script src="js/lib/external/bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/lib/external/bootstrap/js/bootbox.min.js"></script>
+    <!--<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/1.3/bootstrapSwitch.min.js"></script>-->
+   <script src="js/lib/external/bootstrap/js/bootstrapSwitch.js"></script>
+    <script src="js/lib/external/underscore/underscore.js"></script>
+    <script src="js/lib/external/signals/signals.min.js"></script>
+    <script src="js/lib/external/crossroads/crossroads.min.js"></script>
+    <script src="js/lib/external/hasher/hasher.min.js"></script>
+    <script src="js/lib/external/jsrender/jsrender.js"></script>
+    <script src="js/lib/external/knockout/knockout-3.1.0.js"></script>
+    <script src="js/lib/external/knockout/knockout.mapping.2.4.1.js"></script>
+    <script src="js/lib/external/tiny_mce/jquery.tinymce.js"></script>
+    <script src="js/lib/external/sugarjs/sugar-1.3.9.min.js"></script>
+
+    <!-- internal -->
+    <script src="js/lib/internal/utils/utils.js"></script>
+    <script src="js/lib/internal/utils/uuid.js"></script>
+    <script src="js/lib/internal/utils/xml.js"></script>
+    <script src="js/lib/internal/utils/StringBuilder.js"></script>
+    <script src="js/lib/internal/utils/log.js"></script>
+    <script src="js/lib/internal/utils/history.js"></script>
+    <script src="js/lib/internal/utils/date.f-0.5.0.js"></script>
+    <script src="js/lib/internal/enum/enum.js"></script>
+    <script src="js/lib/internal/ko/databindings.js"></script>
+    <script src="js/lib/internal/ko/extenders.js"></script>
+    <script src="js/lib/internal/ko/templatesource.js"></script>
+    <script src="js/lib/internal/ko/templateengine.js"></script>
+    <script src="js/service/proxy/DocumentServiceProxy.js"></script>
+    <script src="js/lib/internal/model/DocumentSectionToEnumMap.js"></script>
+    <script src="js/service/service.js"></script>
+    <script src="js/lib/internal/model/BaseModel.js"></script>
+    <script src="js/lib/internal/model/SeverityList.js"></script>
+    <script src="js/lib/internal/model/dto/pojo.js"></script>
+    <script src="js/lib/internal/model/dto/pojo_mapping.js"></script>
+
+    <script src="js/lib/internal/model/partial/AdvanceDirectivesSection.js"></script>
+    <script src="js/lib/internal/model/partial/ProblemSectionProblem.js"></script>
+    <script src="js/lib/internal/model/partial/ProblemSection.js"></script>
+    <script src="js/lib/internal/model/partial/VitalsSection.js"></script>
+    <script src="js/lib/internal/model/partial/VitalSignEntry.js"></script>
+    <script src="js/lib/internal/model/partial/DischargeDiagnosisEntry.js"></script>
+    <script src="js/lib/internal/model/partial/DischargeDiagnosisSection.js"></script>
+    <script src="js/lib/internal/model/partial/Document.js"></script>
+    <script src="js/lib/internal/model/partial/InstanceIdentifier.js"></script>
+    <script src="js/lib/internal/model/partial/PersonInfo.js"></script>
+    <script src="js/lib/internal/model/partial/Patient.js"></script>
+    <script src="js/lib/internal/model/partial/OrganizationInfo.js"></script>
+    <script src="js/lib/internal/model/partial/HeaderSection.js"></script>
+    <script src="js/lib/internal/model/partial/ProcedureSection.js"></script>
+    <script src="js/lib/internal/model/partial/ProcedureOrderEntry.js"></script>
+    <script src="js/lib/internal/model/partial/AllergyEntry.js"></script>
+    <script src="js/lib/internal/model/partial/SocialHistory.js"></script>
+    <script src="js/lib/internal/model/partial/MedicalEquipmentSection.js"></script>
+    <script src="js/lib/internal/model/partial/MedicationSection.js"></script>
+    <script src="js/lib/internal/model/partial/ResultsSection.js"></script>
+    <script src="js/lib/internal/model/partial/ImmunizationSection.js"></script>
+    <script src="js/lib/internal/model/partial/FunctionalStatusSection.js"></script>
+    <script src="js/lib/internal/model/partial/AllergySection.js"></script>
+    <script src="js/lib/internal/model/partial/PlanOfCareSection.js"></script>
+    <script src="js/lib/internal/model/partial/PastIllnessSection.js"></script>
+    <script src="js/lib/internal/model/partial/PastIllnessEntry.js"></script>
+    <script src="js/lib/internal/model/SmokingStatusList.js"></script>
+    <script src="js/lib/internal/model/UITab.js"></script>
+    <script src="js/lib/internal/model/UIAlert.js"></script>
+    <script src="js/viewmodel/modal/BaseModal.js"></script>
+    <script src="js/viewmodel/modal/AlertViewModel.js"></script>
+    <script src="js/viewmodel/modal/PersonInfoViewModel.js"></script>
+    <script src="js/viewmodel/modal/OrganizationInfoViewModel.js"></script>
+    <script src="js/viewmodel/modal/PatientViewModel.js"></script>
+    <script src="js/viewmodel/modal/UserInfoViewModel.js"></script>
+    <script src="js/viewmodel/BaseViewModel.js"></script>
+    <script src="js/viewmodel/documentlist/DocumentListViewModel.js"></script>
+    <script src="js/viewmodel/document/DocumentViewModel.js"></script>
+    <script src="js/viewmodel/document/section/BaseDocumentSection.js"></script>
+    <script src="js/viewmodel/document/section/ImmunizationSectionViewModel.js"></script>
+    <script src="js/viewmodel/document/section/DemographicSectionViewModel.js"></script>
+    <script src="js/viewmodel/document/section/ProblemsSectionViewModel.js"></script>
+    <script src="js/viewmodel/document/section/VitalsSectionViewModel.js"></script>
+    <script src="js/viewmodel/document/section/MedicationSectionViewModel.js"></script>
+    <script src="js/viewmodel/document/section/MedicalEquipmentSectionViewModel.js"></script>
+    <script src="js/viewmodel/document/section/PlanOfCareSectionViewModel.js"></script>
+    <script src="js/viewmodel/document/section/DocumentSectionViewModel.js"></script>
+    <script src="js/viewmodel/document/section/ReviewSectionViewModel.js"></script>
+    <script src="js/viewmodel/document/section/FunctionalStatusViewModel.js"></script>
+    <script src="js/viewmodel/document/section/PayerSectionViewModel.js"></script>
+    <script src="js/viewmodel/document/section/HistoryOfEncountersViewModel.js"></script>
+    <script src="js/viewmodel/document/section/LabResultsSectionViewModel.js"></script>
+    <script src="js/viewmodel/document/section/SocialHistorySectionViewModel.js"></script>
+    <script src="js/viewmodel/document/section/AdvanceDirectivesSectionViewModel.js"></script>
+    <script src="js/viewmodel/document/section/AllergySectionViewModel.js"></script>
+    <script src="js/viewmodel/document/section/PastIllnessSectionViewModel.js"></script>
+    <script src="js/viewmodel/document/section/DischargeDiagnosisSectionViewModel.js"></script>
+    <script src="js/viewmodel/document/section/ProcedureSectionViewModel.js"></script>
+    <script src="js/viewmodel/upload/UploadViewModel.js"></script>
+    <script src="js/viewmodel/MainViewModel.js"></script>
+    <script src="js/viewmodel/ViewModelDispatch.js"></script>
+    <script src="js/session.js"></script>
+    <script src="js/ViewNavigator.js"></script>
+    <script src="js/initroutes.js"></script>
+
+
+    <script type="text/javascript" src="http://ORION/concerto/javascript/Concerto.js"></script>
+    <script type="text/javascript" src="http://ORION/concerto/javascript/client/Ping.js"></script>
+
+
+    <script src="js/appConfig.js"></script>
+
+
+</body>
+</html>

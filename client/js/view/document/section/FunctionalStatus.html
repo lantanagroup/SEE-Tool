@@ -1,0 +1,937 @@
+﻿<style type="text/css">
+    table .controls {
+        margin-left: 0px !important;
+    }
+
+    table .control-label {
+        text-align: left !important;
+        width: 235px !important;
+    }
+
+    .EditDailyLiving-Main .control-group,
+    .EditCognition-Main .control-group,
+    .EditSpecialAlerts-Main .control-group,
+    .EditCapability-Main .control-group {
+        margin-bottom: 0px !important;
+    }
+
+    #FunctionalStatusDailyLivingModal,
+    #FunctionalStatusCognitionModal,
+    #SpecialAlertsModal,
+    #FunctionalStatusCapabilityModal {
+        width: 650px;
+    }
+</style>
+
+<div id="Div2">
+    <form>
+        <div id="narrativeAccordion" class="accordian">
+            <div class="accordianGroup">
+                <div class="accordian-heading">
+                    <div class="alert alert-info">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#narrativeAccordion" href="#collapseOne"><h3>Narrative</h3></a>
+                    </div>
+                </div>
+                <div id="collapseOne" class="accordion-body collapse in">
+                    <div class="row-fluid">
+                        <div class="span6 well well-small">
+                            <h4>Free Text Narrative:</h4>
+                            <div id="Div3" style="width: 100%" data-bind="tinymce: Entity().FreeNarrative"></div>
+                        </div>
+                        <div id="Div4" class="span6 well well-small">
+                            <label data-bind="html: Entity().GeneratedNarrative"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="alert alert-info">
+            <h3>Functional Status Data Entry</h3>
+        </div>
+
+            <fieldset>
+                <legend>Activities for Daily Living <button class="btn btn-small btn-primary" data-bind="click: DoAddDailyLiving">Add</button></legend>
+
+                <table class="table table-striped table-bordered table-condensed">
+                    <thead>
+                        <tr>
+                            <th style="vertical-align: top">Name</th>
+                            <th style="vertical-align: top">Value</th>
+                            <th style="vertical-align: top">Effective Time</th>
+                            <th style="width:50px"></th>
+                        </tr>
+                    </thead>
+
+                    <tbody data-bind="foreach: Entity().DailyLivings">
+                        <tr>
+                            <td><span class="author-info" data-bind="text: Name, attr: { title: SEE.util.displayAuthorToolTip(Author, true) }"></span></td>
+                            <td><span class="author-info" data-bind="text: Value, attr: { title: SEE.util.displayAuthorToolTip(Author, true) }"></span></td>
+                            <td><span class="author-info" data-bind="dateAsString: EffectiveTime, attr: { title: SEE.util.displayAuthorToolTip(Author, true) }"></span></td>
+                            <td><button class="btn btn-small" data-bind="click: function () { $parent.DoRemoveItem($data, $parent.Entity().DailyLivings); }">Remove</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </fieldset>
+
+            <fieldset>
+                <legend>Capabilities <button class="btn btn-small btn-primary" data-bind="click: DoAddCapability">Add</button></legend>
+
+                <table class="table table-striped table-bordered table-condensed">
+                    <thead>
+                        <tr>
+                            <th style="vertical-align: top">Name</th>
+                            <th style="vertical-align: top">Value</th>
+                            <th style="vertical-align: top">Effective Time</th>
+                            <th style="width:50px"></th>
+                        </tr>
+                    </thead>
+
+                    <tbody data-bind="foreach: Entity().Capabilities">
+                        <tr>
+                            <td><span class="author-info" data-bind="text: Name, attr: { title: SEE.util.displayAuthorToolTip(Author, true) }"></span></td>
+                            <td><span class="author-info" data-bind="text: Value, attr: { title: SEE.util.displayAuthorToolTip(Author, true) }"></span></td>
+                            <td><span class="author-info" data-bind="dateAsString: EffectiveTime, attr: { title: SEE.util.displayAuthorToolTip(Author, true) }"></span></td>
+                            <td><button class="btn btn-small" data-bind="click: function () { $parent.DoRemoveItem($data, $parent.Entity().Capabilities); }">Remove</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </fieldset>
+
+            <fieldset>
+                <legend>Cognition/Mental Status <button class="btn btn-small btn-primary" data-bind="click: DoAddCognition">Add</button></legend>
+
+                <table class="table table-striped table-bordered table-condensed">
+                    <thead>
+                        <tr>
+                            <th style="vertical-align: top">Name</th>
+                            <th style="vertical-align: top">Value</th>
+                            <th style="vertical-align: top">Effective Time</th>
+                            <th style="width:50px"></th>
+                        </tr>
+                    </thead>
+
+                    <tbody data-bind="foreach: Entity().Cognitions">
+                        <tr>
+                            <td><span class="author-info" data-bind="text: Name, attr: { title: SEE.util.displayAuthorToolTip(Author, true) }"></span></td>
+                            <td><span class="author-info" data-bind="text: Value, attr: { title: SEE.util.displayAuthorToolTip(Author, true) }"></span></td>
+                            <td><span class="author-info" data-bind="dateAsString: EffectiveTime, attr: { title: SEE.util.displayAuthorToolTip(Author, true) }"></span></td>
+                            <td><button class="btn btn-small" data-bind="click: function () { $parent.DoRemoveItem($data, $parent.Entity().Cognitions); }">Remove</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </fieldset>
+
+        <fieldset>
+            <legend>Special Alerts <button class="btn btn-small btn-primary" data-bind="click: DoAddSpecialAlerts">Add</button></legend>
+
+            <table class="table table-striped table-bordered table-condensed">
+                <thead>
+                <tr>
+                    <th style="vertical-align: top">Name</th>
+                    <th style="vertical-align: top">Value</th>
+                    <th style="vertical-align: top">Effective Time</th>
+                    <th style="width:50px"></th>
+                </tr>
+                </thead>
+
+                <tbody data-bind="foreach: Entity().SpecialAlerts">
+                <tr>
+                    <td><span class="author-info" data-bind="text: Name, attr: { title: SEE.util.displayAuthorToolTip(Author, true) }"></span></td>
+                    <td><span class="author-info" data-bind="text: Value, attr: { title: SEE.util.displayAuthorToolTip(Author, true) }"></span></td>
+                    <td><span class="author-info" data-bind="dateAsString: EffectiveTime, attr: { title: SEE.util.displayAuthorToolTip(Author, true) }"></span></td>
+                    <td><button class="btn btn-small" data-bind="click: function () { $parent.DoRemoveItem($data, $parent.Entity().SpecialAlerts); }">Remove</button></td>
+                </tr>
+                </tbody>
+            </table>
+        </fieldset>
+        <div class="row-fluid">
+            <div class="well span8">
+                <h4>Pain Scale</h4>
+
+                <table class="table table-striped table-bordered table-condensed">
+                    <thead>
+                        <tr>
+                            <th style="vertical-align: top">Score</th>
+                            <th style="vertical-align: top">Effective Date</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody data-bind="foreach: Entity().PainScales">
+                        <tr>
+                            <td>
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <span data-bind="text: PainScore"></span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="control-group ">
+                                    <div class="controls">
+                                        <span data-bind="dateAsString: PainScoreEffectiveTime"></span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><button class="btn" data-bind="click: function () { $parent.DoRemoveItem($data, $parent.Entity().PainScales); }">Remove</button></td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td style="vertical-align: top">
+                                <div class="control-group" data-bind="css:{warning: NewPainScale().PainScore() == '' || NewPainScale().PainScore() == null}">
+                                    <div class="controls">
+                                        <input type="text" data-bind="value: NewPainScale().PainScore, valueUpdate:'afterkeydown'" />
+                                        <!-- ko if: (NewPainScale().PainScore() == '' || NewPainScale().PainScore() == null) -->
+                                        <span class="help-inline">Score is required.</span>
+                                        <!-- /ko -->
+                                    </div>
+                                </div>
+                            </td>
+                            <td style="vertical-align: top">
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <div class="input-prepend input-append">
+                                            <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(a,b){ $($(b.target).parent().siblings()[0]).datepicker('show') }"></i></span>
+                                            <input type="text" class="datePicker" data-bind="datepicker: NewPainScale().PainScoreEffectiveTime, datepickerOptions: {maxDate: '0', dateFormat: 'mm/dd/yy', defaultDate: new Date(), changeYear: true, changeMonth: true}"  style="width:80px;"/>
+                                            <span class="add-on" data-bind="click: function() { var dt = new Date(); NewPainScale().PainScoreEffectiveTime(new Date(dt.getFullYear(), dt.getMonth(), dt.getDate(), 0, 0, 0))}">Today</span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </td>
+                            <td style="vertical-align: top"><button class="btn btn-primary" data-bind="click: DoAddPainScale, disable: (NewPainScale().PainScore() == '' || NewPainScale().PainScore() == null )">Add</button></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <div class="well span4">
+                <h4>GAF Score</h4>
+
+                <div class="controls">
+                    <input id="gafScore" data-bind="spinner: Entity().GAFScore" style="width: 75px;" />
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div id="FunctionalStatusCapabilityModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="FunctionalStatusCapabilityModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" aria-hidden="true" data-bind="click: DoCancelCapability">×</button>
+        <h3 id="H1">Capabilities</h3>
+    </div>
+    <div class="modal-body" style="max-height: 400px">
+
+        <!-- ko if: DefaultCapabilityModalTime() == null || DefaultCapabilityModalTime() == '' -->
+        <div class="alert alert-error">Effective Date is required.</div>
+        <!-- /ko -->
+
+        <form class="form-horizontal">
+            <div class="EditCapability-Main">
+
+                <!-- BEGIN Capability Fields -->
+                
+                <div class="control-group">
+                    <label class="control-label">Effective Date</label>
+                    <div class="controls">
+                        <div class="input-prepend input-append">
+                            <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#defaultCapabilityEffectiveTimePicker').datepicker('show') }"></i></span>
+                            <input type="text" data-bind="datepicker:DefaultCapabilityModalTime, datepickerOptions: {maxDate: '0', dateFormat: 'mm/dd/yy', defaultDate: new Date(), changeYear: true, changeMonth: true}" id="defaultCapabilityEffectiveTimePicker" style="width: 75px;" />
+                            <span class="add-on" data-bind="click: function() { SetToToday(DefaultCapabilityModalTime)}">Today</span>
+                        </div>
+                    </div>
+                </div>
+
+                <table border="0">
+                    <tr>
+                        <td style="padding-right: 20px;">
+                            <div class="control-group">
+                                <label class="control-label">Speech</label>
+                                <div class="controls">
+                                    <input class="modalValue" id="speech" type="text" style="width: 110px" />
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#speechEffectiveTimePicker').datepicker('show') }"></i></span>
+                                        <input type="text" class="modalDatePicker" id="speechEffectiveTimePicker" style="width: 75px;" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Vision</label>
+                                <div class="controls">
+                                    <input class="modalValue" id="vision" type="text" style="width: 110px" />
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#visionEffectiveTimePicker').datepicker('show') }"></i></span>
+                                        <input type="text" class="modalDatePicker" id="visionEffectiveTimePicker" style="width: 75px;" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Mobility</label>
+                                <div class="controls">
+                                    <input class="modalValue" id="mobility" type="text" style="width: 110px" />
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#mobilityEffectiveTimePicker').datepicker('show') }"></i></span>
+                                        <input type="text" class="modalDatePicker" id="mobilityEffectiveTimePicker" style="width: 75px;" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Paralysis</label>
+                                <div class="controls">
+                                    <input class="modalValue" id="paralysis" type="text" style="width: 110px" />
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#paralysisEffectiveTimePicker').datepicker('show') }"></i></span>
+                                        <input type="text" class="modalDatePicker" id="paralysisEffectiveTimePicker" style="width: 75px;" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Serious difficulty walking or climbing stairs</label>
+                                <div class="controls">
+                                    <input class="modalValue" id="difficultyWalking" type="text" style="width: 110px" />
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#difficultyWalkingEffectiveTimePicker').datepicker('show') }"></i></span>
+                                        <input type="text" class="modalDatePicker" id="difficultyWalkingEffectiveTimePicker" style="width: 75px;" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Difficulty doing errands alone</label>
+                                <div class="controls">
+                                    <input class="modalValue" id="difficultyErrands" type="text" style="width: 110px" />
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#difficultyErrandsEffectiveTimePicker').datepicker('show') }"></i></span>
+                                        <input type="text" class="modalDatePicker" id="difficultyErrandsEffectiveTimePicker" style="width: 75px;" />
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td style="vertical-align: top;">
+                            <div class="control-group">
+                                <label class="control-label">Hearing</label>
+                                <div class="controls">
+                                    <input class="modalValue" id="hearing" type="text" style="width: 110px" />
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#hearingEffectiveTimePicker').datepicker('show') }"></i></span>
+                                        <input type="text" class="modalDatePicker" id="hearingEffectiveTimePicker" style="width: 75px;" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Sensation</label>
+                                <div class="controls">
+                                    <input class="modalValue" id="sensation" type="text" style="width: 110px" />
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#sensationEffectiveTimePicker').datepicker('show') }"></i></span>
+                                        <input type="text" class="modalDatePicker" id="sensationEffectiveTimePicker" style="width: 75px;" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Amputation</label>
+                                <div class="controls">
+                                    <input class="modalValue" id="amputation" type="text" style="width: 110px" />
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#amputationEffectiveTimePicker').datepicker('show') }"></i></span>
+                                        <input type="text" class="modalDatePicker" id="amputationEffectiveTimePicker" style="width: 75px;" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Contractures</label>
+                                <div class="controls">
+                                    <input class="modalValue" id="contractures" type="text" style="width: 110px" />
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#contracturesEffectiveTimePicker').datepicker('show') }"></i></span>
+                                        <input type="text" class="modalDatePicker" id="contracturesEffectiveTimePicker" style="width: 75px;" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Difficulty bathing or dressing</label>
+                                <div class="controls">
+                                    <input class="modalValue" id="difficultyBathing" type="text" style="width: 110px" />
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#difficultyBathingEffectiveTimePicker').datepicker('show') }"></i></span>
+                                        <input type="text" class="modalDatePicker" id="difficultyBathingEffectiveTimePicker" style="width: 75px;" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Other</label>
+                                <div class="controls">
+                                    <input class="modalValue" id="other" type="text" style="width: 110px" />
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#otherEffectiveTimePicker').datepicker('show') }"></i></span>
+                                        <input type="text" class="modalDatePicker" id="otherEffectiveTimePicker" style="width: 75px;" />
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <!--
+                <div class="control-group">
+                    <label class="control-label">Cognition</label>
+                    <div class="controls">
+                        <input class="modalValue" id="cognitiveStatusCognition" type="text" style="width: 110px" />
+                        <div class="input-prepend">
+                            <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#cognitiveStatusCognitionEffectiveTimePicker').datepicker('show') }"></i></span>
+                            <input type="text" class="modalDatePicker" id="cognitiveStatusCognitionEffectiveTimePicker" style="width: 75px;" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Serious difficulty concentrating, remembering, or making decisions</label>
+                    <div class="controls">
+                        <input class="modalValue" id="cognitiveStatusDifficultyMakingDecision" type="text" style="width: 110px" />
+                        <div class="input-prepend">
+                            <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#cognitiveStatusDifficultyMakingDecisionEffectiveTimePicker').datepicker('show') }"></i></span>
+                            <input type="text" class="modalDatePicker" id="cognitiveStatusDifficultyMakingDecisionEffectiveTimePicker" style="width: 75px;" />
+                        </div>
+                    </div>
+                </div>
+                -->
+
+
+                <!-- END Capability Fields -->
+
+            </div>
+        </form>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn" aria-hidden="true" data-bind="click: DoCancelCapability">Cancel</button>
+        <button class="btn btn-primary" data-bind="click: DoSaveCapability">Save changes</button>
+    </div>
+</div>
+
+<div id="FunctionalStatusCognitionModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="FunctionalStatusCognitionModal" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" aria-hidden="true" data-bind="click: DoCancelCognition">×</button>
+        <h3 id="H2">Cognition/Mental Status</h3>
+    </div>
+    <div class="modal-body" style="max-height: 400px">
+
+        <!-- ko if: DefaultCognitionModalTime() == null || DefaultCognitionModalTime() == '' -->
+        <div class="alert alert-error">Effective Date is required.</div>
+        <!-- /ko -->
+
+        <form class="form-horizontal">
+            <div class="EditCognition-Main">
+                
+                <!-- BEGIN Cognition Fields -->
+                
+                <div class="control-group">
+                    <label class="control-label">Effective Date</label>
+                    <div class="controls">
+                        <div class="input-prepend input-append">
+                            <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#defaultCognitionEffectiveTimePicker').datepicker('show') }"></i></span>
+                            <input type="text" data-bind="datepicker: DefaultCognitionModalTime, datepickerOptions: {maxDate: '0', dateFormat: 'mm/dd/yy', defaultDate: new Date(), changeYear: true, changeMonth: true}" id="defaultCognitionEffectiveTimePicker" style="width: 75px;" />
+                            <span class="add-on" data-bind="click: function() { SetToToday(DefaultCognitionModalTime)}">Today</span>
+                        </div>
+                    </div>
+                </div>
+
+                <table border="0">
+                    <tr>
+                        <td style="padding-right: 20px;">
+                            <div class="control-group">
+                                <label class="control-label">Mental status at transfer</label>
+                                <div class="controls">
+                                    <input class="modalValue" id="statusAtTransfer" type="text" style="width: 110px" />
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#statusAtTransferEffectiveTimePicker').datepicker('show') }"></i></span>
+                                        <input type="text" class="modalDatePicker" id="statusAtTransferEffectiveTimePicker" style="width: 75px;" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Ability to comprehend</label>
+                                <div class="controls">
+                                    <input class="modalValue" id="cognitiveAbilityToComprehend" type="text" style="width: 110px" />
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#cognitiveAbilityToComprehendEffectiveTimePicker').datepicker('show') }"></i></span>
+                                        <input type="text" class="modalDatePicker" id="cognitiveAbilityToComprehendEffectiveTimePicker" style="width: 75px;" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Memory</label>
+                                <div class="controls">
+                                    <input class="modalValue" id="cognitiveStatusMemory" type="text" style="width: 110px" />
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#cognitiveStatusMemoryEffectiveTimePicker').datepicker('show') }"></i></span>
+                                        <input type="text" class="modalDatePicker" id="cognitiveStatusMemoryEffectiveTimePicker" style="width: 75px;" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Orientation</label>
+                                <div class="controls">
+                                    <input class="modalValue" id="cognitiveStatusOrientation" type="text" style="width: 110px" />
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#cognitiveStatusOrientationEffectiveTimePicker').datepicker('show') }"></i></span>
+                                        <input type="text" class="modalDatePicker" id="cognitiveStatusOrientationEffectiveTimePicker" style="width: 75px;" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Mood</label>
+                                <div class="controls">
+                                    <input class="modalValue" id="cognitiveStatusMood" type="text" style="width: 110px" />
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#cognitiveStatusMoodEffectiveTimePicker').datepicker('show') }"></i></span>
+                                        <input type="text" class="modalDatePicker" id="cognitiveStatusMoodEffectiveTimePicker" style="width: 75px;" />
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td style="vertical-align: top;">
+                            <div class="control-group">
+                                <label class="control-label">Ability to consent to treatment</label>
+                                <div class="controls">
+                                    <input class="modalValue" id="cognitiveAbilityToConsentToTreatment" type="text" style="width: 110px" />
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#cognitiveAbilityToConsentToTreatmentEffectiveTimePicker').datepicker('show') }"></i></span>
+                                        <input type="text" class="modalDatePicker" id="cognitiveAbilityToConsentToTreatmentEffectiveTimePicker" style="width: 75px;" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Ability to express wishes</label>
+                                <div class="controls">
+                                    <input class="modalValue" id="cognitiveAbilityToExpressWishes" type="text" style="width: 110px" />
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#cognitiveAbilityToExpressWishesEffectiveTimePicker').datepicker('show') }"></i></span>
+                                        <input type="text" class="modalDatePicker" id="cognitiveAbilityToExpressWishesEffectiveTimePicker" style="width: 75px;" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Judgement</label>
+                                <div class="controls">
+                                    <input class="modalValue" id="cognitiveStatusJudgement" type="text" style="width: 110px" />
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#cognitiveStatusJudgementEffectiveTimePicker').datepicker('show') }"></i></span>
+                                        <input type="text" class="modalDatePicker" id="cognitiveStatusJudgementEffectiveTimePicker" style="width: 75px;" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Concentration</label>
+                                <div class="controls">
+                                    <input class="modalValue" id="cognitiveStatusConcentration" type="text" style="width: 110px" />
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#cognitiveStatusConcentrationEffectiveTimePicker').datepicker('show') }"></i></span>
+                                        <input type="text" class="modalDatePicker" id="cognitiveStatusConcentrationEffectiveTimePicker" style="width: 75px;" />
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+                <!-- END CognitionFields -->
+
+            </div>
+        </form>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn" aria-hidden="true" data-bind="click: DoCancelCognition">Cancel</button>
+        <button class="btn btn-primary" data-bind="click: DoSaveCognition">Save changes</button>
+    </div>
+</div>
+
+<div id="FunctionalStatusDailyLivingModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="FunctionalStatusDailyLivingModal" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" aria-hidden="true" data-bind="click: DoCancelDailyLiving">×</button>
+        <h3 id="H4">Activities for Daily Living</h3>
+    </div>
+    <div class="modal-body" style="max-height: 400px">
+
+        <!-- ko if: DefaultActivitiesForDailyLivingModalTime() == null || DefaultActivitiesForDailyLivingModalTime() == '' -->
+        <div class="alert alert-error">Effective Date is required.</div>
+        <!-- /ko -->
+
+        <form class="form-horizontal">
+            <div class="EditDailyLiving-Main">
+
+                <div class="control-group">
+                    <label class="control-label">Effective Date</label>
+                    <div class="controls">
+                        <div class="input-prepend input-append">
+                            <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#defaultDailyLivingEffectiveTimePicker').datepicker('show') }"></i></span>
+                            <input type="text" data-bind="datepicker: DefaultActivitiesForDailyLivingModalTime, datepickerOptions: {maxDate: '0', dateFormat: 'mm/dd/yy', defaultDate: new Date(), changeYear: true, changeMonth: true}" id="defaultDailyLivingEffectiveTimePicker" style="width: 75px;" />
+                            <span class="add-on" data-bind="click: function() { SetToToday(DefaultActivitiesForDailyLivingModalTime)}">Today</span>
+                        </div>
+                    </div>
+                </div>
+
+                <table border="0">
+                    <tr>
+                        <td style="padding-right: 20px;">
+                            <div class="control-group">
+                                <label class="control-label">Bathing</label>
+                                <div class="controls">
+                                    <select class="modalValue" id="bathing" style="width: 125px;">
+                                        <option value=""></option>
+                                        <option value="Independent">Independent</option>
+                                        <option value="Dependent">Dependent</option>
+                                        <option value="Needs Assistance">Needs Assistance</option>
+                                    </select>
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#bathingEffectiveTimePicker').datepicker('show') }"></i></span>
+                                        <input type="text" class="modalDatePicker" id="bathingEffectiveTimePicker" style="width: 75px;" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Toileting</label>
+                                <div class="controls">
+                                    <select class="modalValue" id="toileting" style="width: 125px;">
+                                        <option value=""></option>
+                                        <option value="Independent">Independent</option>
+                                        <option value="Dependent">Dependent</option>
+                                        <option value="Needs Assistance">Needs Assistance</option>
+                                    </select>
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#toiletingEffectiveTimePicker').datepicker('show') }"></i></span>
+                                        <input type="text" class="modalDatePicker" id="toiletingEffectiveTimePicker" style="width: 75px;" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Ambulation</label>
+                                <div class="controls">
+                                    <select class="modalValue" id="ambulation" style="width: 125px;">
+                                        <option value=""></option>
+                                        <option value="Independent">Independent</option>
+                                        <option value="Dependent">Dependent</option>
+                                        <option value="Needs Assistance">Needs Assistance</option>
+                                    </select>
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#ambulationEffectiveTimePicker').datepicker('show') }"></i></span>
+                                        <input type="text" class="modalDatePicker" id="ambulationEffectiveTimePicker" style="width: 75px;" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Ambulation distance</label>
+                                <div class="controls">
+                                    <input class="modalValue" id="ambulationDistance" type="text" style="width: 110px" />
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#ambulationDistanceEffectiveTimePicker').datepicker('show') }"></i></span>
+                                        <input type="text" class="modalDatePicker" id="ambulationDistanceEffectiveTimePicker" style="width: 75px;" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Continent of Bladder</label>
+                                <div class="controls">
+                                    <select class="modalValue" id="continentOfBladder" style="width: 125px;">
+                                        <option value=""></option>
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
+                                        <option value="Did not discuss">Did not discuss</option>
+                                    </select>
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#continentOfBladderEffectiveTimePicker').datepicker('show') }"></i></span>
+                                        <input type="text" class="modalDatePicker" id="continentOfBladderEffectiveTimePicker" style="width: 75px;" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Clearance to drive</label>
+                                <div class="controls">
+                                    <select class="modalValue" id="clearanceToDrive" style="width: 125px;">
+                                        <option value=""></option>
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
+                                        <option value="Did not discuss">Did not discuss</option>
+                                    </select>
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#clearanceToDriveEffectiveTimePicker').datepicker('show') }"></i></span>
+                                        <input type="text" class="modalDatePicker" id="clearanceToDriveEffectiveTimePicker" style="width: 75px;" />
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td style="vertical-align: top;">
+                            <div class="control-group">
+                                <label class="control-label">Dressing</label>
+                                <div class="controls">
+                                    <select class="modalValue" id="dressing" style="width: 125px;">
+                                        <option value=""></option>
+                                        <option value="Independent">Independent</option>
+                                        <option value="Dependent">Dependent</option>
+                                        <option value="Needs Assistance">Needs Assistance</option>
+                                    </select>
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#dressingEffectiveTimePicker').datepicker('show') }"></i></span>
+                                        <input type="text" class="modalDatePicker" id="dressingEffectiveTimePicker" style="width: 75px;" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Transfers</label>
+                                <div class="controls">
+                                    <select class="modalValue" id="transfers" style="width: 125px;">
+                                        <option value=""></option>
+                                        <option value="Independent">Independent</option>
+                                        <option value="Dependent">Dependent</option>
+                                        <option value="Needs Assistance">Needs Assistance</option>
+                                    </select>
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#transfersEffectiveTimePicker').datepicker('show') }"></i></span>
+                                        <input type="text" class="modalDatePicker" id="transfersEffectiveTimePicker" style="width: 75px;" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Eating</label>
+                                <div class="controls">
+                                    <select class="modalValue" id="eating" style="width: 125px;">
+                                        <option value=""></option>
+                                        <option value="Independent">Independent</option>
+                                        <option value="Dependent">Dependent</option>
+                                        <option value="Needs Assistance">Needs Assistance</option>
+                                    </select>
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#eatingEffectiveTimePicker').datepicker('show') }"></i></span>
+                                        <input type="text" class="modalDatePicker" id="eatingEffectiveTimePicker" style="width: 75px;" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Continent of Bowel</label>
+                                <div class="controls">
+                                    <select class="modalValue" id="continentOfBowel" style="width: 125px;">
+                                        <option value=""></option>
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
+                                        <option value="Did not discuss">Did not discuss</option>
+                                    </select>
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#continentOfBowelEffectiveTimePicker').datepicker('show') }"></i></span>
+                                        <input type="text" class="modalDatePicker" id="continentOfBowelEffectiveTimePicker" style="width: 75px;" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Last Bowel Movement</label>
+                                <div class="controls">
+                                    <input class="modalValue" id="lastBowelMovement" type="text" style="width: 110px" />
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#lastBowelMovementEffectiveTimePicker').datepicker('show') }"></i></span>
+                                        <input type="text" class="modalDatePicker" id="lastBowelMovementEffectiveTimePicker" style="width: 75px;" />
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+                <!-- END Daily Living Fields -->
+
+
+            </div>
+        </form>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn" aria-hidden="true" data-bind="click: DoCancelDailyLiving">Cancel</button>
+        <button class="btn btn-primary" data-bind="click: DoSaveDailyLiving">Save changes</button>
+    </div>
+</div>
+
+<div id="SpecialAlertsModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="SpecialAlertsModal" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" aria-hidden="true" data-bind="click: DoCancelSpecialAlerts">×</button>
+        <h3>Special Alerts</h3>
+    </div>
+
+    <div class="modal-body" style="max-height: 400px">
+
+        <!-- ko if: DefaultSpecialAlertsModalTime() == null || DefaultSpecialAlertsModalTime() == '' -->
+        <div class="alert alert-error">Effective Date is required.</div>
+        <!-- /ko -->
+
+        <form class="form-horizontal">
+            <div class="EditSpecialAlerts-Main">
+
+                <!-- BEGIN Daily Living Fields -->
+
+                <div class="control-group">
+                    <label class="control-label">Effective Date</label>
+                    <div class="controls">
+                        <div class="input-prepend input-append">
+                            <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#defaultSpecialAlertsEffectiveTimePicker').datepicker('show') }"></i></span>
+                            <input type="text" data-bind="datepicker: DefaultSpecialAlertsModalTime, datepickerOptions: {maxDate: '0', dateFormat: 'mm/dd/yy', defaultDate: new Date(), changeYear: true, changeMonth: true}" id="defaultSpecialAlertsEffectiveTimePicker" style="width: 75px;" />
+                            <span class="add-on" data-bind="click: function() { SetToToday(DefaultSpecialAlertsModalTime)}">Today</span>
+                        </div>
+                    </div>
+                </div>
+
+                <table border="0">
+                    <tr>
+                        <td style="padding-right: 20px;">
+                            <div class="control-group">
+                                <label class="control-label">Supervised feeding</label>
+                                <div class="controls">
+                                    <input class="modalValue" id="specialAlertSupervisedFeeding" type="text" style="width: 110px" />
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#specialAlertSupervisedFeedingEffectiveTimePicker').datepicker('show') }"></i></span>
+                                        <input type="text" class="modalDatePicker" id="specialAlertSupervisedFeedingEffectiveTimePicker" style="width: 75px;" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Needs assist with feeding</label>
+                                <div class="controls">
+                                    <input class="modalValue" id="specialAlertAssistFeeding" type="text" style="width: 110px" />
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#specialAlertAssistFeedingEffectiveTimePicker').datepicker('show') }"></i></span>
+                                        <input type="text" class="modalDatePicker" id="specialAlertAssistFeedingEffectiveTimePicker" style="width: 75px;" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Fall Risk</label>
+                                <div class="controls">
+                                    <input class="modalValue" id="specialAlertFallRisk" type="text" style="width: 110px" />
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#specialAlertFallRiskEffectiveTimePicker').datepicker('show') }"></i></span>
+                                        <input type="text" class="modalDatePicker" id="specialAlertFallRiskEffectiveTimePicker" style="width: 75px;" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Limited/non-weightbearing Left/Right, Upper/Lower</label>
+                                <div class="controls">
+                                    <input class="modalValue" id="specialAlertWeightBearing" type="text" style="width: 110px" />
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#specialAlertWeightBearingEffectiveTimePicker').datepicker('show') }"></i></span>
+                                        <input type="text" class="modalDatePicker" id="specialAlertWeightBearingEffectiveTimePicker" style="width: 75px;" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Special accommodation for medication administration</label>
+                                <div class="controls">
+                                    <input class="modalValue" id="specialAlertMedicalAdmission" type="text" style="width: 110px" />
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#specialAlertMedicalAdmissionEffectiveTimePicker').datepicker('show') }"></i></span>
+                                        <input type="text" class="modalDatePicker" id="specialAlertMedicalAdmissionEffectiveTimePicker" style="width: 75px;" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Elopement</label>
+                                <div class="controls">
+                                    <input class="modalValue" id="specialAlertElopement" type="text" style="width: 110px" />
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#specialAlertElopementEffectiveTimePicker').datepicker('show') }"></i></span>
+                                        <input type="text" class="modalDatePicker" id="specialAlertElopementEffectiveTimePicker" style="width: 75px;" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Seizure</label>
+                                <div class="controls">
+                                    <input class="modalValue" id="specialAlertSeizure" type="text" style="width: 110px" />
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#specialAlertSeizureEffectiveTimePicker').datepicker('show') }"></i></span>
+                                        <input type="text" class="modalDatePicker" id="specialAlertSeizureEffectiveTimePicker" style="width: 75px;" />
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td style="vertical-align: top;">
+                            <div class="control-group">
+                                <label class="control-label">Oxygen Dependent</label>
+                                <div class="controls">
+                                    <input class="modalValue" id="specialAlertOxygen" type="text" style="width: 110px" />
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#specialAlertOxygenEffectiveTimePicker').datepicker('show') }"></i></span>
+                                        <input type="text" class="modalDatePicker" id="specialAlertOxygenEffectiveTimePicker" style="width: 75px;" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Tube feeding</label>
+                                <div class="controls">
+                                    <input class="modalValue" id="specialAlertTubeFeeding" type="text" style="width: 110px" />
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#specialAlertTubeFeedingEffectiveTimePicker').datepicker('show') }"></i></span>
+                                        <input type="text" class="modalDatePicker" id="specialAlertTubeFeedingEffectiveTimePicker" style="width: 75px;" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Aspiration Risk</label>
+                                <div class="controls">
+                                    <input class="modalValue" id="specialAlertAspirationRisk" type="text" style="width: 110px" />
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#specialAlertAspirationRiskEffectiveTimePicker').datepicker('show') }"></i></span>
+                                        <input type="text" class="modalDatePicker" id="specialAlertAspirationRiskEffectiveTimePicker" style="width: 75px;" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Violent Behavior</label>
+                                <div class="controls">
+                                    <input class="modalValue" id="specialAlertViolentBehavior" type="text" style="width: 110px" />
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#specialAlertViolentBehaviorEffectiveTimePicker').datepicker('show') }"></i></span>
+                                        <input type="text" class="modalDatePicker" id="specialAlertViolentBehaviorEffectiveTimePicker" style="width: 75px;" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Trouble swallowing</label>
+                                <div class="controls">
+                                    <input class="modalValue" id="specialAlertTroubleSwallowing" type="text" style="width: 110px" />
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#specialAlertTroubleSwallowingEffectiveTimePicker').datepicker('show') }"></i></span>
+                                        <input type="text" class="modalDatePicker" id="specialAlertTroubleSwallowingEffectiveTimePicker" style="width: 75px;" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Wanderer</label>
+                                <div class="controls">
+                                    <input class="modalValue" id="specialAlertWanderer" type="text" style="width: 110px" />
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#specialAlertWandererEffectiveTimePicker').datepicker('show') }"></i></span>
+                                        <input type="text" class="modalDatePicker" id="specialAlertWandererEffectiveTimePicker" style="width: 75px;" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Other</label>
+                                <div class="controls">
+                                    <input class="modalValue" id="specialAlertOther" type="text" style="width: 110px" />
+                                    <div class="input-prepend">
+                                        <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#specialAlertOtherEffectiveTimePicker').datepicker('show') }"></i></span>
+                                        <input type="text" class="modalDatePicker" id="specialAlertOtherEffectiveTimePicker" style="width: 75px;" />
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </form>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn" aria-hidden="true" data-bind="click: DoCancelSpecialAlerts">Cancel</button>
+        <button class="btn btn-primary" data-bind="click: DoSaveSpecialAlerts">Save changes</button>
+    </div>
+</div>

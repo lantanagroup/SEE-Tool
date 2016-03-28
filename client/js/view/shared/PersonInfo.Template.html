@@ -1,0 +1,25 @@
+<!--<pre data-bind="text: ko.toJSON($data.title, null, 2)"></pre> -->
+<!-- ko ifnot: personInfo.IsEmpty -->
+<strong data-bind="text: personInfo.FullName" class="text-info"></strong>
+<!-- /ko -->
+
+<div class="btn-group">
+    <!-- ko if: typeof title == "undefined" -->
+    <button class="btn btn-small" title="click to edit person" data-bind="click: function() {SEE.session.MainVM.Modal.ShowPersonInfoModal(personInfo)}"><i class="icon-user"></i></button>
+    <!-- /ko -->
+
+    <!-- ko if: typeof title != "undefined" && typeof afterChanged == "undefined"-->
+    <button class="btn btn-small" data-bind="click: function() {SEE.session.MainVM.Modal.ShowPersonInfoModal(personInfo, title)}, attr: {title: 'click to ' + title}"><i class="icon-user"></i></button>
+    <!-- /ko -->
+
+    <!-- ko if: typeof title != "undefined" && typeof afterChanged != "undefined"-->
+    <button class="btn btn-small" data-bind="click: function() {SEE.session.MainVM.Modal.ShowPersonInfoModal(personInfo, title, afterChanged())}, attr: {title: 'click to ' + title}"><i class="icon-user"></i></button>
+    <!-- /ko -->
+
+    <!-- ko if: typeof showMe == "undefined" || showMe == true -->
+    <button class="btn btn-small" data-bind="click: function() {$data.personInfo.Clone(SEE.session.User.PersonInfo); if ($data.afterChanged) {afterChanged();}}"><i class="icon-asterisk"></i>Me</button>
+    <!-- /ko -->
+
+    <button class="btn btn-small btn-warning" data-bind="click: function(data, event) { bootbox.confirm('Are you sure you want to remove this person?', function(okPressed){if (okPressed){$data.personInfo.Clear();  if ($data.afterChanged) {afterChanged();}}});}"><i class="icon-remove-circle icon-white"></i></button>
+
+</div>

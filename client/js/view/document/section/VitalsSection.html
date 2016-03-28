@@ -1,0 +1,288 @@
+﻿<div id="Div2">
+
+
+    <form>
+        <div id="narrativeAccordion" class="accordian">
+            <div class="accordianGroup">
+                <div class="accordian-heading">
+                    <div class="alert alert-info">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#narrativeAccordion" href="#collapseOne"><h3>Narrative</h3></a>
+                    </div>
+                </div>
+                <div id="collapseOne" class="accordion-body collapse in">
+                    <div class="row-fluid">
+                        <div class="span6 well well-small">
+                            <h4>Free Text Narrative:</h4>
+                            <div id="Div3" style="width: 100%" data-bind="tinymce: Entity().FreeNarrative"></div>
+                        </div>
+                        <div id="Div4" class="span6 well well-small">
+                            <label data-bind="html: Entity().GeneratedNarrative" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="alert alert-info">
+            <h3>Vital Signs Data Entry</h3>
+        </div>
+
+        <div>
+            <div class="well">
+                <h4>Vitals <button class="btn btn-small btn-primary" data-bind="click: DoAddVital">Add</button></h4>
+
+                <table class="table table-striped table-bordered table-condensed">
+                    <thead>
+                        <tr>
+                            <th style="vertical-align: top">Time</th>
+                            <th style="vertical-align: top">Height</th>
+                            <th style="vertical-align: top">Weight</th>
+                            <th style="vertical-align: top">BMI</th>
+                            <th style="vertical-align: top">BP<br />
+                                <span class="muted">mm[Hg]</span></th>
+                            <th style="vertical-align: top">Heart Rate<br />
+                                <span class="muted">/min</span></th>
+                            <th style="vertical-align: top">Heart Rhythm</th>
+                            <th style="vertical-align: top">Resp Rate<br />
+                                <span class="muted">/min</span></th>
+                            <th style="vertical-align: top">O2 Sat<br />
+                                <span class="muted">%</span></th>
+                            <th style="vertical-align: top">Temp</th>
+                        </tr>
+                    </thead>
+
+                    <tbody data-bind="foreach: Entity().Vitals">
+                        <tr>
+                            <td>
+                                <a href="#" class="author-info" data-toggle="tooltip" data-placement="top" data-bind="attr: { title: SEE.util.displayAuthorToolTip(Author, true) }">
+                                    <span data-bind="dateTimeAsString: DateRecorded, click: function() { $parent.DoEditVital($data); }" />
+                                </a>
+                                <!-- ko if: DateRecordedComment() != '' -->
+                                <i class="icon-comment" data-bind="attr: { title: DateRecordedComment }"></i>
+                                <!-- /ko -->
+                            </td>
+                            <td>
+                                <span data-bind="text: Height() != '' ? Height() + ' ' + HeightUnit() : ''" />
+                                <!-- ko if: HeightComment() != '' -->
+                                <i class="icon-comment" data-bind="attr: { title: HeightComment }"></i>
+                                <!-- /ko -->
+                            </td>
+                            <td>
+                                <span data-bind="text: Weight() != '' ? Weight() + ' ' + WeightUnit() : ''" />
+                                <!-- ko if: WeightComment() != '' -->
+                                <i class="icon-comment" data-bind="attr: { title: WeightComment }"></i>
+                                <!-- /ko -->
+                            </td>
+                            <td>
+                                <span data-bind="text: BMI" />
+                                <!-- ko if: BMIComment() != '' -->
+                                <i class="icon-comment" data-bind="attr: { title: BMIComment }"></i>
+                                <!-- /ko -->
+                            </td>
+                            <td>
+                                <!-- ko if: (SystolicBP() != null && SystolicBP() != '') ||  (DiastolicBP() != null && DiastolicBP() != '')-->
+                                <span data-bind="text: SystolicBP() != null && SystolicBP() != '' ? SystolicBP() : ''" />
+                                <!-- ko if: SystolicBPComment() != '' -->
+                                <i class="icon-comment" data-bind="attr: { title: SystolicBPComment }"></i>
+                                <!-- /ko -->
+                                 /
+                                <span data-bind="text: DiastolicBP() != null && DiastolicBP() != '' ? DiastolicBP() : ''" />
+                                <!-- ko if: DiastolicBPComment() != '' -->
+                                <i class="icon-comment" data-bind="attr: { title: DiastolicBPComment }"></i>
+                                <!-- /ko -->
+                                <!-- /ko -->
+                            </td>
+                            <td>
+                                <span data-bind="text: HeartRate" />
+                                <!-- ko if: HeartRateComment() != '' -->
+                                <i class="icon-comment" data-bind="attr: { title: HeartRateComment }"></i>
+                                <!-- /ko -->
+                            </td>
+                            <td>
+                                <span data-bind="text: HeartRhythmName" />
+                                <!-- ko if: HeartRhythmComment() != '' -->
+                                <i class="icon-comment" data-bind="attr: { title: HeartRhythmComment }"></i>
+                                <!-- /ko -->
+                            </td>
+                            <td>
+                                <span data-bind="text: RespiratoryRate" />
+                                <!-- ko if: RespiratoryRateComment() != '' -->
+                                <i class="icon-comment" data-bind="attr: { title: RespiratoryRateComment }"></i>
+                                <!-- /ko -->
+                            </td>
+                            <td>
+                                <span data-bind="text: O2Sat" />
+                                <!-- ko if: O2SatComment() != '' -->
+                                <i class="icon-comment" data-bind="attr: { title: O2SatComment }"></i>
+                                <!-- /ko -->
+                            </td>
+                            <td>
+                                <span data-bind="text: Temperature() != '' && Temperature() != null ? Temperature() + ' ' + TemperatureUnit(): ''" />
+                                <!-- ko if: TemperatureComment() != '' -->
+                                <i class="icon-comment" data-bind="attr: { title: TemperatureComment }"></i>
+                                <!-- /ko -->
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+            <a href="#" data-bind="click: OnClickPainAssessment">Click to add Pain Assessment</a>
+        </div>
+    </form>
+</div>
+
+<div id="ImportVitalModal" class="model hide fade" tabindex="-1" role="dialog" aria-labelledby="ImportVitalModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" aria-hidden="true" >×</button>
+        <h3 id="H2">Import Vitals</h3>
+    </div>
+    <div class="modal-body" style="max-height: 600px">
+        <form class="form-horizontal">
+            Hello
+        </form>
+    </div>
+</div>
+
+<div id="VitalModal" class="modal hide fade modal-wide" tabindex="-1" role="dialog" aria-labelledby="VitalModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" aria-hidden="true" data-bind="click: DoCancelVital">×</button>
+        <h3 id="H1">Edit Vitals</h3>
+    </div>
+    <div class="modal-body" data-bind="with: SelectedVital" style="max-height: 600px">
+        <!-- ko if: DateRecorded() == '' || DateRecorded() == null -->
+        <div class="alert alert-error">Date Recorded is required..</div>
+        <!-- /ko -->
+
+        <form class="form-horizontal">
+            <div class="EditVital-Main">
+
+                <div class="control-group" data-bind="css:{error: DateRecorded() == '' || DateRecorded() == null}">
+                    <label class="control-label">Date Recorded</label>
+                    <div class="controls">
+                        <div class="input-prepend input-append">
+                            <span class="add-on"><i class="icon-calendar calendar-image" data-bind="click: function(){ $('#timeRecordedDatePicker').datetimepicker('show') }"></i></span>
+                            <input type="text" data-bind="datetimepicker: DateRecorded, datepickerOptions: {maxDate: '0', timeFormat: 'h:mm TT', controlType:'select'}" id="timeRecordedDatePicker" />
+                            <span style="cursor:hand" class="add-on" data-bind="click: function() { DateRecorded(new Date());}">Now</span>
+                        </div>
+
+                        <input class="input-large" type="text" data-bind="value: DateRecordedComment"/>
+                    </div>
+                </div>
+
+                <table class="table-striped">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th>Value</th>
+                        <th>Units</th>
+                        <th>Notes</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Height</td>
+                        <td><input id="heightInput" type="text" data-bind="event: {keyup: HeightKeyup}" class="input-small"/></td>
+                        <td><strong><span id="calcHeight" class="help-inline" data-bind="text: Height" style="text-align:right"></span></strong></td>
+                        <td>
+                            <select id="heightUnit" data-bind="value: HeightUnit" style="width: 75px;" class="inline">
+                                <option value="in">in</option>
+                                <option value="cm">cm</option>
+                            </select>
+                        </td>
+                        <td><input class="input-large" type="text" data-bind="value: HeightComment"/></td>
+                    </tr>
+                    <tr>
+                        <td>Weight</td>
+                        <td></td>
+                        <td><input id="weight" data-bind="value: Weight, valueUpdate: 'afterkeydown'" style="width: 50px;" /></td>
+                        <td>
+                            <select id="weightUnit" data-bind="value: WeightUnit" style="width: 75px;">
+                                <option value="lb">lb</option>
+                                <option value="kg">kg</option>
+                            </select>
+                        </td>
+                        <td><input class="input-large" type="text" data-bind="value: WeightComment"/></td>
+                    </tr>
+                    <tr>
+                        <td>BMI</td>
+                        <td><button class="btn" data-bind="click: DoCalculateBMI, disable: Height() == '' || Height() == null || Weight() == '' || Weight() == null">Calculate</button>
+                        </td>
+                        <td><input id="bmi" class="numericSpinner" data-bind="spinner: BMI" style="width: 50px;" /></td>
+                        <td><span class="help-inline">kg/m<sup>2</sup></span></td>
+                        <td><input class="input-large" type="text" data-bind="value: BMIComment"/></td>
+                    </tr>
+                    <tr>
+                        <td>Systolic BP</td>
+                        <td></td>
+                        <td><input id="systolicbp" data-bind="spinner: SystolicBP" style="width: 50px;" /></td>
+                        <td><span class="help-inline">mm[Hg]</span></td>
+                        <td><input class="input-large" type="text" data-bind="value: SystolicBPComment"/></td>
+                    </tr>
+                    <tr>
+                        <td>Diastolic BP</td>
+                        <td></td>
+                        <td><input id="diastolicbp" data-bind="spinner: DiastolicBP" style="width: 50px;" /></td>
+                        <td><span class="help-inline">mm[Hg]</span></td>
+                        <td><input class="input-large" type="text" data-bind="value: DiastolicBPComment"/></td>
+                    </tr>
+                    <tr>
+                        <td>Heart Rhythm</td>
+                        <td></td>
+                        <td colspan="2">
+                            <select id="heartRhythm" data-bind="value: HeartRhythmName">
+                                <option value=""></option>
+                                <option value="regular rhythm">regular rhythm</option>
+                                <option value="regularly irregular">regularly irregular</option>
+                                <option value="irregularly irregular">irregularly irregular</option>
+                            </select>
+                        </td>
+
+                        <td><input class="input-large" type="text" data-bind="value: HeartRhythmComment"/></td>
+                    </tr>
+                    <tr>
+                        <td>Heart Rate</td>
+                        <td></td>
+                        <td><input id="Text1" data-bind="spinner: HeartRate" style="width: 50px;" /></td>
+                        <td><span class="help-inline">/min</span></td>
+                        <td><input class="input-large" type="text" data-bind="value: HeartRateComment"/></td>
+                    </tr>
+                    <tr>
+                        <td>Respiratory Rate</td>
+                        <td></td>
+                        <td><input id="respiratoryrate" data-bind="spinner: RespiratoryRate" style="width: 50px" /></td>
+                        <td><span class="help-inline">/min</span></td>
+                        <td><input class="input-large" type="text" data-bind="value: RespiratoryRateComment"/></td>
+                    </tr>
+                    <tr>
+                        <td>O2 Sat</td>
+                        <td></td>
+                        <td><input id="o2sat" data-bind="spinner: O2Sat" style="width: 50px;" /></td>
+                        <td><span class="help-inline">%</span></td>
+                        <td><input class="input-large" type="text" data-bind="value: O2SatComment"/></td>
+                    </tr>
+                    <tr>
+                        <td>Temperature</td>
+                        <td></td>
+                        <td> <input id="temperature" class="numericSpinner" data-bind="spinner: Temperature" style="width: 50px;" value="0" /></td>
+                        <td><select id="temperatureUnit" data-bind="value: TemperatureUnit" style="width: 75px;">
+                            <option value="°F">°F</option>
+                            <option value="°C">°C</option>
+                        </select></td>
+                        <td><input class="input-large" type="text" data-bind="value: TemperatureComment"/></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </form>
+    </div>
+
+    <div class="modal-footer">
+        <!-- ko if: !SelectedVitalIsNew() -->
+        <button class="btn pull-left" data-bind="click: DoRemoveVital">Remove</button>
+        <!-- /ko -->
+        <button class="btn" aria-hidden="true" data-bind="click: DoCancelVital">Cancel</button>
+        <button class="btn btn-primary" data-bind="click: DoSaveVital">Save changes</button>
+    </div>
+</div>

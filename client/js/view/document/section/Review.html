@@ -1,0 +1,59 @@
+﻿<div id="Div1">
+    <div class="well sidebar-nav" style="padding-left: 15px;">
+        <div class="btn-toolbar">
+            <div class="btn-group">
+                <!-- ko if: $parent.CanFinalize -->
+                <button class="btn btn-info" data-bind="click: $parent.Finalize">Finalize</button>
+                <!-- /ko -->
+                <!-- ko if: $parent.CanSend -->
+                <button class="btn btn-info" data-bind="click: $parent.Send">Send</button>
+                <!-- /ko -->
+                <!-- ko if: $parent.CanFinalize -->
+                <button class="btn btn-inverse" data-bind="click: $parent.Cancel">Cancel</button>
+                <!-- /ko -->
+                <button class="btn btn-inverse" data-bind="click: Print">Print</button>
+            </div>
+            <div class="btn-group">
+                <!-- ko if: IsFinal -->
+                <button class="btn btn-inverse" data-bind="click: CreateNewDocument">Create As New Document</button>
+                <!-- /ko -->
+            </div>
+        </div>
+        <!-- ko ifnot: IsFinal -->
+        <!-- ko if: Locks().length > 0 -->
+        <div class="alert alert-block alert-error">
+        <h4>Warning!</h4>
+        <h5>Finalizing the document will cause the following user(s) to lose any changes they have made:</h5>
+        <!-- ko foreach: Locks -->
+        <span data-bind="text: SectionTitle" /> section is currently being edited by <strong><span data-bind="text: LockedBy" /></strong> since <span data-bind="    text: LockTime" />.
+        <br />
+        <!-- /ko -->
+        </div>
+        <!-- /ko -->
+        <!-- /ko -->
+        <!-- ko if: IsFinal -->
+            <!-- ko if: ExportEvents().length > 0 -->
+                <br />
+                <h6>Documents Created using this as a source:</h6>
+                <ul>
+                <!-- ko foreach: ExportEvents -->
+                    <li><span data-bind="text: EventTime" /><a href="#" data-bind="click: $parent.DoDocumentClick"><span data-bind="text: TargetDocumentTitle" /> </a></li>
+                <!-- /ko -->            
+                </ul>                        
+            <!-- /ko -->
+            <!-- ko if: ImportEvents().length > 0 -->
+                <h6>Documents used as a source for this document:</h6>
+                <ul>
+                <!-- ko foreach: ImportEvents -->
+                    <li><a href="#" data-bind="click: $parent.DoDocumentClick"><span data-bind="    text: DocumentTitle" /></a>&nbsp;<span data-bind="text:Sections"></span></li>
+                <!-- /ko -->            
+                </ul>            
+            <!-- /ko -->
+       <!-- /ko -->
+    </div>
+    <form>
+        <div id="ReviewText" class="well">
+            <iframe id="ReviewFrame" src="resources/iframe/review.html" width="100%" height="600px" style="border:outset;border-color:gray;border-width:thin"></iframe>
+        </div>
+    </form>
+</div>
