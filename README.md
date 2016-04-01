@@ -1,6 +1,8 @@
 # SEE-Tool
 Surrogate EHR Environment
 
+> Please note that this project is no longer maintained
+
 # Dependencies
 * Linux (recommended for production installation)
 * Node.JS 0.10.25
